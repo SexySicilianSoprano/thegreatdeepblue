@@ -133,8 +133,8 @@ public class VehicleMovement : LandMovement {
 		}
 		else
 		{
-			//We need to rotate
-			int direction = 1;
+            Debug.Log("Rotaatio"); 
+            int direction = 1;
 			if (angle < 0)
 			{
 				direction = -1;
@@ -244,7 +244,7 @@ public class VehicleMovement : LandMovement {
 			}
 		}
 		else
-		{
+		{ 
 			//We're on terrain, sample heights
 			heightValCenter = Terrain.activeTerrain.SampleHeight (transform.position);
 			heightValLeft = Terrain.activeTerrain.SampleHeight (checkLeft);
@@ -264,13 +264,13 @@ public class VehicleMovement : LandMovement {
 		//Rotation along x axis
 		float xHeight = heightValForward-heightValBack;
 		float xDistance = Vector3.Distance (checkForward, checkBack);
-		float xAngle = Mathf.Atan (xHeight/xDistance)*Mathf.Rad2Deg*-1;
-		
-		//along z axis
-		float zHeight = heightValLeft - heightValRight;
-		float zDistance = Vector3.Distance (checkLeft, checkRight);
-		float zAngle = Mathf.Atan (zHeight/zDistance)*Mathf.Rad2Deg*-1;
-		
+		float xAngle =  Mathf.Atan (xHeight/xDistance)*Mathf.Rad2Deg*-1;        
+
+        //along z axis
+        float zHeight = heightValLeft - heightValRight;
+        float zDistance = Vector3.Distance (checkLeft, checkRight);
+        float zAngle = Mathf.Atan(zHeight / zDistance) * Mathf.Rad2Deg * -1;
+        		
 		Vector3 rotation = new Vector3(xAngle, transform.rotation.eulerAngles.y, zAngle);
 		
 		//Set rotation
@@ -283,11 +283,13 @@ public class VehicleMovement : LandMovement {
 		{
 			if (!m_TargetTile.IsOccupied || m_TargetTile.OccupiedBy == m_Parent)
 			{
+                
 				CurrentSpeed += Acceleration*Time.deltaTime;
 				
 				if (CurrentSpeed >= Speed)
 				{
-					CurrentSpeed = Speed;
+                    
+                    CurrentSpeed = Speed;
 				}
 				
 				transform.Translate (0, 0, CurrentSpeed*Time.deltaTime, Space.Self);
@@ -295,22 +297,26 @@ public class VehicleMovement : LandMovement {
 
 				if (Vector3.Distance (transform.position, Path[0]) < 1.0f)
 				{
-					Path.RemoveAt (0);
+                   Path.RemoveAt (0);
 					
 					if (Path.Count > 0)
 					{
-						m_TargetTile = Grid.GetClosestTile (Path[0]);
+                       
+                        m_TargetTile = Grid.GetClosestTile (Path[0]);
 					}
 					else
 					{
-						m_TargetTile = null;
+                        
+                        m_TargetTile = null;
 					}
 				}
 			}
 			else if (m_TargetTile.IsOccupiedStatic)
 			{
-				//We're occupied static, lets find a path without static obstacles
-				if (!m_RequestingThread)
+                //We're occupied static, lets find a path without static obstacles
+                
+
+                if (!m_RequestingThread)
 				{
 					ManagerResolver.Resolve<IThreadManager>().AddPathfindingThread (new GetPathThread(m_Parent, m_CurrentTile, m_ArrivalTile, Const.BLOCKINGLEVEL_OccupiedStatic, ThreadCallBack));
 					m_RequestingThread = true;
@@ -318,8 +324,9 @@ public class VehicleMovement : LandMovement {
 			}
 			else if (m_TargetTile.IsOccupied)
 			{
-				//We want to wait, unless the unit on the occupied tile is waiting for this tile
-				if (!m_RequestingThread && m_TargetTile.OccupiedBy.GetComponent<VehicleMovement>().TargetTile == m_CurrentTile)
+                
+                //We want to wait, unless the unit on the occupied tile is waiting for this tile
+                if (!m_RequestingThread && m_TargetTile.OccupiedBy.GetComponent<VehicleMovement>().TargetTile == m_CurrentTile)
 				{
 					ManagerResolver.Resolve<IThreadManager>().AddPathfindingThread (new GetPathThread(m_Parent, m_CurrentTile, m_ArrivalTile, Const.BLOCKINGLEVEL_Occupied, ThreadCallBack));
 					m_RequestingThread = true;
