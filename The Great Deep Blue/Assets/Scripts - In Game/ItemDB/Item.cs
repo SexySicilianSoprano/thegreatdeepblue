@@ -33,7 +33,7 @@ public class Item {
 		}
 		set
 		{
-			//Whenver the Item image is set, create the hover image
+			//Whenever the Item image is set, create the hover image
 			m_ItemImage = value;
 			CreateHoverImage ();
 		}

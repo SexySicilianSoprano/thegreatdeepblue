@@ -28,6 +28,16 @@ public abstract class RTSObject : MonoBehaviour {
 		get;
 		private set;
 	}
+
+    public int PlayerIdentifier {
+        get;
+        private set;
+    }
+
+    public Color PlayerColor {
+        get;
+        private set;
+    }
 	
 	private float m_Health;
 	private float m_MaxHealth;
@@ -61,4 +71,13 @@ public abstract class RTSObject : MonoBehaviour {
 	{
 		m_Health -= damage;
 	}
+
+    protected void AssignPlayer(Player player) {
+        // Assign player
+        PlayerIdentifier = player.playerID;
+        tag = "Player" + PlayerIdentifier;
+
+        // Assign player color
+        PlayerColor = player.playerColor;               
+    }
 }
