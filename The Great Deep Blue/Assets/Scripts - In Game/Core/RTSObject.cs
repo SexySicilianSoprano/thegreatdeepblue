@@ -25,8 +25,8 @@ public abstract class RTSObject : MonoBehaviour {
 	
 	public int TeamIdentifier
 	{
-		get;
-		private set;
+        get;
+        private set;
 	}
 
     public int PlayerIdentifier {
@@ -79,5 +79,16 @@ public abstract class RTSObject : MonoBehaviour {
 
         // Assign player color
         PlayerColor = player.playerColor;               
+    }
+
+    // TO BE REPLACED LATER
+    protected void PurkkaTeamAssign() {
+        if (tag == "Player1") {
+            TeamIdentifier = 0;
+        }
+
+        if (tag == "Player2") {
+            TeamIdentifier = 1;
+        }
     }
 }

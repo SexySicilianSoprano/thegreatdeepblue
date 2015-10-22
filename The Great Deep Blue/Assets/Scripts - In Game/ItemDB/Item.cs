@@ -23,6 +23,7 @@ public class Item {
 	
 	public int TypeIdentifier;
 	public int TeamIdentifier;
+    public int PlayerIdentifier;
 	
 	private Texture2D m_ItemImage;
 	public Texture2D ItemImage
@@ -123,6 +124,7 @@ public class Item {
 		BuildTime = item.BuildTime;
 		TypeIdentifier = item.TypeIdentifier;
 		TeamIdentifier = item.TeamIdentifier;
+        PlayerIdentifier = item.PlayerIdentifier;
 		m_ItemImage = item.ItemImage;
 		ItemImageHover = item.ItemImageHover;
 		SortOrder = item.SortOrder;
