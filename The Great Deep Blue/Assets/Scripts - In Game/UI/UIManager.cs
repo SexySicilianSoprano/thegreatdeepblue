@@ -464,7 +464,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 			}
 			else if (currentObjLayer == 9 || currentObjLayer == 15)
 			{
-				//Enenmy Unit -> Attack
+                //Enenmy Unit -> Attack                    
+                m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));                    	
 			}
 			else if (currentObjLayer == 12)
 			{
@@ -472,8 +473,10 @@ public class UIManager : MonoBehaviour, IUIManager {
 			}
 			else if (currentObjLayer == 13)
 			{
-				//Enemy Building -> Attack
-			}
+                 //Enemy Building -> Attack                    
+                 m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
+                    
+            }
 			break;
 			
 		case Mode.PlaceBuilding:

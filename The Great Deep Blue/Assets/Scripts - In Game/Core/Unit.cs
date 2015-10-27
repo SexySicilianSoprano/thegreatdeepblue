@@ -5,11 +5,15 @@ using System.Collections;
 public class Unit : RTSObject, IOrderable {
 	
 	//Member Variables
-	protected bool m_IsMoveable = true;
-	
+    protected bool m_IsMoveable = true;	
 	protected bool m_IsDeployable = false;
 	protected bool m_IsAttackable = true;
 	protected bool m_IsInteractable = false;
+
+    public Weapon unitWeapon {
+        get;
+        private set;
+    }
 	
 	protected IGUIManager guiManager
 	{
