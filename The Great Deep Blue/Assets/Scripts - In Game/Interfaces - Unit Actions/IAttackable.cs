@@ -3,5 +3,7 @@ using System.Collections;
 
 public interface IAttackable {
 	
-	void Attck(RTSObject obj);
+	void Attack(RTSObject obj);
+    void StopAttack();
+
 }

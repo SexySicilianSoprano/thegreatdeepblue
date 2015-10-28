@@ -3,22 +3,17 @@ using System.Collections;
 
 public class Player {
 
-    public int playerID {
+    public int ID {
         get;
         set;
     }
 
-    public string playerScreenName {
+    public string ScreenName {
         get;
         set;
     }
 
-    public Color playerColor {
-        get;
-        set;
-    }
-
-    public int playerTeam {
+    public Color Color {
         get;
         set;
     }

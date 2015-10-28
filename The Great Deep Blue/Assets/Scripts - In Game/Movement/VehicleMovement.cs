@@ -64,7 +64,7 @@ public class VehicleMovement : LandMovement {
 		}
 		
 		if (Path != null && Path.Count > 0)
-		{
+		{ 
 			//We have a path, lets move!
 			//Make sure we're pointing at the target
 			if (PointingAtTarget())

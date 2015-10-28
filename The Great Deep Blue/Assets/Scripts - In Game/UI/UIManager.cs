@@ -203,7 +203,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 				{
 					interactionState = InteractionState.Fix;
 				}
-				else
+                else
 				{
 					interactionState = InteractionState.CantFix;
 				}
@@ -212,15 +212,14 @@ public class UIManager : MonoBehaviour, IUIManager {
 			{
 				//Disable
 			}
-			break;
+			break;			
 			
-			
-		case HoverOver.FriendlyUnit:		
-		case HoverOver.EnemyUnit:
-		case HoverOver.EnemyBuilding:
-			//Select Interaction
-			interactionState = InteractionState.Select;
-			break;
+		    case HoverOver.FriendlyUnit:
+            case HoverOver.EnemyUnit:
+            case HoverOver.EnemyBuilding:
+			    //Select Interaction
+			    interactionState = InteractionState.Select;
+			    break;
 			
 		}
 	}
@@ -229,8 +228,10 @@ public class UIManager : MonoBehaviour, IUIManager {
 	{	
 		if (obj.IsAttackable())
 		{
+            Debug.Log("checkede Attackable");
 			if (hoverOver == HoverOver.EnemyUnit || hoverOver == HoverOver.EnemyBuilding)
 			{
+                Debug.Log("Attackable");
 				//Attack Interaction
 				interactionState = InteractionState.Attack;
 				return;
@@ -293,14 +294,18 @@ public class UIManager : MonoBehaviour, IUIManager {
 		interactionState = InteractionState.Invalid;
 	}
 	
+    // TODO 
+    // Break the loop and return the desired interaction
 	private void CalculateInteraction(List<IOrderable> list, HoverOver hoveringOver, ref InteractionState interactionState)
 	{
 		foreach (IOrderable obj in list)
 		{
 			if (obj.ShouldInteract (hoveringOver))
 			{
-				CalculateInteraction (obj, hoveringOver, ref interactionState);
-				return;
+                if (hoveringOver == HoverOver.EnemyUnit)
+
+                CalculateInteraction (obj, hoveringOver, ref interactionState);
+				return ;                
 			}
 		}
 		

@@ -74,21 +74,10 @@ public abstract class RTSObject : MonoBehaviour {
 
     protected void AssignPlayer(Player player) {
         // Assign player
-        PlayerIdentifier = player.playerID;
-        tag = "Player" + PlayerIdentifier;
+        PlayerIdentifier = player.ID;
 
         // Assign player color
-        PlayerColor = player.playerColor;               
+        PlayerColor = player.Color;               
     }
 
-    // TO BE REPLACED LATER
-    protected void PurkkaTeamAssign() {
-        if (tag == "Player1") {
-            TeamIdentifier = 0;
-        }
-
-        if (tag == "Player2") {
-            TeamIdentifier = 1;
-        }
-    }
 }

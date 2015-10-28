@@ -6,8 +6,8 @@ public static class Const {
 	public const int TEAM_GRI = 0;
 	public const int TEAM_SALUS = 1;
 
-    public const int PLAYER_1 = 1;
-    public const int PLAYER_2 = 2;
+    public const int PLAYER_1 = 0;
+    public const int PLAYER_2 = 1;
 
     public const int ORDER_STOP = 0;
 	public const int ORDER_MOVE_TO = 1;

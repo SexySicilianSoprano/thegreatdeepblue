@@ -110,45 +110,58 @@ public class Unit : RTSObject, IOrderable {
 		return m_IsInteractable;
 	}
 
-	public void GiveOrder (Order order)
+    public void GiveOrder (Order order)
 	{
 		switch (order.OrderType)
 		{
-			//Stop Order----------------------------------------
-		case Const.ORDER_STOP:
+			// Stop Order
+		    case Const.ORDER_STOP:
 			
-			if (IsMoveable())
-			{
-				if (IsDeployable ())
-				{
-					CancelDeploy ();
-				}
-				
-				GetComponent<Movement>().Stop ();
-			}
-			break;
+			    if (IsMoveable())
+			    {
+				    if (IsDeployable ())
+				    {
+					    CancelDeploy ();
+				    }
+                    Debug.Log("Stop!");
+				    GetComponent<Movement>().Stop ();
+			    }
+			    break;
 			
-			//Move Order ---------------------------------------------
-		case Const.ORDER_MOVE_TO:
+			// Move Order
+		    case Const.ORDER_MOVE_TO:
 			
-			if (IsMoveable())
-			{
-				if (IsDeployable ())
-				{
-					CancelDeploy ();
-				}
-				
-				GetComponent<Movement>().MoveTo (order.OrderLocation);
-			}
-			break;
+			    if (IsMoveable())
+			    {
+				    if (IsDeployable ())
+				    {
+					    CancelDeploy ();
+				    }
+                    Debug.Log("Move!");
+                    GetComponent<Movement>().MoveTo (order.OrderLocation);
+			    }
+			    break;
+
+			// Deploy Order
+		    case Const.ORDER_DEPLOY:
+			    
+			    GetComponent<Movement>().Stop ();
 			
-		case Const.ORDER_DEPLOY:
-			
-			GetComponent<Movement>().Stop ();
-			
-			((IDeployable)this).Deploy();
-			
-			break;
+			    ((IDeployable)this).Deploy();
+                Debug.Log("Deploy!");
+                break;
+
+            //Attack Order
+            case Const.ORDER_ATTACK:
+
+                if (IsAttackable())
+                {
+                    Debug.Log("Attack!");
+                    Attack(this);
+                }
+
+                break;
+
 		}
 	}
 
@@ -156,20 +169,28 @@ public class Unit : RTSObject, IOrderable {
 	{
 		switch (hoveringOver)
 		{
-		case HoverOver.Land:
-			return m_IsMoveable;
+		    case HoverOver.Land:
+			    return m_IsMoveable;
+
+            case HoverOver.EnemyBuilding:
+                return m_IsAttackable;
+
+		    case HoverOver.EnemyUnit:
+			    return m_IsAttackable; 
 			
-		case HoverOver.EnemyBuilding:
-		case HoverOver.EnemyUnit:
-			return m_IsAttackable;
+		    case HoverOver.FriendlyUnit:
+                return m_IsDeployable && ManagerResolver.Resolve<IUIManager>().IsCurrentUnit (this);
 			
-		case HoverOver.FriendlyUnit:
-			return m_IsDeployable && ManagerResolver.Resolve<IUIManager>().IsCurrentUnit (this);
-			
-		default:
-			return false;
+		    default:
+                Debug.LogError("Switch hoverOver didn't work");
+			    return false;
 		}
 	}
+
+    private void Attack(RTSObject obj)
+    {
+        ((IAttackable)this).Attack(obj);
+    }
 	
 	private void CancelDeploy()
 	{
