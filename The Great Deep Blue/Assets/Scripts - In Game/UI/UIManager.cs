@@ -121,7 +121,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 					break;
 					
 				case 9:
-					//Enemy Unit
+                    //Enemy Unit
+                    Debug.Log("EnemyUnit found");
 					hoverOver = HoverOver.EnemyUnit;
 					break;
 					
@@ -157,7 +158,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 		else if (m_SelectedManager.ActiveObjectsCount() == 1)
 		{
 			//One object selected
-			CalculateInteraction (m_SelectedManager.FirstActiveObject (), hoverOver, ref interactionState);
+			CalculateInteraction (m_SelectedManager.FirstActiveObject(), hoverOver, ref interactionState);
 		}
 		else
 		{
@@ -214,12 +215,12 @@ public class UIManager : MonoBehaviour, IUIManager {
 			}
 			break;			
 			
-		    case HoverOver.FriendlyUnit:
-            case HoverOver.EnemyUnit:
-            case HoverOver.EnemyBuilding:
-			    //Select Interaction
-			    interactionState = InteractionState.Select;
-			    break;
+		case HoverOver.FriendlyUnit:
+        case HoverOver.EnemyUnit:
+        case HoverOver.EnemyBuilding:               
+            interactionState = InteractionState.Select;
+           
+			break;
 			
 		}
 	}
@@ -250,6 +251,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 		
 		if (obj.IsInteractable ())
 		{
+            Debug.Log("Interractable checked");
 			if (hoverOver == HoverOver.FriendlyUnit)
 			{
 				//Check if object can interact with unit (carry all for example)
@@ -264,6 +266,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 		
 		if (obj.IsMoveable())
 		{
+            Debug.Log("Moveable checked");
 			if (hoverOver == HoverOver.Land)
 			{
 				//Move Interaction
@@ -294,21 +297,26 @@ public class UIManager : MonoBehaviour, IUIManager {
 		interactionState = InteractionState.Invalid;
 	}
 	
-    // TODO 
+    // TODO: 
     // Break the loop and return the desired interaction
 	private void CalculateInteraction(List<IOrderable> list, HoverOver hoveringOver, ref InteractionState interactionState)
 	{
 		foreach (IOrderable obj in list)
 		{
-			if (obj.ShouldInteract (hoveringOver))
+            Debug.Log("No scurvy");
+            bool ShouldInterractB = obj.ShouldInteract(hoveringOver);
+            Debug.Log("Gives" + ShouldInterractB);   
+			if (ShouldInterractB)
 			{
+                Debug.Log("Not scurvy yet");
                 if (hoveringOver == HoverOver.EnemyUnit)
-
-                CalculateInteraction (obj, hoveringOver, ref interactionState);
-				return ;                
+                {
+                    Debug.Log("Scurvy");
+                    CalculateInteraction(obj, hoveringOver, ref interactionState);
+                    return;
+                }
 			}
-		}
-		
+		}		
 		CalculateInteraction (hoveringOver, ref interactionState);
 	}
 	
@@ -469,7 +477,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 			}
 			else if (currentObjLayer == 9 || currentObjLayer == 15)
 			{
-                //Enenmy Unit -> Attack                    
+                //Enemy Unit -> Attack                    
                 m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));                    	
 			}
 			else if (currentObjLayer == 12)

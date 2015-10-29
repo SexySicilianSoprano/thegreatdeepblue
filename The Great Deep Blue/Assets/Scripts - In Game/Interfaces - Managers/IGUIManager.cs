@@ -7,7 +7,7 @@ public interface IGUIManager {
 	float MainMenuWidth	{ get; }
 	
 	int GetSupportSelected { get; }
-	
+    	
 	bool Dragging { get; set; }
 	
 	bool IsWithin(Vector3 worldPos);

@@ -4,6 +4,6 @@ using System.Collections;
 public interface IAttackable {
 	
 	void Attack(RTSObject obj);
-    void StopAttack();
+    void Stop();
 
 }

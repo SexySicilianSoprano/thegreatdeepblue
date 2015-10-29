@@ -31,10 +31,11 @@ public class Unit : RTSObject, IOrderable {
 	{
 		guiManager = ManagerResolver.Resolve<IGUIManager>();
 		selectedManager = ManagerResolver.Resolve<ISelectedManager>();
-		
+		/*
 		m_IsDeployable = this is IDeployable;
 		m_IsAttackable = this is IAttackable;
 		m_IsInteractable = this is IInteractable;
+        */
 	}
 	
 	protected void Update()
@@ -97,11 +98,13 @@ public class Unit : RTSObject, IOrderable {
 
 	public bool IsAttackable ()
 	{
-		return m_IsAttackable;
+        Debug.Log("Attackabul");
+        return m_IsAttackable;
 	}
 
 	public bool IsMoveable ()
 	{
+        Debug.Log("Moveabul");
 		return m_IsMoveable;
 	}
 
@@ -157,7 +160,7 @@ public class Unit : RTSObject, IOrderable {
                 if (IsAttackable())
                 {
                     Debug.Log("Attack!");
-                    Attack(this);
+                   // Attack(this);
                 }
 
                 break;
@@ -170,13 +173,14 @@ public class Unit : RTSObject, IOrderable {
 		switch (hoveringOver)
 		{
 		    case HoverOver.Land:
-			    return m_IsMoveable;
-
+                return m_IsMoveable;
+                
             case HoverOver.EnemyBuilding:
                 return m_IsAttackable;
 
 		    case HoverOver.EnemyUnit:
-			    return m_IsAttackable; 
+                Debug.Log("EnemyUnit do we interact?");
+                return m_IsAttackable;
 			
 		    case HoverOver.FriendlyUnit:
                 return m_IsDeployable && ManagerResolver.Resolve<IUIManager>().IsCurrentUnit (this);
@@ -186,12 +190,7 @@ public class Unit : RTSObject, IOrderable {
 			    return false;
 		}
 	}
-
-    private void Attack(RTSObject obj)
-    {
-        ((IAttackable)this).Attack(obj);
-    }
-	
+    
 	private void CancelDeploy()
 	{
 		((IDeployable)this).StopDeploy ();

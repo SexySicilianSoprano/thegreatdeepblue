@@ -8,8 +8,8 @@ public class Destroyer : Vehicle {
 	{
 		//Assign variables for health/movement and so on..
 		AssignDetails (ItemDB.DestroyerShip);
-		GetComponent<Movement>().AssignDetails (ItemDB.DestroyerShip);
-		
+		GetComponent<Movement>().AssignDetails (ItemDB.DestroyerShip);        
+        		
 		//Call base class start
 		base.Start ();
 	}
