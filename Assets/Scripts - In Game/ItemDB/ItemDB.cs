@@ -21,7 +21,7 @@ public static class ItemDB {
 		Health = 100.0f,
 		Armour = 3.0f,
 		Damage = 30.0f,
-		Speed = 10.0f,
+		Speed = 50.0f,
 		RotationSpeed = 80.0f,
 		Acceleration = 2.0f,
 		Explosion = m_SmallExplosion,

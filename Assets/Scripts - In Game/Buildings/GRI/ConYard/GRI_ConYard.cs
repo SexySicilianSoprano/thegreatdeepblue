@@ -13,7 +13,7 @@ public class GRI_ConYard : Building {
 		base.Start();
 		
 		//Tell Idle animation to play
-		GetComponent<Animation>().Play ("idle");
+		//GetComponent<Animation>().Play ("idle");
 		
 	}
 	

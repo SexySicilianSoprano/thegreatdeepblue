@@ -137,7 +137,6 @@ public class VehicleMovement : LandMovement {
 		}
 		else
 		{
-            Debug.Log("Rotaatio"); 
             int direction = 1;
 			if (angle < 0)
 			{
@@ -297,7 +296,6 @@ public class VehicleMovement : LandMovement {
 				}
 				
 				transform.Translate (0, 0, CurrentSpeed*Time.deltaTime, Space.Self);
-                Debug.Log("RIP");
 
 				if (Vector3.Distance (transform.position, Path[0]) < 1.0f)
 				{

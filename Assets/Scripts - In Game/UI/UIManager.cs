@@ -121,7 +121,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 					break;
 					
 				case 9:
-					//Enemy Unit
+                    //Enemy Unit
 					hoverOver = HoverOver.EnemyUnit;
 					break;
 					
@@ -157,7 +157,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 		else if (m_SelectedManager.ActiveObjectsCount() == 1)
 		{
 			//One object selected
-			CalculateInteraction (m_SelectedManager.FirstActiveObject (), hoverOver, ref interactionState);
+			CalculateInteraction (m_SelectedManager.FirstActiveObject(), hoverOver, ref interactionState);
 		}
 		else
 		{
@@ -203,7 +203,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 				{
 					interactionState = InteractionState.Fix;
 				}
-				else
+                else
 				{
 					interactionState = InteractionState.CantFix;
 				}
@@ -212,14 +212,13 @@ public class UIManager : MonoBehaviour, IUIManager {
 			{
 				//Disable
 			}
-			break;
+			break;			
 			
-			
-		case HoverOver.FriendlyUnit:		
-		case HoverOver.EnemyUnit:
-		case HoverOver.EnemyBuilding:
-			//Select Interaction
-			interactionState = InteractionState.Select;
+		case HoverOver.FriendlyUnit:
+        case HoverOver.EnemyUnit:
+        case HoverOver.EnemyBuilding:               
+            interactionState = InteractionState.Select;
+           
 			break;
 			
 		}
@@ -293,17 +292,23 @@ public class UIManager : MonoBehaviour, IUIManager {
 		interactionState = InteractionState.Invalid;
 	}
 	
+    // TODO: 
+    // Break the loop and return the desired interaction
 	private void CalculateInteraction(List<IOrderable> list, HoverOver hoveringOver, ref InteractionState interactionState)
 	{
 		foreach (IOrderable obj in list)
 		{
-			if (obj.ShouldInteract (hoveringOver))
+            bool ShouldInterractB = obj.ShouldInteract(hoveringOver);
+            
+			if (ShouldInterractB)
 			{
-				CalculateInteraction (obj, hoveringOver, ref interactionState);
-				return;
+                if (hoveringOver == HoverOver.EnemyUnit)
+                {
+                    CalculateInteraction(obj, hoveringOver, ref interactionState);
+                    return;
+                }
 			}
-		}
-		
+		}		
 		CalculateInteraction (hoveringOver, ref interactionState);
 	}
 	
@@ -464,7 +469,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 			}
 			else if (currentObjLayer == 9 || currentObjLayer == 15)
 			{
-				//Enenmy Unit -> Attack
+                //Enemy Unit -> Attack                    
+                m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));                    	
 			}
 			else if (currentObjLayer == 12)
 			{
@@ -472,8 +478,10 @@ public class UIManager : MonoBehaviour, IUIManager {
 			}
 			else if (currentObjLayer == 13)
 			{
-				//Enemy Building -> Attack
-			}
+                 //Enemy Building -> Attack                    
+                 m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
+                    
+            }
 			break;
 			
 		case Mode.PlaceBuilding:

@@ -38,15 +38,27 @@ public abstract class RTSObject : MonoBehaviour {
         get;
         private set;
     }
+
+    public Weapon Weapon {
+        get;
+        private set;
+    }
 	
+    // Health details
 	private float m_Health;
-	private float m_MaxHealth;
-	
+	private float m_MaxHealth;	
+
+    // Action voids
 	public abstract void SetSelected();
 	public abstract void SetDeselected();
 	public abstract void AssignToGroup(int groupNumber);
 	public abstract void RemoveFromGroup();
 	public abstract void ChangeTeams(int team);
+
+    // Weapon details
+    private float m_Damage;
+    private float m_Range;
+    private float m_FireRate;
 	
 	public float GetHealthRatio()
 	{
@@ -66,29 +78,32 @@ public abstract class RTSObject : MonoBehaviour {
 		m_MaxHealth = item.Health;
 		m_Health = m_MaxHealth;
 	}
-	
+
+    /*
+    protected void AssignWeaponDetails(Weapon weapon)
+    {
+        Weapon = weapon;
+        m_Damage = weapon.Damage;
+        m_FireRate = weapon.FireRate;
+        m_Range = weapon.FireRate;
+    } */
+    	
 	public void TakeDamage(float damage)
 	{
 		m_Health -= damage;
+
+        if (m_Health == 0 || m_Health <= 0) {
+            Destroy(gameObject);
+        }
 	}
 
+    
     protected void AssignPlayer(Player player) {
         // Assign player
-        PlayerIdentifier = player.playerID;
-        tag = "Player" + PlayerIdentifier;
+        PlayerIdentifier = player.ID;
 
         // Assign player color
-        PlayerColor = player.playerColor;               
+        PlayerColor = player.Color;               
     }
 
-    // TO BE REPLACED LATER
-    protected void PurkkaTeamAssign() {
-        if (tag == "Player1") {
-            TeamIdentifier = 0;
-        }
-
-        if (tag == "Player2") {
-            TeamIdentifier = 1;
-        }
-    }
 }

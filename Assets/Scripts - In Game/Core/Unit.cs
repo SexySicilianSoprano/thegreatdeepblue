@@ -5,12 +5,11 @@ using System.Collections;
 public class Unit : RTSObject, IOrderable {
 	
 	//Member Variables
-	protected bool m_IsMoveable = true;
-	
+    protected bool m_IsMoveable = true;	
 	protected bool m_IsDeployable = false;
 	protected bool m_IsAttackable = true;
 	protected bool m_IsInteractable = false;
-	
+
 	protected IGUIManager guiManager
 	{
 		get;
@@ -27,10 +26,11 @@ public class Unit : RTSObject, IOrderable {
 	{
 		guiManager = ManagerResolver.Resolve<IGUIManager>();
 		selectedManager = ManagerResolver.Resolve<ISelectedManager>();
-		
+		/*
 		m_IsDeployable = this is IDeployable;
 		m_IsAttackable = this is IAttackable;
 		m_IsInteractable = this is IInteractable;
+        */
 	}
 	
 	protected void Update()
@@ -93,7 +93,7 @@ public class Unit : RTSObject, IOrderable {
 
 	public bool IsAttackable ()
 	{
-		return m_IsAttackable;
+        return m_IsAttackable;
 	}
 
 	public bool IsMoveable ()
@@ -106,45 +106,59 @@ public class Unit : RTSObject, IOrderable {
 		return m_IsInteractable;
 	}
 
-	public void GiveOrder (Order order)
+    public void GiveOrder (Order order)
 	{
 		switch (order.OrderType)
 		{
-			//Stop Order----------------------------------------
-		case Const.ORDER_STOP:
+			// Stop Order
+		    case Const.ORDER_STOP:
+
+                GetComponent<Combat>().Stop();
+			    if (IsMoveable())
+			    {
+				    if (IsDeployable ())
+				    {
+					    CancelDeploy ();
+				    }
+				    GetComponent<Movement>().Stop ();
+			    }
+			    break;
 			
-			if (IsMoveable())
-			{
-				if (IsDeployable ())
-				{
-					CancelDeploy ();
-				}
-				
-				GetComponent<Movement>().Stop ();
-			}
-			break;
+			// Move Order
+		    case Const.ORDER_MOVE_TO:
+
+                GetComponent<Combat>().Stop();
+                if (IsMoveable())
+			    {
+				    if (IsDeployable ())
+				    {
+					    CancelDeploy ();
+				    }
+                    GetComponent<Movement>().MoveTo (order.OrderLocation);
+			    }
+			    break;
+
+			// Deploy Order
+		    case Const.ORDER_DEPLOY:
+			    
+			    GetComponent<Movement>().Stop ();
 			
-			//Move Order ---------------------------------------------
-		case Const.ORDER_MOVE_TO:
-			
-			if (IsMoveable())
-			{
-				if (IsDeployable ())
-				{
-					CancelDeploy ();
-				}
-				
-				GetComponent<Movement>().MoveTo (order.OrderLocation);
-			}
-			break;
-			
-		case Const.ORDER_DEPLOY:
-			
-			GetComponent<Movement>().Stop ();
-			
-			((IDeployable)this).Deploy();
-			
-			break;
+			    ((IDeployable)this).Deploy();
+                break;
+
+            //Attack Order
+            case Const.ORDER_ATTACK:
+
+                GetComponent<Combat>().Stop();
+                if (IsAttackable())
+                {
+                    // Attack;
+                    Debug.Log("Attack!");
+                    GetComponent<Combat>().Attack(order.Target);
+                }
+
+                break;
+
 		}
 	}
 
@@ -152,21 +166,24 @@ public class Unit : RTSObject, IOrderable {
 	{
 		switch (hoveringOver)
 		{
-		case HoverOver.Land:
-			return m_IsMoveable;
+		    case HoverOver.Land:
+                return m_IsMoveable;
+                
+            case HoverOver.EnemyBuilding:
+                return m_IsAttackable;
+
+		    case HoverOver.EnemyUnit:
+                return m_IsAttackable;
 			
-		case HoverOver.EnemyBuilding:
-		case HoverOver.EnemyUnit:
-			return m_IsAttackable;
+		    case HoverOver.FriendlyUnit:
+                return m_IsDeployable && ManagerResolver.Resolve<IUIManager>().IsCurrentUnit (this);
 			
-		case HoverOver.FriendlyUnit:
-			return m_IsDeployable && ManagerResolver.Resolve<IUIManager>().IsCurrentUnit (this);
-			
-		default:
-			return false;
+		    default:
+                Debug.LogError("Switch hoverOver didn't work");
+			    return false;
 		}
 	}
-	
+    
 	private void CancelDeploy()
 	{
 		((IDeployable)this).StopDeploy ();

@@ -5,20 +5,16 @@ public class SetPlayer : MonoBehaviour {
     
     public Player Player1 = new Player()
     {
-        playerID = 1,
-        playerScreenName = "Mingebag",
-        playerColor = new Color (255,0,0),
-        playerTeam = 1
-        
+        ID = 1,
+        ScreenName = "Mingebag",
+        Color = new Color (255,0,0),
     };
 
     public Player Player2 = new Player()
     {
-        playerID = 2,
-        playerScreenName = "TestEnemy",
-        playerColor = new Color(0, 0, 255),
-        playerTeam = 2
-
+        ID = 2,
+        ScreenName = "TestEnemy",
+        Color = new Color(0, 0, 255), 
     };
 
 
