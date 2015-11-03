@@ -10,11 +10,6 @@ public class Unit : RTSObject, IOrderable {
 	protected bool m_IsAttackable = true;
 	protected bool m_IsInteractable = false;
 
-    public Weapon unitWeapon {
-        get;
-        private set;
-    }
-	
 	protected IGUIManager guiManager
 	{
 		get;
@@ -98,13 +93,11 @@ public class Unit : RTSObject, IOrderable {
 
 	public bool IsAttackable ()
 	{
-        Debug.Log("Attackabul");
         return m_IsAttackable;
 	}
 
 	public bool IsMoveable ()
 	{
-        Debug.Log("Moveabul");
 		return m_IsMoveable;
 	}
 
@@ -119,28 +112,28 @@ public class Unit : RTSObject, IOrderable {
 		{
 			// Stop Order
 		    case Const.ORDER_STOP:
-			
+
+                GetComponent<Combat>().Stop();
 			    if (IsMoveable())
 			    {
 				    if (IsDeployable ())
 				    {
 					    CancelDeploy ();
 				    }
-                    Debug.Log("Stop!");
 				    GetComponent<Movement>().Stop ();
 			    }
 			    break;
 			
 			// Move Order
 		    case Const.ORDER_MOVE_TO:
-			
-			    if (IsMoveable())
+
+                GetComponent<Combat>().Stop();
+                if (IsMoveable())
 			    {
 				    if (IsDeployable ())
 				    {
 					    CancelDeploy ();
 				    }
-                    Debug.Log("Move!");
                     GetComponent<Movement>().MoveTo (order.OrderLocation);
 			    }
 			    break;
@@ -151,16 +144,17 @@ public class Unit : RTSObject, IOrderable {
 			    GetComponent<Movement>().Stop ();
 			
 			    ((IDeployable)this).Deploy();
-                Debug.Log("Deploy!");
                 break;
 
             //Attack Order
             case Const.ORDER_ATTACK:
 
+                GetComponent<Combat>().Stop();
                 if (IsAttackable())
                 {
+                    // Attack;
                     Debug.Log("Attack!");
-                   // Attack(this);
+                    GetComponent<Combat>().Attack(order.Target);
                 }
 
                 break;
@@ -179,7 +173,6 @@ public class Unit : RTSObject, IOrderable {
                 return m_IsAttackable;
 
 		    case HoverOver.EnemyUnit:
-                Debug.Log("EnemyUnit do we interact?");
                 return m_IsAttackable;
 			
 		    case HoverOver.FriendlyUnit:

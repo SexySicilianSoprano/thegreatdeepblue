@@ -122,7 +122,6 @@ public class UIManager : MonoBehaviour, IUIManager {
 					
 				case 9:
                     //Enemy Unit
-                    Debug.Log("EnemyUnit found");
 					hoverOver = HoverOver.EnemyUnit;
 					break;
 					
@@ -229,10 +228,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 	{	
 		if (obj.IsAttackable())
 		{
-            Debug.Log("checkede Attackable");
 			if (hoverOver == HoverOver.EnemyUnit || hoverOver == HoverOver.EnemyBuilding)
 			{
-                Debug.Log("Attackable");
 				//Attack Interaction
 				interactionState = InteractionState.Attack;
 				return;
@@ -251,7 +248,6 @@ public class UIManager : MonoBehaviour, IUIManager {
 		
 		if (obj.IsInteractable ())
 		{
-            Debug.Log("Interractable checked");
 			if (hoverOver == HoverOver.FriendlyUnit)
 			{
 				//Check if object can interact with unit (carry all for example)
@@ -266,7 +262,6 @@ public class UIManager : MonoBehaviour, IUIManager {
 		
 		if (obj.IsMoveable())
 		{
-            Debug.Log("Moveable checked");
 			if (hoverOver == HoverOver.Land)
 			{
 				//Move Interaction
@@ -303,15 +298,12 @@ public class UIManager : MonoBehaviour, IUIManager {
 	{
 		foreach (IOrderable obj in list)
 		{
-            Debug.Log("No scurvy");
             bool ShouldInterractB = obj.ShouldInteract(hoveringOver);
-            Debug.Log("Gives" + ShouldInterractB);   
+            
 			if (ShouldInterractB)
 			{
-                Debug.Log("Not scurvy yet");
                 if (hoveringOver == HoverOver.EnemyUnit)
                 {
-                    Debug.Log("Scurvy");
                     CalculateInteraction(obj, hoveringOver, ref interactionState);
                     return;
                 }
@@ -386,7 +378,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 			if (m_PositionValid)
 			{
 				GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ItemBeingPlaced.Prefab.transform.rotation);
-				UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", m_ItemBeingPlaced.ObjectType.ToString ());
+				//UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", m_ItemBeingPlaced.ObjectType.ToString ());
 				newObject.layer = 12;
 				newObject.tag = "Player";
 				

@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Selected : MonoBehaviour {
-		
+
+	public Rigidbody rb;
 	public bool IsSelected
 	{
 		get;
@@ -46,6 +47,8 @@ public class Selected : MonoBehaviour {
 		{
 			landMovement.PathChangedEvent += PathChanged;
 		}
+
+		rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -119,6 +122,8 @@ public class Selected : MonoBehaviour {
 		m_JustBeenSelected = true;
 		m_JustBeenSelectedTimer = 0;
 		m_GLManager.AddItemToRender (m_GLItem);
+
+		rb.isKinematic = true;
 	}
 	
 	public void SetDeselected()
@@ -126,6 +131,8 @@ public class Selected : MonoBehaviour {
 		IsSelected = false;
 		m_JustBeenSelected = false;
 		m_GLManager.RemoveItemToRender (m_GLItem);
+
+		rb.isKinematic = false;
 	}
 	
 	public void AssignGroupNumber(int number)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class VehicleMovement : LandMovement {
 	
 	private bool m_RequestingThread = false;
+	public Rigidbody rb;
 
 	public float RotationalSpeed 
 	{
@@ -41,6 +42,8 @@ public class VehicleMovement : LandMovement {
 		UpdateCurrentTile ();
 		m_CurrentTile.SetOccupied(m_Parent, false);
 		SetAngles ();
+
+		rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -63,22 +66,23 @@ public class VehicleMovement : LandMovement {
 			}
 		}
 		
-		if (Path != null && Path.Count > 0)
-		{ 
+		if (Path != null && Path.Count > 0) {
+
 			//We have a path, lets move!
 			//Make sure we're pointing at the target
-			if (PointingAtTarget())
-			{
+			if (PointingAtTarget ()) {
 				//We're pointing at the target, lets move
 				MoveForward ();
 			}
 			
 			//Update the current tile
-			UpdateCurrentTile();
+			UpdateCurrentTile ();
 			
 			//Set the units height, x angle and z angle to correct values
 			SetAngles ();
-		}
+
+			rb.isKinematic = true;
+		} 
 	}
 
 	public override void MoveTo(Vector3 position)
@@ -133,7 +137,6 @@ public class VehicleMovement : LandMovement {
 		}
 		else
 		{
-            Debug.Log("Rotaatio"); 
             int direction = 1;
 			if (angle < 0)
 			{
@@ -293,7 +296,6 @@ public class VehicleMovement : LandMovement {
 				}
 				
 				transform.Translate (0, 0, CurrentSpeed*Time.deltaTime, Space.Self);
-                Debug.Log("RIP");
 
 				if (Vector3.Distance (transform.position, Path[0]) < 1.0f)
 				{

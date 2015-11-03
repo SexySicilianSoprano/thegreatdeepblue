@@ -10,7 +10,6 @@ public class Weapon {
     public string Name;
 
     // Weapon type
-    public bool isRanged;
     public bool isAntiArmor;
     public bool isAntiStructure;
 
@@ -20,23 +19,18 @@ public class Weapon {
     public float FireRate;
 
     // Projectile and animation
-    // ..TO DO
-
-    // Constructors
-    public Weapon() {
-
-    }
-
-    public Weapon (Weapon Weapon)
+    public GameObject Prefab;
+   
+    public void AssignDetails (Weapon Weapon)
     {
         ID = Weapon.ID;
         Name = Weapon.Name;
         Damage = Weapon.Damage;
         Range = Weapon.Range;
         FireRate = Weapon.FireRate;
-        isRanged = Weapon.isRanged;
         isAntiArmor = Weapon.isAntiArmor;
         isAntiStructure = Weapon.isAntiStructure;
+        Prefab = Weapon.Prefab;
     }
 
 }
