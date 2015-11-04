@@ -19,7 +19,7 @@ public class Weapon {
     public float FireRate;
 
     // Projectile and animation
-    public GameObject Prefab;
+    public Projectile Projectile;
    
     public void AssignDetails (Weapon Weapon)
     {
@@ -30,7 +30,7 @@ public class Weapon {
         FireRate = Weapon.FireRate;
         isAntiArmor = Weapon.isAntiArmor;
         isAntiStructure = Weapon.isAntiStructure;
-        Prefab = Weapon.Prefab;
+        Projectile = Weapon.Projectile;
     }
 
 }

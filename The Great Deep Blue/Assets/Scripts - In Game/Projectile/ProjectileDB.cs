@@ -11,7 +11,7 @@ public class ProjectileDB {
     {
         ID = 0,
         Name = "CannonBall",
-        Prefab = Resources.Load("Resources/Projectiles/CannonBall", typeof(GameObject)) as GameObject
+        Prefab = Resources.Load("Projectiles/CannonBall", typeof (GameObject)) as GameObject
     };
 
     public static void Initialise() {

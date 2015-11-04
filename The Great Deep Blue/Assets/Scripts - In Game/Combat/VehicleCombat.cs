@@ -4,7 +4,7 @@ using System;
 
 [RequireComponent(typeof(RTSObject))]
 public class VehicleCombat : Combat {
-        
+
     // ##### Private variables #####
     private bool TargetSet = false;
     private bool canFire = true;
@@ -12,25 +12,32 @@ public class VehicleCombat : Combat {
     private float m_FireRate;
 
     private Vector3 CurrentPos;
-    private Vector3 TargetPos;  
+    private Vector3 TargetPos;
+
+    private Transform Spawner;
+    private Vector3 SpawnerPos;
 
     // Use this for initialization
     void Start()
     {
-        m_Parent = GetComponent<RTSObject>();        
+        m_Parent = GetComponent<RTSObject>();
         CalculateFireRate();
+        Spawner = m_Parent.transform.GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Update 
+        // Update positions
+        SpawnerPos = Spawner.transform.position;
         CurrentPos = CurrentLocation;
-        
-        if (TargetSet && canFire == true) {
 
+        if (TargetSet && canFire == true)
+        {
+            TargetPos = TargetLocation;
             Attack(m_Target);
         }
+
     }
 
     // ##### Assign Details #####
@@ -46,13 +53,13 @@ public class VehicleCombat : Combat {
     {
         get
         {
-            return m_Target.transform.position;            
+            return m_Target.transform.position;
         }
     }
 
-    
-    
-    
+
+
+
     public override void AssignDetails(Weapon weapon)
     {
         Damage = weapon.Damage;
@@ -60,7 +67,7 @@ public class VehicleCombat : Combat {
         FireRate = weapon.FireRate;
         isAntiArmor = weapon.isAntiArmor;
         isAntiStructure = weapon.isAntiStructure;
-        Projectile = weapon.Prefab;
+        Projectile = weapon.Projectile;
     }
 
     // ##### Functions #####
@@ -75,7 +82,7 @@ public class VehicleCombat : Combat {
                 // Target is within range
                 Debug.Log("Target in range!");
                 // Start firing
-                Debug.DrawLine(CurrentLocation, TargetLocation);
+                Debug.DrawLine(CurrentPos, TargetPos);
                 LaunchProjectile(Projectile);
                 m_Target.TakeDamage(Damage);
                 canFire = false;
@@ -106,12 +113,23 @@ public class VehicleCombat : Combat {
         m_Target = null;
     }
 
-    private void LaunchProjectile(GameObject projectile)
+    private void LaunchProjectile(Projectile projectile)
     {
-        //float ProjectileSpeed = 50;
-        Quaternion rotate = new Quaternion(0,0,0,0);                
-        GameObject NewProjectile = Instantiate(projectile, CurrentPos * 1.1f, rotate) as GameObject;
+
+        //float dist = Vector3.Distance(CurrentPos, TargetPos);
+        float ProjectileSpeed = 100;
+        float startTime = Time.time;
+        float dist = Vector3.Distance(SpawnerPos, TargetPos);
+
+        float distCovered = (Time.time - startTime) * ProjectileSpeed;
+        float fracJourney = distCovered / dist;
+
+        GameObject NewProjectile = Instantiate(projectile.Prefab, SpawnerPos, Spawner.rotation) as GameObject;
+
+        NewProjectile.transform.position = Vector3.Lerp(SpawnerPos, TargetPos, fracJourney);
+                
     }
+
 
     private void CalculateFireRate() {
         // Calculates rate of fire with 60 divided by shots per minute

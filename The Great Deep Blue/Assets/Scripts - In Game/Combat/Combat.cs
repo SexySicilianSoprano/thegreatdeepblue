@@ -6,7 +6,7 @@ public abstract class Combat : MonoBehaviour, IAttackable {
     protected RTSObject m_Parent;
     protected RTSObject m_Target;
 
-    public GameObject Projectile;
+    public Projectile Projectile;
 
     public float Damage;
     public float Range;

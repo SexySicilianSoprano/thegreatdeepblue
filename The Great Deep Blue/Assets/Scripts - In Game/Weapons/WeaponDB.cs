@@ -16,7 +16,8 @@ public class WeaponDB {
         FireRate = 30,
         isAntiArmor = true,
         isAntiStructure = false,
-        Prefab = Resources.Load("Resources/Projectiles/CannonBall", typeof(GameObject)) as GameObject
+        Projectile = ProjectileDB.CannonBall
+        
     };
 
     public static Weapon TestMachineGun = new Weapon
@@ -28,7 +29,7 @@ public class WeaponDB {
         FireRate = 120,
         isAntiArmor = true,
         isAntiStructure = false,
-        Prefab = Resources.Load("Resources/Projectiles/CannonBall", typeof(GameObject)) as GameObject
+        Projectile = ProjectileDB.CannonBall
     };
 
     public static void Initialise()

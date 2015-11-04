@@ -10,8 +10,7 @@ public class Destroyer : Vehicle {
 		AssignDetails (ItemDB.DestroyerShip);
 		GetComponent<Movement>().AssignDetails (ItemDB.DestroyerShip);
         GetComponent<Combat>().AssignDetails(WeaponDB.TestCannon);
-        //GetComponent<Combat>().AssignProjectile(ProjectileDB.CannonBall);
-		
+        		
         //Call base class start
 		base.Start ();
 	}
