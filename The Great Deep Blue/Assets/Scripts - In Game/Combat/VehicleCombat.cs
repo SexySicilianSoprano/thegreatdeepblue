@@ -32,10 +32,20 @@ public class VehicleCombat : Combat {
         SpawnerPos = Spawner.transform.position;
         CurrentPos = CurrentLocation;
 
+        Debug.DrawRay(SpawnerPos, Spawner.forward, Color.green);
+
         if (TargetSet && canFire == true)
         {
-            TargetPos = TargetLocation;
-            Attack(m_Target);
+            if (TargetInLine())
+            {
+                TargetPos = TargetLocation;
+                Attack(m_Target);
+            }
+            else
+            {
+                RotateTurret();
+            }
+            
         }
 
     }
@@ -56,10 +66,7 @@ public class VehicleCombat : Combat {
             return m_Target.transform.position;
         }
     }
-
-
-
-
+    
     public override void AssignDetails(Weapon weapon)
     {
         Damage = weapon.Damage;
@@ -77,27 +84,34 @@ public class VehicleCombat : Combat {
         TargetSet = true;
         if (m_Target)
         {
-            if (TargetInRange())
-            {
-                // Target is within range
-                Debug.Log("Target in range!");
-                // Start firing
-                Debug.DrawLine(CurrentPos, TargetPos);
-                LaunchProjectile(Projectile);
-                m_Target.TakeDamage(Damage);
-                canFire = false;
-                StartCoroutine(WaitAndFire());
-
-                if (m_Target == null)
+            if (TargetInLine())
+            {                
+                if (TargetInRange())
                 {
-                    Stop();
+                    // Target is within range
+                    Debug.Log("Target in range!");
+                    // Start firing
+                    Debug.DrawLine(SpawnerPos, TargetPos);
+                    //LaunchProjectile(Projectile);
+                    m_Target.TakeDamage(Damage);
+                    canFire = false;
+                    StartCoroutine(WaitAndFire());
+
+                    if (m_Target == null)
+                    {
+                        Stop();
+                    }
+                }
+                else
+                {
+                    // Target not in range
+                    // Move to range
+                    Debug.Log("Target not in range!");
                 }
             }
             else
             {
-                // Target not in range
-                // Move to range
-                Debug.Log("Target not in range!");
+                RotateTurret();
             }
         }
         else
@@ -115,21 +129,38 @@ public class VehicleCombat : Combat {
 
     private void LaunchProjectile(Projectile projectile)
     {
-
-        //float dist = Vector3.Distance(CurrentPos, TargetPos);
         float ProjectileSpeed = 100;
-        float startTime = Time.time;
-        float dist = Vector3.Distance(SpawnerPos, TargetPos);
-
-        float distCovered = (Time.time - startTime) * ProjectileSpeed;
-        float fracJourney = distCovered / dist;
+        Vector3 Direction = SpawnerPos + TargetPos;
 
         GameObject NewProjectile = Instantiate(projectile.Prefab, SpawnerPos, Spawner.rotation) as GameObject;
 
-        NewProjectile.transform.position = Vector3.Lerp(SpawnerPos, TargetPos, fracJourney);
-                
+        NewProjectile.GetComponent<Rigidbody>().AddForce(Direction * ProjectileSpeed);   
     }
 
+    private bool TargetInLine()
+    {
+        //Vector3 Forward = Spawner.transform.TransformDirection(Vector3.forward);
+
+        if (Physics.Raycast(Spawner.position, TargetPos, Mathf.Infinity))
+        {
+            Debug.Log("Target in line!");
+            return true;
+        }
+        else
+        {
+            Debug.Log("Target not in line");
+            return false;
+        }
+    }
+
+    // Rotates the turrent towards target
+    private void RotateTurret() {
+        Vector3 targetDir = TargetPos - SpawnerPos;
+        float turnSpeed = 1 * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(Spawner.transform.forward, targetDir, turnSpeed, 0.0F);
+        Debug.DrawRay(Spawner.transform.position, newDir, Color.red);
+        Spawner.transform.rotation = Quaternion.LookRotation(newDir);
+    }
 
     private void CalculateFireRate() {
         // Calculates rate of fire with 60 divided by shots per minute
