@@ -75,13 +75,10 @@ public class Unit : RTSObject, IOrderable {
 	{
 		switch (team)
 		{
-		case Const.TEAM_GRI:
+		case Const.TEAM_STEAMHOUSE:
 			
 			break;
-			
-		case Const.TEAM_SALUS:
-			
-			break;
+
 		}
 	}
 
