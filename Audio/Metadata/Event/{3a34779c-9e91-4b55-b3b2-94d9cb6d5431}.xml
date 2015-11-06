@@ -34,10 +34,10 @@
             <destination>{5090e658-4d2a-4246-946d-4123500a320e}</destination>
         </relationship>
         <relationship name="banks">
-            <destination>{ac18b10d-5b1d-445c-820f-dbecb6ef4e6f}</destination>
+            <destination>{f343ec35-9f26-406d-b36e-2d41f0a317b0}</destination>
         </relationship>
         <relationship name="folder">
-            <destination>{1266655f-a635-4388-b842-599b0a2d42fc}</destination>
+            <destination>{9bc8e53f-c38d-4e75-819d-27e18d7f1e53}</destination>
         </relationship>
     </object>
     <object class="EventMixer" id="{0d6de6d5-6210-47f7-85fb-c6436586c776}">
@@ -107,8 +107,8 @@
             <destination>{6c509f95-4e74-4ad0-b710-339122927cb3}</destination>
         </relationship>
         <relationship name="markers">
-            <destination>{32d7566c-228d-4ca5-80e3-a82b41c3bb4e}</destination>
             <destination>{e42a2ea6-bd95-4fe0-ad7a-133c51ed760a}</destination>
+            <destination>{32d7566c-228d-4ca5-80e3-a82b41c3bb4e}</destination>
         </relationship>
     </object>
     <object class="GameParameter" id="{5090e658-4d2a-4246-946d-4123500a320e}">
@@ -283,12 +283,9 @@
             <destination>{5acfc05b-fbae-47dc-8455-eb5ad4c2677e}</destination>
         </relationship>
     </object>
-    <object class="LoopRegion" id="{32d7566c-228d-4ca5-80e3-a82b41c3bb4e}">
+    <object class="TempoMarker" id="{e42a2ea6-bd95-4fe0-ad7a-133c51ed760a}">
         <property name="position">
-            <value>128</value>
-        </property>
-        <property name="length">
-            <value>256</value>
+            <value>0</value>
         </property>
         <relationship name="timeline">
             <destination>{180151b3-f5f0-46de-a9c7-4bf657ef300a}</destination>
@@ -297,9 +294,12 @@
             <destination>{786411f6-3107-4932-b2a0-7d643a99c1d5}</destination>
         </relationship>
     </object>
-    <object class="TempoMarker" id="{e42a2ea6-bd95-4fe0-ad7a-133c51ed760a}">
+    <object class="LoopRegion" id="{32d7566c-228d-4ca5-80e3-a82b41c3bb4e}">
         <property name="position">
-            <value>0</value>
+            <value>128</value>
+        </property>
+        <property name="length">
+            <value>256</value>
         </property>
         <relationship name="timeline">
             <destination>{180151b3-f5f0-46de-a9c7-4bf657ef300a}</destination>

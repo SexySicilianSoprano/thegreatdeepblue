@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.07.00">
     <object class="MasterBank" id="{ac18b10d-5b1d-445c-820f-dbecb6ef4e6f}">
+        <property name="name">
+            <value>SFX</value>
+        </property>
         <relationship name="buildSettings">
             <destination>{d7b382ad-48f3-47f6-8b9a-e373df830378}</destination>
         </relationship>
@@ -15,7 +18,7 @@
             <destination>{0d2aa4f0-9fd7-4f16-808f-f59c5036e7a9}</destination>
         </relationship>
         <relationship name="activeCompressionSetting">
-            <destination>{8b6761ee-20dd-487b-b614-051f432c54da}</destination>
+            <destination>{0d2aa4f0-9fd7-4f16-808f-f59c5036e7a9}</destination>
         </relationship>
     </object>
     <object class="LossyCompressionSetting" id="{8b6761ee-20dd-487b-b614-051f432c54da}">
