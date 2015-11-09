@@ -116,6 +116,7 @@ public class Item {
 		Name = item.Name;
 		Health = item.Health;
 		Armour = item.Armour;
+		Damage = item.Damage;
 		Speed = item.Speed;
 		RotationSpeed = item.RotationSpeed;
 		Prefab = item.Prefab;

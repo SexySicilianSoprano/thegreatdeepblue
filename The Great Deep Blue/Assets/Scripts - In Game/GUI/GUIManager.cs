@@ -203,12 +203,12 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 	{
 		switch (building.ID)
 		{
-		case Const.BUILDING_FloatingFortress:
+		case Const.BUILDING_ConYard:
 			m_TypeButtons[0].AddNewQueue (building);
 			m_TypeButtons[1].AddNewQueue (building);
 			break;
 			
-		case Const.BUILDING_NavalYard:
+		case Const.BUILDING_Barracks:
 			m_TypeButtons[2].AddNewQueue (building);
 			break;
 		}
