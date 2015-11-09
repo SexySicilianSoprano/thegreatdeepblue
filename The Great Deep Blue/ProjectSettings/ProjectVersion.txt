@@ -1,2 +1,6 @@
+<<<<<<< HEAD:The Great Deep Blue/ProjectSettings/ProjectVersion.txt
 m_EditorVersion: 5.2.2f1
+=======
+m_EditorVersion: 5.2.1f1
+>>>>>>> refs/remotes/origin/master:ProjectSettings/ProjectVersion.txt
 m_StandardAssetsVersion: 0

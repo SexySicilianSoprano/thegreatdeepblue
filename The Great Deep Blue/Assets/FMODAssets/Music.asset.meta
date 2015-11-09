@@ -1,7 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:The Great Deep Blue/Assets/FMODAssets/Music.asset.meta
 guid: 7c8ca1b20fd9d674faddc9799733a066
 timeCreated: 1446464335
 licenseType: Free
+=======
+guid: d2922150b12a1704c9d0dde032eac97d
+>>>>>>> refs/remotes/origin/master:Assets/New Terrain.asset.meta
 NativeFormatImporter:
   userData: 
   assetBundleName: 
