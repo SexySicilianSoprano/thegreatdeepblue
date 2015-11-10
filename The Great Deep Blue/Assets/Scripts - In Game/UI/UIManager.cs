@@ -322,7 +322,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 		{
 			m_ObjectBeingPlaced.transform.position = hit.point;
 		}
-		
+
+        
 		//Check validity of current position
 		if (Input.GetKeyDown ("v"))
 		{
@@ -378,10 +379,14 @@ public class UIManager : MonoBehaviour, IUIManager {
 			if (m_PositionValid)
 			{
 				GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ItemBeingPlaced.Prefab.transform.rotation);
-				//UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", m_ItemBeingPlaced.ObjectType.ToString ());
-				newObject.layer = 12;
-				newObject.tag = "Player";
+                    //UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent
+                            //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
+                           // m_ItemBeingPlaced.ObjectType.ToString ());
+                           
+                newObject.layer = 8;
+				newObject.tag = "Player1";
 				
+                /*
 				BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
 				
 				if (tempCollider == null)
@@ -392,17 +397,18 @@ public class UIManager : MonoBehaviour, IUIManager {
 				tempCollider.center = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderCenter;
 				tempCollider.size = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderSize;
 				tempCollider.isTrigger = true;
-				
+				*/
+
 				m_ItemBeingPlaced.FinishBuild ();
 				m_CallBackFunction.Invoke ();
 				m_Placed = true;
+                //newObject.GetComponent<Collider>().enabled = true;
 				SwitchToModeNormal ();
 			}
 			break;
 		}
-		
 	}
-	
+       
 	public void LeftButton_DoubleClickDown(MouseEventArgs e)
 	{
 		if (currentObject.layer == 8)

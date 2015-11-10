@@ -31,7 +31,7 @@ public class QueueContent : IQueueContent
 		{
 			if (counter >= m_ArrowOffset)
 			{
-				if (GUI.Button (m_Area[itemsDrawn], "", item.ButtonStyle))
+				if (GUI.Button (m_Area[itemsDrawn], item.Name, item.ButtonStyle))
 				{
 					//Item Clicked
 					if (Event.current.button == 0)

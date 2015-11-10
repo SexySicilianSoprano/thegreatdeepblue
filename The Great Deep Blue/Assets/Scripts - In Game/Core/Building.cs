@@ -46,11 +46,7 @@ public class Building : RTSObject {
 	{
 		switch (team)
 		{
-		case Const.TEAM_GRI:
-			
-			break;
-			
-		case Const.TEAM_SALUS:
+		case Const.TEAM_STEAMHOUSE:
 			
 			break;
 		}
