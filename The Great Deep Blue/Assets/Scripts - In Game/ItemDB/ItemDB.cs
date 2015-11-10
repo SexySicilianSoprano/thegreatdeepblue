@@ -29,9 +29,9 @@ public static class ItemDB {
         Prefab = Resources.Load("Models/Units/SteamHouse/Scout/Scout", typeof(GameObject)) as GameObject,
         ItemImage = Resources.Load("Item Images/GRI/Units/Vehicles/CubeTank/CubeTank", typeof(Texture2D)) as Texture2D,
         SortOrder = 0,
-        RequiredBuildings = new int[] { 40 },
+        RequiredBuildings = new int[] { 2 },
         Cost = 100,
-        BuildTime = 10.0f,
+        BuildTime = 3.0f,
     };
 
     public static Item Destroyer = new Item
@@ -49,9 +49,9 @@ public static class ItemDB {
         Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
         ItemImage = Resources.Load("Item Images/GRI/Units/Vehicles/CubeTank/CubeTank", typeof(Texture2D)) as Texture2D,
         SortOrder = 1,
-        RequiredBuildings = new int[] { 40 },
+        RequiredBuildings = new int[] { 2 },
         Cost = 100,
-        BuildTime = 10.0f,
+        BuildTime = 5.0f,
     };
 	
     // ##### STEAM HOUSE BUILDINGS #####    
@@ -138,12 +138,11 @@ public static class ItemDB {
 				else
 				{
 					otherBuildingsPresent = false;
-				}
-				
+				}	
+                			
 				return otherBuildingsPresent;
 			}
-			
-			
+						
 			return false;
 		});
 		

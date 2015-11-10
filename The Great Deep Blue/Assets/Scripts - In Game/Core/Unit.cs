@@ -144,14 +144,13 @@ public class Unit : RTSObject, IOrderable {
 			    ((IDeployable)this).Deploy();
                 break;
 
-            //Attack Order
+            // Attack Order
             case Const.ORDER_ATTACK:
 
                 GetComponent<Combat>().Stop();
                 if (IsAttackable())
                 {
-                    // Attack;
-                    Debug.Log("Attack!");
+                    // Attack
                     GetComponent<Combat>().Attack(order.Target);
                 }
 

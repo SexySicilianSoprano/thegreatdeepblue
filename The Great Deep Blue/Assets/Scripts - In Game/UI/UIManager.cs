@@ -219,8 +219,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         case HoverOver.EnemyBuilding:               
             interactionState = InteractionState.Select;
            
-			break;
-			
+			break;			
 		}
 	}
 	
@@ -311,33 +310,36 @@ public class UIManager : MonoBehaviour, IUIManager {
 		}		
 		CalculateInteraction (hoveringOver, ref interactionState);
 	}
-	
-	private void ModePlaceBuildingBehaviour()
-	{
-		//Get current location and place building on that location
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
-		
-		if (Physics.Raycast (ray, out hit, Mathf.Infinity, 1 << 11))
-		{
-			m_ObjectBeingPlaced.transform.position = hit.point;
-		}
 
-        
-		//Check validity of current position
-		if (Input.GetKeyDown ("v"))
-		{
-			m_PositionValid = !m_PositionValid;
+    private void ModePlaceBuildingBehaviour()
+    {
+        //Get current location and place building on that location
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
+        {
+            m_ObjectBeingPlaced.transform.position = hit.point;
+        }
+                
+        if (m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().BuildValid == true)
+        {
+            m_PositionValid = true;
+        }
+        else
+        {
+            m_PositionValid = false;
+        }
 			
-			if (m_PositionValid)
-			{
-				m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToValid();
-			}
-			else
-			{
-				m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToInvalid();
-			}
+		if (m_PositionValid)
+		{
+            m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToValid();
 		}
+		else
+		{
+			m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToInvalid();
+		}
+		
 	}
 	
 	//----------------------Mouse Button Handler------------------------------------
@@ -402,7 +404,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 				m_ItemBeingPlaced.FinishBuild ();
 				m_CallBackFunction.Invoke ();
 				m_Placed = true;
-                //newObject.GetComponent<Collider>().enabled = true;
+                newObject.GetComponent<Collider>().isTrigger = false;
 				SwitchToModeNormal ();
 			}
 			break;
