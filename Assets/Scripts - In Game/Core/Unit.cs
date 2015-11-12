@@ -26,12 +26,13 @@ public class Unit : RTSObject, IOrderable {
 	{
 		guiManager = ManagerResolver.Resolve<IGUIManager>();
 		selectedManager = ManagerResolver.Resolve<ISelectedManager>();
-		/*
+        ManagerResolver.Resolve<IManager>().UnitAdded(this);
+        /*
 		m_IsDeployable = this is IDeployable;
 		m_IsAttackable = this is IAttackable;
 		m_IsInteractable = this is IInteractable;
         */
-	}
+    }
 	
 	protected void Update()
 	{
@@ -75,13 +76,10 @@ public class Unit : RTSObject, IOrderable {
 	{
 		switch (team)
 		{
-		case Const.TEAM_GRI:
+		case Const.TEAM_STEAMHOUSE:
 			
 			break;
-			
-		case Const.TEAM_SALUS:
-			
-			break;
+
 		}
 	}
 
@@ -146,14 +144,13 @@ public class Unit : RTSObject, IOrderable {
 			    ((IDeployable)this).Deploy();
                 break;
 
-            //Attack Order
+            // Attack Order
             case Const.ORDER_ATTACK:
 
                 GetComponent<Combat>().Stop();
                 if (IsAttackable())
                 {
-                    // Attack;
-                    Debug.Log("Attack!");
+                    // Attack
                     GetComponent<Combat>().Attack(order.Target);
                 }
 

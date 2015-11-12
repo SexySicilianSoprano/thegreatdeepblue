@@ -12,11 +12,12 @@ public class WeaponDB {
         ID = 0,
         Name = "TestCannon",
         Damage = 10,
-        Range = 500,
-        FireRate = 0.5f,
-        isRanged = true,
+        Range = 100,
+        FireRate = 30,
         isAntiArmor = true,
-        isAntiStructure = false            
+        isAntiStructure = false,
+        Projectile = ProjectileDB.CannonBall
+        
     };
 
     public static Weapon TestMachineGun = new Weapon
@@ -24,14 +25,15 @@ public class WeaponDB {
         ID = 0,
         Name = "TestMachinegun",
         Damage = 10,
-        Range = 300,
-        FireRate = 10,
-        isRanged = true,
+        Range = 100,
+        FireRate = 120,
         isAntiArmor = true,
-        isAntiStructure = false
+        isAntiStructure = false,
+        Projectile = ProjectileDB.CannonBall
     };
 
-    public static void Initialise() {
+    public static void Initialise()
+    {
         InitialiseWeapon(TestCannon);
     }
 
