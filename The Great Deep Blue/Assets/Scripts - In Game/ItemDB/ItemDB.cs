@@ -72,23 +72,23 @@ public static class ItemDB {
 		BuildTime = 10.0f,
 		ObjectType = typeof(FloatingFortress),
 	};
-	
-	public static Item NavalYard = new Item
-	{
-		ID = 2,
-		TypeIdentifier = Const.TYPE_Building,
-		TeamIdentifier = Const.TEAM_STEAMHOUSE,
-		Name = "Naval Yard",
-		Health = 100.0f,
-		Armour = 3.0f,
-		Explosion = m_LargeExplosion,
-		Prefab = Resources.Load ("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
-        ItemImage = Resources.Load ("Item Images/GRI/Buildings/Power Plant/PowerPlant", typeof(Texture2D)) as Texture2D,
-		SortOrder = 0,
-		RequiredBuildings = new int[] { 0 },
-		Cost = 700,
-		BuildTime = 2.0f,
-		ObjectType = typeof(NavalYard),
+
+    public static Item NavalYard = new Item
+    {
+        ID = 2,
+        TypeIdentifier = Const.TYPE_Building,
+        TeamIdentifier = Const.TEAM_STEAMHOUSE,
+        Name = "Naval Yard",
+        Health = 100.0f,
+        Armour = 3.0f,
+        Explosion = m_LargeExplosion,
+        Prefab = Resources.Load("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
+        ItemImage = Resources.Load("Item Images/GRI/Buildings/Power Plant/PowerPlant", typeof(Texture2D)) as Texture2D,
+        SortOrder = 0,
+        RequiredBuildings = new int[] { 0 },
+        Cost = 700,
+        BuildTime = 2.0f,
+        ObjectType = typeof(NavalYard),
 	};
 
     // Functions

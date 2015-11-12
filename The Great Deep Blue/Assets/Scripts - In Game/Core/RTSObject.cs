@@ -43,6 +43,8 @@ public abstract class RTSObject : MonoBehaviour {
         get;
         private set;
     }
+
+    public UnitSpawner Spawner;
 	
     // Health details
 	private float m_Health;
@@ -79,16 +81,7 @@ public abstract class RTSObject : MonoBehaviour {
 		m_Health = m_MaxHealth;
 	}
 
-    /*
-    protected void AssignWeaponDetails(Weapon weapon)
-    {
-        Weapon = weapon;
-        m_Damage = weapon.Damage;
-        m_FireRate = weapon.FireRate;
-        m_Range = weapon.FireRate;
-    } */
-    	
-	public void TakeDamage(float damage)
+   	public void TakeDamage(float damage)
 	{
 		m_Health -= damage;
 
@@ -96,8 +89,7 @@ public abstract class RTSObject : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
-
-    
+        
     protected void AssignPlayer(Player player) {
         // Assign player
         PlayerIdentifier = player.ID;
@@ -105,5 +97,5 @@ public abstract class RTSObject : MonoBehaviour {
         // Assign player color
         PlayerColor = player.Color;               
     }
-
+    
 }

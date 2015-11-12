@@ -107,7 +107,7 @@ public class TypeButton : ITypeButton
 
 	public void AddNewQueue (Building building)
 	{
-		m_QueueButtons.Add(new QueueButton(m_QueueButtons.Count, building.UniqueID, building.TeamIdentifier, (int)m_ButtonType, m_QueueButtonViewableRect));
+		m_QueueButtons.Add(new QueueButton(m_QueueButtons.Count, building, (int)m_ButtonType, m_QueueButtonViewableRect));
 	}
 
 	public void RemoveQueue (Building building)
@@ -166,35 +166,20 @@ public class TypeButton : ITypeButton
 			
 			buttonStartX += (buttonSize*0);
 			m_Content = Strings.B;
-			
-			
-			break;
-			
-		case ButtonType.Support:
-			
-			buttonStartX += (buttonSize*1);
-			m_Content = Strings.S;
-			
-			break;
-			
-		case ButtonType.Infantry:
-			
-			buttonStartX += (buttonSize*2);
-			m_Content = Strings.I;
-			
+		
 			break;
 			
 		case ButtonType.Vehicle:
 			
-			buttonStartX += (buttonSize*3);
+			buttonStartX += (buttonSize*1);
 			m_Content = Strings.V;
 			
 			break;
 			
-		case ButtonType.Air:
+		case ButtonType.Science:
 			
-			buttonStartX += (buttonSize*4);
-			m_Content = Strings.A;
+			buttonStartX += (buttonSize*2);
+			m_Content = Strings.S;
 			
 			break;
 		}
@@ -211,8 +196,6 @@ public class TypeButton : ITypeButton
 public enum ButtonType
 {
 	Building = Const.TYPE_Building,
-	Support = Const.TYPE_Support,
-	Infantry = Const.TYPE_Infantry,
 	Vehicle = Const.TYPE_Vehicle,
-	Air = Const.TYPE_Air,
+	Science = Const.TYPE_Science,
 }

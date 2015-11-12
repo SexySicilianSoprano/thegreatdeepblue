@@ -60,7 +60,7 @@ public class QueueButton : IQueueButton
 		}
 	}
 	
-	public QueueButton(int Id, int buildingId, int TeamID, int TypeID, Rect menuArea)
+	public QueueButton(int Id, Building building, int TypeID, Rect menuArea)
 	{
 		//Calculate rect
 		//Need to determine button rect, margins are 1% of width
@@ -76,7 +76,7 @@ public class QueueButton : IQueueButton
 		
 		//Assign ID's
 		m_ID = Id;
-		m_BuildingIdentifier = buildingId;
+		m_BuildingIdentifier = building.UniqueID;
 		
 		//Create style
 		m_ButtonStyle = GUIStyles.CreateQueueButtonStyle();
@@ -85,12 +85,12 @@ public class QueueButton : IQueueButton
 		GUIEvents.QueueButtonChanged += ButtonPressedEvent;
 		
 		//Assign identifiers
-		m_TeamIdentifier = TeamID;
+		m_TeamIdentifier = building.TeamIdentifier;
 		m_TypeIdentifier = TypeID;
 		
 		//Create Content Object
 		menuArea.yMin = m_ButtonRect.yMax+10;
-		m_QueueContent = new QueueContent(menuArea);
+		m_QueueContent = new QueueContent(menuArea, building);
 	}
 	
 	private void SelectedValueChanged(bool newValue)

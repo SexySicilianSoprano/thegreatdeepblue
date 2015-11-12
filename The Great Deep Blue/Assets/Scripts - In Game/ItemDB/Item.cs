@@ -10,13 +10,13 @@ public class Item {
 	public string Name;
 	public float Health;
 	public float Armour;
-	public float Damage = 0;
 	
 	public float Speed = 0;
 	public float RotationSpeed = 0;
 	public float Acceleration = 0;
 	
 	public GameObject Prefab;
+    public UnitSpawner Spawner;
 	
 	public int Cost;
 	public float BuildTime;
@@ -193,7 +193,7 @@ public class Item {
 			else
 			{
 				//Is this a building or a unit?
-				if (TypeIdentifier == Const.TYPE_Building || TypeIdentifier == Const.TYPE_Support)
+				if (TypeIdentifier == Const.TYPE_Building)
 				{
 					//Wait for user to place building before finishing
 					m_Finished = true;
