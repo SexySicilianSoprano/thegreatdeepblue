@@ -2,6 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Queue button. THIS is the 1,2 buttons under building tab!
+/// TODO: How to remove this completely! :)
+/// </summary>
+
 public class QueueButton : IQueueButton
 {
 	private bool m_Selected = false;
@@ -59,7 +64,10 @@ public class QueueButton : IQueueButton
 			return m_TeamIdentifier;
 		}
 	}
-	
+	public void ChangeStyle (GUIStyle style)
+	{
+
+	}
 	public QueueButton(int Id, int buildingId, int TeamID, int TypeID, Rect menuArea)
 	{
 		//Calculate rect
@@ -98,15 +106,15 @@ public class QueueButton : IQueueButton
 		if (newValue)
 		{
 			//Button has been clicked, set to highlight
-			m_ButtonStyle.normal.background = GUITextures.TypeButtonSelected;
-			m_ButtonStyle.hover.background = GUITextures.TypeButtonSelected;
+			m_ButtonStyle.normal.background = GUITextures.TypeButtonSelectedB;
+			m_ButtonStyle.hover.background = GUITextures.TypeButtonSelectedB;
 			
 		}
 		else
 		{
 			//Button has been deselected, remove highlight
-			m_ButtonStyle.normal.background = GUITextures.TypeButtonNormal;
-			m_ButtonStyle.hover.background = GUITextures.TypeButtonHover;
+			m_ButtonStyle.normal.background = GUITextures.TypeButtonNormalB;
+			m_ButtonStyle.hover.background = GUITextures.TypeButtonHoverB;
 			
 		}
 	}

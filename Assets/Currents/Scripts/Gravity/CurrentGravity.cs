@@ -10,7 +10,7 @@ public class CurrentGravity : MonoBehaviour {
 
 	void OnTriggerStay (Collider other) {
 		// Move colliding rigidbodies to a direction in set velocity
-            if (other.tag == "Player1" || other.tag == "Player2")
+
 			other.GetComponent<Rigidbody> ().AddForce (xAxis * (velocity / 100), yAxis * (velocity / 100), zAxis * (velocity / 100));
 	}
 

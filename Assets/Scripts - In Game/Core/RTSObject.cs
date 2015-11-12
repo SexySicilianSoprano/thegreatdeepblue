@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public abstract class RTSObject : MonoBehaviour {
-
+	
 	//The base class for all playable objects
 	
 	public string Name
@@ -25,40 +25,40 @@ public abstract class RTSObject : MonoBehaviour {
 	
 	public int TeamIdentifier
 	{
-        get;
-        private set;
+		get;
+		private set;
 	}
-
-    public int PlayerIdentifier {
-        get;
-        private set;
-    }
-
-    public Color PlayerColor {
-        get;
-        private set;
-    }
-
-    public Weapon Weapon {
-        get;
-        private set;
-    }
 	
-    // Health details
+	public int PlayerIdentifier {
+		get;
+		private set;
+	}
+	
+	public Color PlayerColor {
+		get;
+		private set;
+	}
+	
+	public Weapon Weapon {
+		get;
+		private set;
+	}
+	
+	// Health details
 	private float m_Health;
 	private float m_MaxHealth;	
-
-    // Action voids
+	
+	// Action voids
 	public abstract void SetSelected();
 	public abstract void SetDeselected();
 	public abstract void AssignToGroup(int groupNumber);
 	public abstract void RemoveFromGroup();
 	public abstract void ChangeTeams(int team);
-
-    // Weapon details
-    private float m_Damage;
-    private float m_Range;
-    private float m_FireRate;
+	
+	// Weapon details
+	private float m_Damage;
+	private float m_Range;
+	private float m_FireRate;
 	
 	public float GetHealthRatio()
 	{
@@ -78,8 +78,8 @@ public abstract class RTSObject : MonoBehaviour {
 		m_MaxHealth = item.Health;
 		m_Health = m_MaxHealth;
 	}
-
-    /*
+	
+	/*
     protected void AssignWeaponDetails(Weapon weapon)
     {
         Weapon = weapon;
@@ -87,23 +87,27 @@ public abstract class RTSObject : MonoBehaviour {
         m_FireRate = weapon.FireRate;
         m_Range = weapon.FireRate;
     } */
-    	
+	
 	public void TakeDamage(float damage)
 	{
 		m_Health -= damage;
-
-        if (m_Health == 0 || m_Health <= 0) {
-            Destroy(gameObject);
-        }
+		
+		if ( m_Health <= 0) {
+			
+			GameObject Explosion = Instantiate(Resources.Load("Explosion_Ship"), gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+			
+			
+			Destroy(gameObject, 3.0f);
+		}
 	}
-
-    
-    protected void AssignPlayer(Player player) {
-        // Assign player
-        PlayerIdentifier = player.ID;
-
-        // Assign player color
-        PlayerColor = player.Color;               
-    }
-
+	
+	
+	protected void AssignPlayer(Player player) {
+		// Assign player
+		PlayerIdentifier = player.ID;
+		
+		// Assign player color
+		PlayerColor = player.Color;               
+	}
+	
 }

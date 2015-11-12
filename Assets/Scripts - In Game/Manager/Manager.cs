@@ -112,7 +112,7 @@ public class Manager : MonoBehaviour, IManager {
 		if (m_Buildings.Count == 0 || m_Buildings.First (x => x.ID == building.ID) == null)
 		{
 			//There are no more of these buildings, update available buildings and units
-
+			
 		}
 	}
 	

@@ -219,7 +219,8 @@ public class UIManager : MonoBehaviour, IUIManager {
         case HoverOver.EnemyBuilding:               
             interactionState = InteractionState.Select;
            
-			break;			
+			break;
+			
 		}
 	}
 	
@@ -279,7 +280,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 					return;
 			}
 		}
-		
+
+		//All units, enemies and allies alike, are selectable.
 		if (hoverOver == HoverOver.FriendlyUnit || hoverOver == HoverOver.FriendlyBuilding || hoverOver == HoverOver.EnemyUnit || hoverOver == HoverOver.EnemyBuilding)
 		{
 			//Select Interaction
@@ -310,36 +312,32 @@ public class UIManager : MonoBehaviour, IUIManager {
 		}		
 		CalculateInteraction (hoveringOver, ref interactionState);
 	}
-
-    private void ModePlaceBuildingBehaviour()
-    {
-        //Get current location and place building on that location
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
-        {
-            m_ObjectBeingPlaced.transform.position = hit.point;
-        }
-                
-        if (m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().BuildValid == true)
-        {
-            m_PositionValid = true;
-        }
-        else
-        {
-            m_PositionValid = false;
-        }
-			
-		if (m_PositionValid)
+	
+	private void ModePlaceBuildingBehaviour()
+	{
+		//Get current location and place building on that location
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		
+		if (Physics.Raycast (ray, out hit, Mathf.Infinity, 1 << 11))
 		{
-            m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToValid();
-		}
-		else
-		{
-			m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToInvalid();
+			m_ObjectBeingPlaced.transform.position = hit.point;
 		}
 		
+		//Check validity of current position
+		if (Input.GetKeyDown ("v"))
+		{
+			m_PositionValid = !m_PositionValid;
+			
+			if (m_PositionValid)
+			{
+				m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToValid();
+			}
+			else
+			{
+				m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToInvalid();
+			}
+		}
 	}
 	
 	//----------------------Mouse Button Handler------------------------------------
@@ -381,14 +379,11 @@ public class UIManager : MonoBehaviour, IUIManager {
 			if (m_PositionValid)
 			{
 				GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ItemBeingPlaced.Prefab.transform.rotation);
-                    //UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent
-                            //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
-                           // m_ItemBeingPlaced.ObjectType.ToString ());
-                           
-                newObject.layer = 8;
-				newObject.tag = "Player1";
+				// THINK OF A REPLACEMENT RIGHT HERE, THE CODE BELOW IS BROKEN
+				//UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", m_ItemBeingPlaced.ObjectType.ToString ());
+				newObject.layer = 12;
+				newObject.tag = "Player";
 				
-                /*
 				BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
 				
 				if (tempCollider == null)
@@ -399,18 +394,17 @@ public class UIManager : MonoBehaviour, IUIManager {
 				tempCollider.center = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderCenter;
 				tempCollider.size = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderSize;
 				tempCollider.isTrigger = true;
-				*/
-
+				
 				m_ItemBeingPlaced.FinishBuild ();
 				m_CallBackFunction.Invoke ();
 				m_Placed = true;
-                newObject.GetComponent<Collider>().isTrigger = false;
 				SwitchToModeNormal ();
 			}
 			break;
 		}
+		
 	}
-       
+	
 	public void LeftButton_DoubleClickDown(MouseEventArgs e)
 	{
 		if (currentObject.layer == 8)

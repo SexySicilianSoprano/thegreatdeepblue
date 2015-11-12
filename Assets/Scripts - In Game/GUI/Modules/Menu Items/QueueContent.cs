@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// Queue content. This is where the UP/DOWN buttons are located.
+/// </summary>
+
 public class QueueContent : IQueueContent
 {
 	private List<Item> m_Items = new List<Item>();
@@ -31,7 +35,7 @@ public class QueueContent : IQueueContent
 		{
 			if (counter >= m_ArrowOffset)
 			{
-				if (GUI.Button (m_Area[itemsDrawn], item.Name, item.ButtonStyle))
+				if (GUI.Button (m_Area[itemsDrawn], "", item.ButtonStyle))
 				{
 					//Item Clicked
 					if (Event.current.button == 0)

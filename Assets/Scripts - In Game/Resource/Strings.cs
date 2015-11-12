@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Strings. USELESS FOR OUR GAME, TRY TO CHANGE THIS TO DOING DIFFERENT IMAGES. Or more like copy the file and change it into ICON class
+/// </summary>
+
 public static class Strings
 {
 	public const string One = "1";
