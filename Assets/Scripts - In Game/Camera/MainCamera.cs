@@ -7,13 +7,13 @@ public class MainCamera : MonoBehaviour, ICamera {
 	public static MainCamera main;
 	
 	//Camera Variables
-	public float HeightAboveGround = 100.0f;
+	public float HeightAboveGround = 30.0f;
 	public float AngleOffset = 20.0f;
 	public float m_MaxFieldOfView = 85.0f;
 	public float m_MinFieldOfView = 20.0f;
 	
-	public float ScrollSpeed = 80.0f;
-	public float ScrollAcceleration = 80.0f;
+	public float ScrollSpeed = 8.0f;
+	public float ScrollAcceleration = 30.0f;
 	
 	public float ZoomRate = 500.0f;
 	
@@ -38,7 +38,6 @@ public class MainCamera : MonoBehaviour, ICamera {
 		{
 			transform.position = new Vector3(StartPoint.transform.position.x, HeightAboveGround, StartPoint.transform.position.z-AngleOffset);
 		}
-
 		
 		//Set up camera rotation
 		transform.rotation = Quaternion.Euler (90-AngleOffset, 0, 0);
@@ -47,8 +46,7 @@ public class MainCamera : MonoBehaviour, ICamera {
 	// Update is called once per frame
 	void Update () 
 	{
-		/*Debug.Log (Screen.width);
-		Debug.Log (Screen.height );*/
+		
 	}
 	
 	public void Pan(object sender, ScreenEdgeEventArgs e)
@@ -59,9 +57,8 @@ public class MainCamera : MonoBehaviour, ICamera {
 			float targetSpeed = totalSpeed < ScrollSpeed ? totalSpeed : ScrollSpeed;
 			
 			transform.Translate (e.x*Time.deltaTime*targetSpeed, 0, e.y*Time.deltaTime*targetSpeed, Space.World);
-
+			
 			//Check if we have scrolled past edge
-			//Debug.Log("Scroll edge check!");
 			if (transform.position.x < m_Boundries.xMin)
 			{
 				transform.position = new Vector3(m_Boundries.xMin, transform.position.y, transform.position.z);
@@ -70,7 +67,7 @@ public class MainCamera : MonoBehaviour, ICamera {
 			{
 				transform.position = new Vector3(m_Boundries.xMax, transform.position.y, transform.position.z);
 			}
-
+			
 			if (transform.position.z < m_Boundries.yMin)
 			{
 				transform.position = new Vector3(transform.position.x, transform.position.y, m_Boundries.yMin);
@@ -109,8 +106,7 @@ public class MainCamera : MonoBehaviour, ICamera {
 		
 		Physics.Raycast (r3, out h1, Mathf.Infinity, 1<< 16);
 		bottom = h1.point.z;
-
-		//Debug.Log("Edge Movement Check!");
+		
 		if (left < m_Boundries.xMin)
 		{
 			Camera.main.transform.Translate (new Vector3(m_Boundries.xMin-left,0,0), Space.World);
@@ -129,12 +125,11 @@ public class MainCamera : MonoBehaviour, ICamera {
 			Camera.main.transform.Translate (new Vector3(0,0,m_Boundries.yMax-top), Space.World);
 		}
 	}
-	//camera zoomer
+	
 	public void Zoom(object sender, ScrollWheelEventArgs e)
 	{
 		GetComponent<Camera>().fieldOfView -= e.ScrollValue*ZoomRate*Time.deltaTime;
-
-		//Debug.Log ("Zoom!");
+		
 		if (GetComponent<Camera>().fieldOfView < m_MinFieldOfView) 
 		{
 			GetComponent<Camera>().fieldOfView = m_MinFieldOfView;

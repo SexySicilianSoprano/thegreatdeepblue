@@ -11,10 +11,7 @@ public partial class EventsManager {
 	{
 		ScreenEdgeEventArgs tempEventArgs = null;
 		atScreenEdge = false;
-
-		/*Debug.Log("S = "+Screen.width);
-		Debug.Log("I = "+Input.mousePosition.x);*/
-
+		
 		if (Input.mousePosition.x == 0)
 		{			
 			if (tempEventArgs == null)
@@ -29,7 +26,7 @@ public partial class EventsManager {
 			atScreenEdge = true;
 		}
 		
-		if (Input.mousePosition.x > Screen.width-1)
+		if (Input.mousePosition.x == Screen.width-1)
 		{
 			if (tempEventArgs == null)
 			{
@@ -57,7 +54,7 @@ public partial class EventsManager {
 			atScreenEdge = true;
 		}
 		
-		if (Input.mousePosition.y > Screen.height-1)
+		if (Input.mousePosition.y == Screen.height-1)
 		{
 			if (tempEventArgs == null)
 			{

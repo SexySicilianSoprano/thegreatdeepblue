@@ -2,10 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
-/// <summary>
-/// Queue content. This is where the UP/DOWN buttons are located.
-/// </summary>
+using System;
 
 public class QueueContent : IQueueContent
 {
@@ -16,104 +13,120 @@ public class QueueContent : IQueueContent
 	private bool m_ArrowsEnabled = false;
 	private Rect[] m_ArrowRects = new Rect[2];
 	private bool m_Building = false;
-	
 	private IUIManager m_UIManager;
-	
-	public QueueContent(Rect area)
+    private Building m_Host;
+
+    public QueueContent(Rect area, Building building)
 	{
+        m_Host = building;
 		CalculateSize (area);
 		m_UIManager = ManagerResolver.Resolve<IUIManager>();
 	}
-	
-	public void Execute()
-	{
-		//Draw Items
-		int counter = 0;
-		int itemsDrawn = 0;
-		
-		foreach (Item item in m_Items)
-		{
-			if (counter >= m_ArrowOffset)
-			{
-				if (GUI.Button (m_Area[itemsDrawn], "", item.ButtonStyle))
-				{
-					//Item Clicked
-					if (Event.current.button == 0)
-					{
-						//Left Button
-						if (item.Paused)
-						{
-							item.UnPauseBuild ();
-						}
-						else if ((item.TypeIdentifier == Const.TYPE_Building || item.TypeIdentifier == Const.TYPE_Support) && item.IsFinished && m_UIManager.CurrentMode == Mode.Normal)
-						{
-							//Building has finished, needs to be placed, pass control to the UI manager and wait for a response
-							m_UIManager.UserPlacingBuilding(item, () => 
-							{
-								//Building was placed
-								m_Building = false;
-							});
-						}
-						else if (!m_Building)
-						{
-							item.StartBuild ();
-							m_Building = true;
-						}
-					}
+
+    public void Execute()
+    {
+        //Draw Items
+        int counter = 0;
+        int itemsDrawn = 0;
+
+        foreach (Item item in m_Items)
+        {
+            if (counter >= m_ArrowOffset)
+            {
+                if (GUI.Button(m_Area[itemsDrawn], item.Name, item.ButtonStyle))
+                {
+                    //Item Clicked
+                    if (Event.current.button == 0)
+                    {
+                        //Left Button
+                        if (item.Paused)
+                        {
+                            item.UnPauseBuild();
+                        }
+                        else if ((item.TypeIdentifier == Const.TYPE_Building) && item.IsFinished && m_UIManager.CurrentMode == Mode.Normal)
+                        {
+                            //Building has finished, needs to be placed, pass control to the UI manager and wait for a response
+                            m_UIManager.UserPlacingBuilding(item, () =>
+                            {
+                                //Building was placed
+                                m_Building = false;
+                            });
+                        }
+                        else if (!m_Building)
+                        {
+                            item.StartBuild();
+                            m_Building = true;
+                        }
+                        
+                    }
                     else if (Event.current.button == 1)
-					{
-						//Right Button (pause or cancel)
-						if (item.Paused || item.IsFinished)
-						{
-							item.CancelBuild ();
-							m_Building = false;
-							m_UIManager.SwitchMode (Mode.Normal);
-						}
-						else if (item.IsBuilding)
-						{
-							item.PauseBuild();
-						}
-					}
-				}
-				
-				if (item.IsBuilding && !item.IsFinished)
-				{
-					int index = (int)(item.GetProgress ()*360);
-					
-					if (index <= 359)
-					{
-						GUI.DrawTexture (m_Area[itemsDrawn], ItemProgressTextures.Overlays[index]);
-					}
-				}
-				else if (item.IsBuilding && item.IsFinished)
-				{
-					GUI.Label (m_Area[itemsDrawn], Strings.Ready, GUIStyles.ItemFinishedLabel);
-				}
-				
-				itemsDrawn++;
-				
-				if (itemsDrawn >= m_MaxVisibleItems)
-				{
-					break;
-				}
-			}
-			
-			counter++;
-		}
-		
-		//Draw Arrows
-		if (GUI.Button (m_ArrowRects[0], "Down") && m_ArrowsEnabled && m_ArrowOffset < m_Items.Count-m_MaxVisibleItems)
-		{
-			//Using 2 as we're skipping two items
-			m_ArrowOffset += 2;
-		}
-		
-		if (GUI.Button (m_ArrowRects[1], "Up") && m_ArrowsEnabled && m_ArrowOffset > 0)
-		{
-			m_ArrowOffset -= 2;
-		}
-	}
-	
+                    {
+                        //Right Button (pause or cancel)
+                        if (item.Paused || item.IsFinished)
+                        {
+                            item.CancelBuild();
+                            m_Building = false;
+                            m_UIManager.SwitchMode(Mode.Normal);
+                        }
+                        else if (item.IsBuilding)
+                        {
+                            item.PauseBuild();
+                        }
+                    }
+                }
+
+                if (item.IsBuilding && !item.IsFinished)
+                {
+                    int index = (int)(item.GetProgress() * 360);
+                    Debug.Log(m_Host + " KKK");
+
+                    if (index <= 359)
+                    {
+                        GUI.DrawTexture(m_Area[itemsDrawn], ItemProgressTextures.Overlays[index]);
+                    }
+                }
+                else if (item.IsBuilding && item.IsFinished)
+                {
+                    if (item.TypeIdentifier == Const.TYPE_Building)
+                    {
+                        GUI.Label(m_Area[itemsDrawn], Strings.Ready, GUIStyles.ItemFinishedLabel);
+                        m_Building = false;
+                    }
+                    else if (item.TypeIdentifier == Const.TYPE_Vehicle)
+                    {
+                        Debug.Log(m_Host + " Honky");
+                    }
+                    else
+                    {
+                        Debug.Log(m_Host + " Nigger");
+                    }
+                    //m_Host.gameObject.GetComponent<UnitSpawner>().Spawn(item);
+                }
+
+                itemsDrawn++;
+
+                if (itemsDrawn >= m_MaxVisibleItems)
+                {
+                    break;
+                }
+            }
+
+            counter++;
+        }
+
+        //Draw Arrows
+        if (GUI.Button(m_ArrowRects[0], "Down") && m_ArrowsEnabled && m_ArrowOffset < m_Items.Count - m_MaxVisibleItems)
+        {
+            //Using 2 as we're skipping two items
+            m_ArrowOffset += 2;
+        }
+
+        if (GUI.Button(m_ArrowRects[1], "Up") && m_ArrowsEnabled && m_ArrowOffset > 0)
+        {
+            m_ArrowOffset -= 2;
+        }
+    }
+
 	public void UpdateContents(List<Item> newAvailableItems)
 	{
 		//Add a deep clone of each new item to the list		

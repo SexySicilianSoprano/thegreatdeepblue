@@ -70,11 +70,6 @@ public class SelectedBuilding : MonoBehaviour {
 		//Assign building
 		m_Building = GetComponent<Building>();
 	}
-
-	void update ()
-	{
-
-	}
 	
 	public void SetSelected()
 	{

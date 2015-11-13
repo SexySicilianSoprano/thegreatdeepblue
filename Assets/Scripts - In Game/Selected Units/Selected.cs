@@ -115,7 +115,7 @@ public class Selected : MonoBehaviour {
 			}
 		}
 	}
-
+	
 	public void SetSelected()
 	{
 		IsSelected = true;
@@ -123,9 +123,7 @@ public class Selected : MonoBehaviour {
 		m_JustBeenSelectedTimer = 0;
 		m_GLManager.AddItemToRender (m_GLItem);
 
-		if (tag == "Player1") {
-			rb.isKinematic = true; 
-		}
+		rb.isKinematic = true;
 	}
 	
 	public void SetDeselected()
@@ -135,7 +133,6 @@ public class Selected : MonoBehaviour {
 		m_GLManager.RemoveItemToRender (m_GLItem);
 
 		rb.isKinematic = false;
-		
 	}
 	
 	public void AssignGroupNumber(int number)

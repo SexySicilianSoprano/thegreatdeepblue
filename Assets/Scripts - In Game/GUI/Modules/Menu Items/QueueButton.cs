@@ -2,11 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Queue button. THIS is the 1,2 buttons under building tab!
-/// TODO: How to remove this completely! :)
-/// </summary>
-
 public class QueueButton : IQueueButton
 {
 	private bool m_Selected = false;
@@ -64,11 +59,8 @@ public class QueueButton : IQueueButton
 			return m_TeamIdentifier;
 		}
 	}
-	public void ChangeStyle (GUIStyle style)
-	{
-
-	}
-	public QueueButton(int Id, int buildingId, int TeamID, int TypeID, Rect menuArea)
+	
+	public QueueButton(int Id, Building building, int TypeID, Rect menuArea)
 	{
 		//Calculate rect
 		//Need to determine button rect, margins are 1% of width
@@ -84,7 +76,7 @@ public class QueueButton : IQueueButton
 		
 		//Assign ID's
 		m_ID = Id;
-		m_BuildingIdentifier = buildingId;
+		m_BuildingIdentifier = building.UniqueID;
 		
 		//Create style
 		m_ButtonStyle = GUIStyles.CreateQueueButtonStyle();
@@ -93,12 +85,12 @@ public class QueueButton : IQueueButton
 		GUIEvents.QueueButtonChanged += ButtonPressedEvent;
 		
 		//Assign identifiers
-		m_TeamIdentifier = TeamID;
+		m_TeamIdentifier = building.TeamIdentifier;
 		m_TypeIdentifier = TypeID;
 		
 		//Create Content Object
 		menuArea.yMin = m_ButtonRect.yMax+10;
-		m_QueueContent = new QueueContent(menuArea);
+		m_QueueContent = new QueueContent(menuArea, building);
 	}
 	
 	private void SelectedValueChanged(bool newValue)
@@ -106,15 +98,15 @@ public class QueueButton : IQueueButton
 		if (newValue)
 		{
 			//Button has been clicked, set to highlight
-			m_ButtonStyle.normal.background = GUITextures.TypeButtonSelectedB;
-			m_ButtonStyle.hover.background = GUITextures.TypeButtonSelectedB;
+			m_ButtonStyle.normal.background = GUITextures.TypeButtonSelected;
+			m_ButtonStyle.hover.background = GUITextures.TypeButtonSelected;
 			
 		}
 		else
 		{
 			//Button has been deselected, remove highlight
-			m_ButtonStyle.normal.background = GUITextures.TypeButtonNormalB;
-			m_ButtonStyle.hover.background = GUITextures.TypeButtonHoverB;
+			m_ButtonStyle.normal.background = GUITextures.TypeButtonNormal;
+			m_ButtonStyle.hover.background = GUITextures.TypeButtonHover;
 			
 		}
 	}
