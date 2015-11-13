@@ -17,7 +17,7 @@ public static class ItemDB {
     public static Item Scout = new Item
     {
         ID = 0,
-        TypeIdentifier = Const.TYPE_Vehicle,
+        TypeIdentifier = Const.TYPE_Ship,
         TeamIdentifier = Const.TEAM_STEAMHOUSE,
         Name = "Scout",
         Health = 40.0f,
@@ -27,9 +27,9 @@ public static class ItemDB {
         Acceleration = 5.0f,
         Explosion = m_SmallExplosion,
         Prefab = Resources.Load("Models/Units/SteamHouse/Scout/Scout", typeof(GameObject)) as GameObject,
-        ItemImage = Resources.Load("Item Images/GRI/Units/Vehicles/CubeTank/CubeTank", typeof(Texture2D)) as Texture2D,
+		ItemImage = Resources.Load("Item Images/SteamHouse/ScoutBoat_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 0,
-        RequiredBuildings = new int[] { 2 },
+        RequiredBuildings = new int[] { 1 },
         Cost = 100,
         BuildTime = 3.0f,
     };
@@ -37,7 +37,7 @@ public static class ItemDB {
     public static Item Destroyer = new Item
     {
         ID = 1,
-        TypeIdentifier = Const.TYPE_Vehicle,
+        TypeIdentifier = Const.TYPE_Ship,
         TeamIdentifier = Const.TEAM_STEAMHOUSE,
         Name = "Destroyer",
         Health = 100.0f,
@@ -47,9 +47,9 @@ public static class ItemDB {
         Acceleration = 2.0f,
         Explosion = m_SmallExplosion,
         Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
-        ItemImage = Resources.Load("Item Images/GRI/Units/Vehicles/CubeTank/CubeTank", typeof(Texture2D)) as Texture2D,
+		ItemImage = Resources.Load("Item Images/SteamHouse/Destroyer_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 1,
-        RequiredBuildings = new int[] { 2 },
+        RequiredBuildings = new int[] { 1 },
         Cost = 100,
         BuildTime = 5.0f,
     };
@@ -72,23 +72,23 @@ public static class ItemDB {
 		BuildTime = 10.0f,
 		ObjectType = typeof(FloatingFortress),
 	};
-
-    public static Item NavalYard = new Item
-    {
-        ID = 2,
-        TypeIdentifier = Const.TYPE_Building,
-        TeamIdentifier = Const.TEAM_STEAMHOUSE,
-        Name = "Naval Yard",
-        Health = 100.0f,
-        Armour = 3.0f,
-        Explosion = m_LargeExplosion,
-        Prefab = Resources.Load("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
-        ItemImage = Resources.Load("Item Images/GRI/Buildings/Power Plant/PowerPlant", typeof(Texture2D)) as Texture2D,
-        SortOrder = 0,
-        RequiredBuildings = new int[] { 0 },
-        Cost = 700,
-        BuildTime = 2.0f,
-        ObjectType = typeof(NavalYard),
+	
+	public static Item NavalYard = new Item
+	{
+		ID = 1,
+		TypeIdentifier = Const.TYPE_Building,
+		TeamIdentifier = Const.TEAM_STEAMHOUSE,
+		Name = "Naval Yard",
+		Health = 100.0f,
+		Armour = 3.0f,
+		Explosion = m_LargeExplosion,
+		Prefab = Resources.Load ("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
+        ItemImage = Resources.Load ("Item Images/SteamHouse/NavalYard_Icon", typeof(Texture2D)) as Texture2D,
+		SortOrder = 0,
+		RequiredBuildings = new int[] { 0 },
+		Cost = 700,
+		BuildTime = 2.0f,
+		ObjectType = typeof(NavalYard),
 	};
 
     // Functions

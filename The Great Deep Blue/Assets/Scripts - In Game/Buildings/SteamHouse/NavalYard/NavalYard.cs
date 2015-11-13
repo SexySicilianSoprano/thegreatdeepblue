@@ -7,7 +7,7 @@ public class NavalYard : Building {
 	new void Start () 
 	{
 		AssignDetails (ItemDB.NavalYard);
-        Spawner = GetComponent<UnitSpawner>();
+        Spawner = gameObject.GetComponent<UnitSpawner>();
 		base.Start ();
 	}
 	

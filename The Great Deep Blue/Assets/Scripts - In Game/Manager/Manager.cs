@@ -81,7 +81,7 @@ public class Manager : MonoBehaviour, IManager {
 	public void BuildingAdded (Building building)
 	{
 		//Is the building a constructor?
-		if (building.ID == 0 || building.ID == 2)
+		if (building.ID == 0 || building.ID == 1)
 		{
 			m_GUIManager.AddConstructor (building);
 		}

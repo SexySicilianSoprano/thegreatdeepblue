@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public static class GUITextures 
+public static class GUITextures2
 {
 	private static Texture2D m_TypeButtonNormal;
 	private static Texture2D m_TypeButtonHover;
@@ -17,11 +17,11 @@ public static class GUITextures
 
 
 	//Building Buttons
-	public static Texture2D TypeButtonNormalB
+	/*public static Texture2D TypeButtonNormalB
 	{
 		get
 		{
-			return m_TypeButtonNormal ?? (m_TypeButtonNormal = Resources.Load ("GUI/Buttons/TypeButtons/Building/BuildingButton1") as Texture2D);
+			return m_TypeButtonNormal ?? (m_TypeButtonNormal = Resources.Load ("GUI/Buttons/TypeButtons/sidemenubutton_bg1") as Texture2D);
 		}
 	}
 	
@@ -29,7 +29,7 @@ public static class GUITextures
 	{
 		get
 		{
-			return m_TypeButtonHover ?? (m_TypeButtonHover = Resources.Load ("GUI/Buttons/TypeButtons/Building/BuildingButton2") as Texture2D);
+			return m_TypeButtonHover ?? (m_TypeButtonHover = Resources.Load ("GUI/Buttons/TypeButtons/sidemenubutton_bg2") as Texture2D);
 		}
 	}
 	
@@ -37,12 +37,12 @@ public static class GUITextures
 	{
 		get
 		{
-			return m_TypeButtonSelected ?? (m_TypeButtonSelected = Resources.Load ("GUI/Buttons/TypeButtons/Building/BuildingButton3") as Texture2D);
+			return m_TypeButtonSelected ?? (m_TypeButtonSelected = Resources.Load ("GUI/Buttons/TypeButtons/sidemenubutton_bg3") as Texture2D);
 		}
 	}
-
+*/
 	// Science buttons
-	/*public static Texture2D TypeButtonNormalSc
+	public static Texture2D TypeButtonNormalSc
 	{
 		get
 		{
@@ -65,7 +65,7 @@ public static class GUITextures
 			return m_TypeButtonSelected ?? (m_TypeButtonSelected = Resources.Load ("GUI/Buttons/TypeButtons/Science/ScienceButton3") as Texture2D);
 		}
 	}
-
+	/*
 	//Ship buttons
 	public static Texture2D TypeButtonNormalSh
 	{

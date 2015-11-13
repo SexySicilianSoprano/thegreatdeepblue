@@ -3,18 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// Type button. This is where the TAB buttons are located
+/// TODO: Remove all queuebutton references, since we don't need queuebuttons.
+/// </summary>
+
 public class TypeButton : ITypeButton
 {
 	private bool m_Selected = false;
 	private List<IQueueButton> m_QueueButtons = new List<IQueueButton>();
 	private ButtonType m_ButtonType;
 	
-	private GUIStyle m_ButtonStyle;
+	public GUIStyle m_ButtonStyle;
 	private Rect m_ButtonRect;
 	private Rect m_QueueButtonViewableRect;
 	
 	private string m_Content;
-	
+	private Texture2D m_Icon;
+
+	int Button_ID;
+
 	public bool Selected
 	{
 		get
@@ -38,38 +46,101 @@ public class TypeButton : ITypeButton
 		m_ButtonType = type;
 		
 		CalculateSize (menuArea);
-		
+
+
+		//TODO: TRY TO FIGURE OUT HOW TO MAKE IF WORK
+		//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSc();
+
 		//Create Style
-		m_ButtonStyle = GUIStyles.CreateTypeButtonStyle();
-		
+
+		if (m_ButtonType == ButtonType.Building){
+
+			m_ButtonStyle = GUIStyles.CreateTypeButtonStyleB();
+			Debug.Log (m_ButtonType);
+		}
+
+		if (m_ButtonType == ButtonType.Ship){
+			
+			m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSh();
+			Debug.Log (m_ButtonType);
+			
+		}
+
+		if (m_ButtonType == ButtonType.Science){
+			
+			m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSc();
+			Debug.Log (m_ButtonType);
+		}
+
+		//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSh();
+
 		//Attach to events
 		GUIEvents.TypeButtonChanged += ButtonPressedEvent;
 	}
-	
+	public void ChangeStyle(GUIStyle style)
+	{
+		m_ButtonStyle = style;
+	}
 	private void SelectedValueChanged(bool newValue)
 	{
+		// This is what is doing the selected buttons :I
+
 		if (newValue)
 		{
 			//Button has been clicked, set to highlight
-			m_ButtonStyle.normal.background = GUITextures.TypeButtonSelected;
-			m_ButtonStyle.hover.background = GUITextures.TypeButtonSelected;
+			if (m_ButtonType == ButtonType.Building){
+				
+				m_ButtonStyle.normal.background = GUITextures.TypeButtonSelectedB;
+				m_ButtonStyle.hover.background = GUITextures.TypeButtonSelectedB;
+			}
+			
+			if (m_ButtonType == ButtonType.Science){
+				
+				m_ButtonStyle.normal.background = GUITextures2.TypeButtonSelectedSc;
+				m_ButtonStyle.hover.background = GUITextures2.TypeButtonSelectedSc;
+			}
+			
+			if (m_ButtonType == ButtonType.Ship){
+				
+				m_ButtonStyle.normal.background = GUITextures3.TypeButtonSelectedSh;
+				m_ButtonStyle.hover.background = GUITextures3.TypeButtonSelectedSh;
+			}
+
+
 		}
 		else
 		{
 			//Button has been deselected, remove highlight
-			m_ButtonStyle.normal.background = GUITextures.TypeButtonNormal;
-			m_ButtonStyle.hover.background = GUITextures.TypeButtonHover;
+			if (m_ButtonType == ButtonType.Building){
+				
+				m_ButtonStyle.normal.background = GUITextures.TypeButtonNormalB;
+				m_ButtonStyle.hover.background = GUITextures.TypeButtonHoverB;
+			}
+			
+			if (m_ButtonType == ButtonType.Science){
+				
+				m_ButtonStyle.normal.background = GUITextures2.TypeButtonNormalSc;
+				m_ButtonStyle.hover.background = GUITextures2.TypeButtonHoverSc;
+			}
+			
+			if (m_ButtonType == ButtonType.Ship){
+				
+				m_ButtonStyle.normal.background = GUITextures3.TypeButtonNormalSh;
+				m_ButtonStyle.hover.background = GUITextures3.TypeButtonHoverSh;
+			}
+
+
+
 		}
 	}	
 	
 	public void Execute()
 	{
 		//Draw type button
-		if (GUI.Button (m_ButtonRect, m_Content, m_ButtonStyle))
+		if (GUI.Button (m_ButtonRect, m_Icon, m_ButtonStyle))
 		{
 			GUIEvents.TypeButtonPressed (this, m_ButtonType);
 		}
-		
 		if (Selected)
 		{
 			//Draw Queue Buttons
@@ -165,23 +236,46 @@ public class TypeButton : ITypeButton
 		case ButtonType.Building:
 			
 			buttonStartX += (buttonSize*0);
-			m_Content = Strings.B;
-		
+			//m_Content = Strings.B;
+			//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleB();
+			Button_ID = 1;
+			//m_Icon = Icons.B;
+			
 			break;
 			
-		case ButtonType.Vehicle:
+		case ButtonType.Ship:
 			
-			buttonStartX += (buttonSize*1);
-			m_Content = Strings.V;
-			
+			buttonStartX += (buttonSize*2);
+			//m_Content = Strings.S;
+			//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSc();
+			Button_ID = 2;
+			//m_Icon = Icons2.Sc;
+
 			break;
 			
 		case ButtonType.Science:
 			
-			buttonStartX += (buttonSize*2);
-			m_Content = Strings.S;
+			buttonStartX += (buttonSize*4);
+			//m_Content = Strings.I;
+			//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSh();
+			Button_ID = 3;
+			//m_Icon = Icons3.Sh;
+
+			break;
+			
+		/*case ButtonType.Vehicle:
+			
+			buttonStartX += (buttonSize*3);
+			m_Content = Strings.V;
 			
 			break;
+			
+		case ButtonType.Air:
+			
+			buttonStartX += (buttonSize*4);
+			m_Content = Strings.A;
+			
+			break; */
 		}
 		
 		//Assign rect
@@ -196,6 +290,7 @@ public class TypeButton : ITypeButton
 public enum ButtonType
 {
 	Building = Const.TYPE_Building,
-	Vehicle = Const.TYPE_Vehicle,
+	Ship = Const.TYPE_Ship,
 	Science = Const.TYPE_Science,
+	
 }

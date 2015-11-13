@@ -16,7 +16,6 @@ public class Item {
 	public float Acceleration = 0;
 	
 	public GameObject Prefab;
-    public UnitSpawner Spawner;
 	
 	public int Cost;
 	public float BuildTime;
@@ -58,6 +57,7 @@ public class Item {
 	private bool m_Paused = false;
 	private bool m_Building = false;
 	private bool m_Finished = false;
+    private bool m_UnitFinished = false;
 	
 	private float m_Timer = 0;
 	private IManager m_Manager;
@@ -87,6 +87,15 @@ public class Item {
 			return m_Finished;
 		}
 	}
+
+    public bool IsUnitFinished
+    {
+        get
+        {
+            return m_UnitFinished;
+        }
+
+    }
 	
 	//-----------------------------------------------------------------
 	
@@ -200,9 +209,10 @@ public class Item {
 				}
 				else
 				{
-					//Create unit straight away and finish build
-					
+                    //Create unit straight away and finish build
 					FinishBuild ();
+                    m_UnitFinished = true;
+
 				}
 				
 				GUIEvents.ItemUpdateTimer -= Update;
@@ -267,6 +277,15 @@ public class Item {
 		m_Building = false;
 		m_Finished = false;
 	}
+
+    public void SpawnUnit()
+    {
+        Debug.Log("Unit Spawn!");        
+        m_UnitFinished = false;
+        m_Building = false;
+        m_Finished = false;
+        
+    }
 	
 	public float GetProgress()
 	{

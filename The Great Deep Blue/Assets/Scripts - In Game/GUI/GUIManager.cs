@@ -19,6 +19,7 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 	private Texture2D m_MainMenuBGColor;
 	
 	private ITypeButton[] m_TypeButtons = new TypeButton[3];
+
 	private IMaintenanceButtons[] m_MaintenanceButtons = new IMaintenanceButtons[3];
 	private IManager m_Manager;
 	
@@ -117,9 +118,12 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		
 		//Create type buttons
 		m_TypeButtons[0] = new TypeButton(ButtonType.Building, menuArea);
-		m_TypeButtons[1] = new TypeButton(ButtonType.Vehicle, menuArea);
+		m_TypeButtons[1] = new TypeButton(ButtonType.Ship, menuArea);
 		m_TypeButtons[2] = new TypeButton(ButtonType.Science, menuArea);
-		
+
+		//m_TypeButtons[3] = new TypeButton(ButtonType.Vehicle, menuArea);
+		//m_TypeButtons[4] = new TypeButton(ButtonType.Air, menuArea);
+
 		//Calcualte Maintenace button rects
 		float size = m_RightMiniMapBG.width-4;
 		float totalHeight = size*3;
@@ -159,13 +163,14 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		GUI.DrawTexture (m_RightMiniMapBG, m_MainMenuBGColor);
 		GUI.DrawTexture (m_AboveMiniMapBG, m_MainMenuBGColor);
 		GUI.DrawTexture (m_BelowMiniMapBG, m_MainMenuBGColor);
-		
+
 		//Draw Type Buttons
+
 		foreach (IButton typeButton in m_TypeButtons)
 		{
 			typeButton.Execute ();
 		}
-		
+
 		//Draw maintenance buttons
 		foreach (IMaintenanceButtons button in m_MaintenanceButtons)
 		{
@@ -209,7 +214,6 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 			m_TypeButtons[1].AddNewQueue (building);
 			break;
 		}
-        
 	}
 
 	public void RemoveConstructor (Building building)

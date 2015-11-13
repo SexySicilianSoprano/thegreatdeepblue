@@ -14,12 +14,12 @@ public static class Const {
 	public const int ORDER_DEPLOY = 3;
 	
 	public const int BUILDING_FloatingFortress = 0;
-	public const int BUILDING_Refinery = 1;
-    public const int BUILDING_NavalYard = 2;
+    public const int BUILDING_NavalYard = 1;
+    public const int BUILDING_Refinery = 2; 
     public const int BUILDING_Laboratory = 3;
 
     public const int TYPE_Building = 0;
-	public const int TYPE_Vehicle = 1;
+	public const int TYPE_Ship = 1;
 	public const int TYPE_Science = 2;
 	
 	public const int MAINTENANCE_Nothing = 0;
