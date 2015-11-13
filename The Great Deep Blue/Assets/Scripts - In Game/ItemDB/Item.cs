@@ -279,12 +279,10 @@ public class Item {
 	}
 
     public void SpawnUnit()
-    {
-        Debug.Log("Unit Spawn!");        
+    {       
         m_UnitFinished = false;
         m_Building = false;
-        m_Finished = false;
-        
+        m_Finished = true;        
     }
 	
 	public float GetProgress()

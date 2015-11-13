@@ -1,0 +1,145 @@
+fileFormatVersion: 2
+guid: 3c5841ef06dbca540a261dee646c5111
+timeCreated: 1447071973
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Barel 1
+    100002: Barel 2
+    100004: Barel 3
+    100006: Cannon  Cocpit
+    100008: Cannon Rizer 1
+    100010: Cannon Rizer 3
+    100012: Cannon Rizer 4
+    100014: Cannon Rizer 5
+    100016: Cannon Turnbase
+    100018: //RootNode
+    100020: FlotingFortress
+    100022: Gear 1
+    100024: Gear 3
+    100026: Pipe
+    100028: Windmill
+    400000: Barel 1
+    400002: Barel 2
+    400004: Barel 3
+    400006: Cannon  Cocpit
+    400008: Cannon Rizer 1
+    400010: Cannon Rizer 3
+    400012: Cannon Rizer 4
+    400014: Cannon Rizer 5
+    400016: Cannon Turnbase
+    400018: FlotingFortress
+    400020: //RootNode
+    400022: Gear 1
+    400024: Gear 3
+    400026: Pipe
+    400028: Windmill
+    2300000: Barel 1
+    2300002: Barel 2
+    2300004: Barel 3
+    2300006: Cannon  Cocpit
+    2300008: Cannon Rizer 1
+    2300010: Cannon Rizer 3
+    2300012: Cannon Rizer 4
+    2300014: Cannon Rizer 5
+    2300016: Cannon Turnbase
+    2300018: FlotingFortress
+    2300020: Gear 1
+    2300022: Gear 3
+    2300024: Pipe
+    2300026: Windmill
+    3300000: Barel 1
+    3300002: Barel 2
+    3300004: Barel 3
+    3300006: Cannon  Cocpit
+    3300008: Cannon Rizer 1
+    3300010: Cannon Rizer 3
+    3300012: Cannon Rizer 4
+    3300014: Cannon Rizer 5
+    3300016: Cannon Turnbase
+    3300018: FlotingFortress
+    3300020: Gear 1
+    3300022: Gear 3
+    3300024: Pipe
+    3300026: Windmill
+    4300000: Cannon Turnbase
+    4300002: Cannon  Cocpit
+    4300004: Barel 1
+    4300006: Barel 2
+    4300008: Barel 3
+    4300010: Cannon Rizer 1
+    4300012: Cannon Rizer 3
+    4300014: Cannon Rizer 4
+    4300016: FlotingFortress
+    4300018: Pipe
+    4300020: Gear 3
+    4300022: Gear 1
+    4300024: Cannon Rizer 5
+    4300026: Windmill
+    7400000: Scene
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

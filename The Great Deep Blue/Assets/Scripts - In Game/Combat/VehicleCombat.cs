@@ -17,12 +17,11 @@ public class VehicleCombat : Combat {
     private Transform Spawner;
     private Vector3 SpawnerPos;
     */
-
+    
     // Use this for initialization
     void Start()
     {
         m_Parent = GetComponent<RTSObject>();
-        CalculateFireRate();
         //Spawner = m_Parent.transform.GetChild(0);
     }
 
@@ -57,6 +56,7 @@ public class VehicleCombat : Combat {
         // Update positions
         //SpawnerPos = Spawner.transform.position;
         CurrentPos = CurrentLocation;
+        CalculateFireRate();
 
         if (TargetSet && canFire == true)
         {
@@ -151,31 +151,38 @@ public class VehicleCombat : Combat {
         TargetSet = true;
         if (m_Target)
         {
-            // Is the target within maximum range?
-            if (TargetInRange())
+            if (canFire)
             {
-                // Target is within range
-                Debug.Log("Target in range!");
-                // Start firing
-                Debug.DrawLine(CurrentPos, TargetPos);
-                //LaunchProjectile(Projectile);
-                m_Target.TakeDamage(Damage);
-                canFire = false;
-                StartCoroutine(WaitAndFire());
-
-                if (m_Target == null)
+                // Is the target within maximum range?
+                if (TargetInRange())
                 {
+                    // Target is within range
+                    Debug.Log("Target in range!");
+                    // Start firing
+                    Debug.DrawLine(CurrentPos, TargetPos);
+                    //LaunchProjectile(Projectile);
+                    m_Target.TakeDamage(Damage);
+                    canFire = false;
+                    StartCoroutine(WaitAndFire());
+
+                    if (m_Target == null)
+                    {
+                        Stop();
+                    }
+                }
+                else
+                {
+                    // Target not in range
+                    // Move to range
+                    Debug.Log("Target not in range!");
+                    //Follow();
                     Stop();
                 }
             }
             else
             {
-                // Target not in range
-                // Move to range
-                Debug.Log("Target not in range!");
-                Follow();
-            }
-            
+                WaitAndFire();
+            }            
         }
         else
         {

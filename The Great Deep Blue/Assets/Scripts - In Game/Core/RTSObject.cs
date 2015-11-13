@@ -86,6 +86,8 @@ public abstract class RTSObject : MonoBehaviour {
 		m_Health -= damage;
 
         if (m_Health == 0 || m_Health <= 0) {
+
+            GameObject Explosion = Instantiate(Resources.Load("Explosion_Ship"), gameObject.transform.position, gameObject.transform.rotation) as GameObject;
             Destroy(gameObject);
         }
 	}

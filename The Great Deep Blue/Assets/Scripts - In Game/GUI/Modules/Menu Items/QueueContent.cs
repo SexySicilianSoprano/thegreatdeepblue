@@ -22,7 +22,6 @@ public class QueueContent : IQueueContent
 	
 	public QueueContent(Rect area, Building building)
 	{
-        Debug.Log(building);
         m_Host = building;
 		CalculateSize (area);
 		m_UIManager = ManagerResolver.Resolve<IUIManager>();
@@ -57,8 +56,7 @@ public class QueueContent : IQueueContent
                                 //Building was placed
                                 m_Building = false;
                             });
-
-                            Debug.Log(Host);
+                            
                         }
                         else if (!m_Building)
                         {
@@ -99,7 +97,6 @@ public class QueueContent : IQueueContent
                 else if (item.IsUnitFinished)
                 {
                     item.SpawnUnit();
-                    Debug.Log(Host);
                     m_Building = false;
                 }
 				
