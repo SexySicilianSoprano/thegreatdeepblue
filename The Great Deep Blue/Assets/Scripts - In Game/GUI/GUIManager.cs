@@ -120,10 +120,7 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		m_TypeButtons[0] = new TypeButton(ButtonType.Building, menuArea);
 		m_TypeButtons[1] = new TypeButton(ButtonType.Ship, menuArea);
 		m_TypeButtons[2] = new TypeButton(ButtonType.Science, menuArea);
-
-		//m_TypeButtons[3] = new TypeButton(ButtonType.Vehicle, menuArea);
-		//m_TypeButtons[4] = new TypeButton(ButtonType.Air, menuArea);
-
+        
 		//Calcualte Maintenace button rects
 		float size = m_RightMiniMapBG.width-4;
 		float totalHeight = size*3;

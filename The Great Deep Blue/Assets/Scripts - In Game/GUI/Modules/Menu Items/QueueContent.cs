@@ -16,7 +16,7 @@ public class QueueContent : IQueueContent
 	private bool m_ArrowsEnabled = false;
 	private Rect[] m_ArrowRects = new Rect[2];
 	private bool m_Building = false;
-    public Building m_Host;
+    private Building m_Host;
 	
 	private IUIManager m_UIManager;
 	
@@ -29,7 +29,6 @@ public class QueueContent : IQueueContent
 	
 	public void Execute()
 	{
-        Building Host = m_Host;
         //Draw Items
         int counter = 0;
 		int itemsDrawn = 0;
@@ -96,8 +95,10 @@ public class QueueContent : IQueueContent
                 }
                 else if (item.IsUnitFinished)
                 {
+                    Debug.Log(m_Host);
                     item.SpawnUnit();
                     m_Building = false;
+                    m_Host.Spawner.Spawn(item);
                 }
 				
 				itemsDrawn++;

@@ -33,7 +33,7 @@ public static class ItemDB {
         Cost = 100,
         BuildTime = 3.0f,
     };
-
+     
     public static Item Destroyer = new Item
     {
         ID = 1,
@@ -61,8 +61,9 @@ public static class ItemDB {
 		ID = 0,
 		TypeIdentifier = Const.TYPE_Building,
 		TeamIdentifier = Const.TEAM_STEAMHOUSE,
-		Name = "Floating Fortress",
-		Health = 1000.0f,
+        BuildingIdentifier = Const.BUILDING_FloatingFortress,
+        Name = "Floating Fortress",
+		Health = 100.0f,
 		Armour = 10.0f,
 		Explosion = m_LargeExplosion,
 		Prefab = Resources.Load ("Models/Buildings/SteamHouse/Floating Fortress/FloatingFortress", typeof(GameObject)) as GameObject,
@@ -78,6 +79,7 @@ public static class ItemDB {
 		ID = 1,
 		TypeIdentifier = Const.TYPE_Building,
 		TeamIdentifier = Const.TEAM_STEAMHOUSE,
+        BuildingIdentifier = Const.BUILDING_NavalYard,
 		Name = "Naval Yard",
 		Health = 100.0f,
 		Armour = 3.0f,
@@ -87,7 +89,7 @@ public static class ItemDB {
 		SortOrder = 0,
 		RequiredBuildings = new int[] { 0 },
 		Cost = 700,
-		BuildTime = 2.0f,
+		BuildTime = 5.0f,
 		ObjectType = typeof(NavalYard),
 	};
 

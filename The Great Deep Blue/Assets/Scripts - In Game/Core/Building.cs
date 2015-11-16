@@ -11,6 +11,11 @@ public class Building : RTSObject {
 		//Tell the manager this building has been added
 		ManagerResolver.Resolve<IManager>().BuildingAdded(this);
 	}
+
+    public int BuildingIdentifier
+    {
+        get; set;
+    }
 	
 	public bool InteractWith(IOrderable obj)
 	{

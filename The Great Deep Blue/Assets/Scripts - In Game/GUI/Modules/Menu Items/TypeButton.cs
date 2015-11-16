@@ -47,10 +47,6 @@ public class TypeButton : ITypeButton
 		
 		CalculateSize (menuArea);
 
-
-		//TODO: TRY TO FIGURE OUT HOW TO MAKE IF WORK
-		//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSc();
-
 		//Create Style
 
 		if (m_ButtonType == ButtonType.Building){
@@ -71,8 +67,6 @@ public class TypeButton : ITypeButton
 			m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSc();
 			Debug.Log (m_ButtonType);
 		}
-
-		//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSh();
 
 		//Attach to events
 		GUIEvents.TypeButtonChanged += ButtonPressedEvent;
@@ -105,7 +99,6 @@ public class TypeButton : ITypeButton
 				m_ButtonStyle.normal.background = GUITextures3.TypeButtonSelectedSh;
 				m_ButtonStyle.hover.background = GUITextures3.TypeButtonSelectedSh;
 			}
-
 
 		}
 		else
@@ -238,7 +231,7 @@ public class TypeButton : ITypeButton
 			buttonStartX += (buttonSize*0);
 			//m_Content = Strings.B;
 			//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleB();
-			Button_ID = 1;
+			Button_ID = 0;
 			//m_Icon = Icons.B;
 			
 			break;
@@ -248,7 +241,7 @@ public class TypeButton : ITypeButton
 			buttonStartX += (buttonSize*2);
 			//m_Content = Strings.S;
 			//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSc();
-			Button_ID = 2;
+			Button_ID = 1;
 			//m_Icon = Icons2.Sc;
 
 			break;
@@ -258,7 +251,7 @@ public class TypeButton : ITypeButton
 			buttonStartX += (buttonSize*4);
 			//m_Content = Strings.I;
 			//m_ButtonStyle = GUIStyles.CreateTypeButtonStyleSh();
-			Button_ID = 3;
+			Button_ID = 2;
 			//m_Icon = Icons3.Sh;
 
 			break;

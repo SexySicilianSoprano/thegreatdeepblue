@@ -3,13 +3,17 @@ using System.Collections;
 
 public class UnitSpawner : MonoBehaviour {
 
-    public Transform Spawner;
-    public Vector3 SpawnerPos;
+    private Transform Spawner;
+    private Vector3 SpawnerPos;
 
 	// Use this for initialization
 	void Start ()
     {
         Spawner = gameObject.transform.GetChild(0);
+    }
+
+    void Update()
+    {
         SpawnerPos = Spawner.transform.position;
     }
 	

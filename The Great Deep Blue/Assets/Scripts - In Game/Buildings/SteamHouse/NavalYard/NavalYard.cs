@@ -14,6 +14,6 @@ public class NavalYard : Building {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+
 	}
 }

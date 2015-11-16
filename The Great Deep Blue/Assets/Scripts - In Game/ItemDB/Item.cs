@@ -22,6 +22,7 @@ public class Item {
 	
 	public int TypeIdentifier;
 	public int TeamIdentifier;
+    public int BuildingIdentifier;
     public int PlayerIdentifier;
 	
 	private Texture2D m_ItemImage;
@@ -133,6 +134,7 @@ public class Item {
 		TypeIdentifier = item.TypeIdentifier;
 		TeamIdentifier = item.TeamIdentifier;
         PlayerIdentifier = item.PlayerIdentifier;
+        BuildingIdentifier = item.BuildingIdentifier;
 		m_ItemImage = item.ItemImage;
 		ItemImageHover = item.ItemImageHover;
 		SortOrder = item.SortOrder;
@@ -282,7 +284,7 @@ public class Item {
     {       
         m_UnitFinished = false;
         m_Building = false;
-        m_Finished = true;        
+        m_Finished = false;        
     }
 	
 	public float GetProgress()

@@ -83,8 +83,8 @@ public class QueueButton : IQueueButton
 		m_ButtonRect = new Rect(buttonStartX, buttonStartY, buttonSize, buttonSize);
 		
 		//Assign ID's
-		m_ID = Id;
-        m_BuildingIdentifier = building.UniqueID;
+		m_ID = building.UniqueID;
+        m_BuildingIdentifier = building.ID;
 		
 		//Create style
 		m_ButtonStyle = GUIStyles.CreateQueueButtonStyle();
