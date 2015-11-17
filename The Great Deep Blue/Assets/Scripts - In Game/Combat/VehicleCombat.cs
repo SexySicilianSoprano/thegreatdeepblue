@@ -8,6 +8,8 @@ public class VehicleCombat : Combat {
     // ##### Private variables #####
     private bool TargetSet = false;
     private bool canFire = true;
+    private bool m_FollowEnemy = false;
+    private bool m_FireAtEnemy = false;
 
     private float m_FireRate;
 
@@ -17,10 +19,13 @@ public class VehicleCombat : Combat {
     private Transform Spawner;
     private Vector3 SpawnerPos;
     */
+
+    
     
     // Use this for initialization
     void Start()
     {
+        SwitchMode(CombatMode.Defensive);
         m_Parent = GetComponent<RTSObject>();
         //Spawner = m_Parent.transform.GetChild(0);
     }
@@ -62,13 +67,32 @@ public class VehicleCombat : Combat {
         {
             TargetPos = TargetLocation;
             Attack(m_Target);
-        }
-        
+        }        
         else if (TargetSet == false || m_Target == null)
         {
             Stop();
         }
 
+        if (m_Parent.AttackingEnemy)
+        {
+            m_Target = m_Parent.AttackingEnemy;
+            if (m_FireAtEnemy == true && m_FollowEnemy == true)
+            {
+                Attack(m_Target);
+            }
+            else if (m_FireAtEnemy == true && m_FollowEnemy == false)
+            {
+                Attack(m_Target);
+            }
+            else if (m_FireAtEnemy == false && m_FollowEnemy == false)
+            {
+
+            }
+            else
+            {
+                Debug.LogError("Something went wrong with stances");
+            }
+        }
     }
 
     // ##### Assign Details #####
@@ -156,14 +180,7 @@ public class VehicleCombat : Combat {
                 // Is the target within maximum range?
                 if (TargetInRange())
                 {
-                    // Target is within range
-                    Debug.Log("Target in range!");
-                    // Start firing
-                    Debug.DrawLine(CurrentPos, TargetPos);
-                    //LaunchProjectile(Projectile);
-                    m_Target.TakeDamage(Damage);
-                    canFire = false;
-                    StartCoroutine(WaitAndFire());
+                    Fire();
 
                     if (m_Target == null)
                     {
@@ -172,11 +189,7 @@ public class VehicleCombat : Combat {
                 }
                 else
                 {
-                    // Target not in range
-                    // Move to range
-                    Debug.Log("Target not in range!");
-                    //Follow();
-                    Stop();
+                    Follow();
                 }
             }
             else
@@ -190,19 +203,31 @@ public class VehicleCombat : Combat {
         }
     }
 
+    private void Fire()
+    {
+        // Start firing
+        Debug.DrawLine(CurrentPos, TargetPos);
+        //LaunchProjectile(Projectile);
+        m_Target.TakeDamage(Damage);
+        m_Target.AttackingEnemy = m_Parent;
+        canFire = false;
+        StartCoroutine(WaitAndFire());
+    }
+
     public override void Stop()
     {
         // Set no target and target to null
         TargetSet = false;
         m_Target = null;
+        m_Parent.AttackingEnemy = null;
     }
 
     public void Follow() {
         // Follow target until in range
-        GetComponent<VehicleMovement>().Follow(m_Target.transform);
+        GetComponent<Movement>().Follow(m_Target.transform);
 
         if (TargetInRange()) {
-            GetComponent<VehicleMovement>().Stop();
+            GetComponent<Movement>().Stop();
         }
     }
 
@@ -262,11 +287,34 @@ public class VehicleCombat : Combat {
         }
     }
 
+    public void SwitchMode(CombatMode mode)
+    {
+        switch (mode)
+        {
+            case CombatMode.Passive:
+                break;
+
+            case CombatMode.Aggressive:
+                break;
+
+            case CombatMode.Defensive:
+                m_FollowEnemy = false;
+                m_FireAtEnemy = true;
+                break;
+
+        }
+    }
+
     IEnumerator WaitAndFire()
     {
         yield return new WaitForSeconds(m_FireRate);
         canFire = true;
     }
 
+    public enum CombatMode {
+        Passive,
+        Aggressive,
+        Defensive
+    } 
   
 }

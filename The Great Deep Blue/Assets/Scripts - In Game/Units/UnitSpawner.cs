@@ -19,6 +19,10 @@ public class UnitSpawner : MonoBehaviour {
 	
     public void Spawn (Item item)
     {
+        Vector3 m_ReadyPosition = new Vector3(SpawnerPos.x * 10, SpawnerPos.y, SpawnerPos.z * 10);
         GameObject newUnit = Instantiate(item.Prefab, SpawnerPos, Spawner.rotation) as GameObject;
+        Debug.Log(newUnit.GetComponent<Unit>());
+        newUnit.GetComponent<Movement>().MoveTo(m_ReadyPosition);
+        
     }
 }

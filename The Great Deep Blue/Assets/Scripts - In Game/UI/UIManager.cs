@@ -380,13 +380,13 @@ public class UIManager : MonoBehaviour, IUIManager {
 			//We've left clicked, if we're valid place the building
 			if (m_PositionValid)
 			{
-				GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ItemBeingPlaced.Prefab.transform.rotation);
+				GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ObjectBeingPlaced.transform.rotation);
                     //UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent
-                            //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
-                           // m_ItemBeingPlaced.ObjectType.ToString ());
-                           
+                    //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
+                    // m_ItemBeingPlaced.ObjectType.ToString ());
+
                 newObject.layer = 8;
-				newObject.tag = "Player1";
+                newObject.tag = "Player1";
 				
                 /*
 				BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
@@ -405,7 +405,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 				m_CallBackFunction.Invoke ();
 				m_Placed = true;
                 newObject.GetComponent<Collider>().isTrigger = false;
-				SwitchToModeNormal ();
+        		SwitchToModeNormal ();
 			}
 			break;
 		}
@@ -559,6 +559,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 	{
 		switch (mode)
 		{
+            
 		case Mode.Normal:
 			SwitchToModeNormal ();
 			break;
@@ -589,7 +590,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 		m_Mode = Mode.PlaceBuilding;
 		m_CallBackFunction = callBackFunction;
 		m_ItemBeingPlaced = item;
-		m_ObjectBeingPlaced = (GameObject)Instantiate (item.Prefab);
+		m_ObjectBeingPlaced = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab);
 		m_ObjectBeingPlaced.AddComponent<BuildingBeingPlaced>();
 	}
 }

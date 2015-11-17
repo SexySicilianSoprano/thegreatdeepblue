@@ -9,8 +9,10 @@ public class Building : RTSObject {
 	protected void Start()
 	{
 		//Tell the manager this building has been added
-		ManagerResolver.Resolve<IManager>().BuildingAdded(this);
-	}
+        if (!gameObject.GetComponent<BuildingBeingPlaced>()) { 
+		    ManagerResolver.Resolve<IManager>().BuildingAdded(this);
+        }
+    }
 
     public int BuildingIdentifier
     {
@@ -56,4 +58,5 @@ public class Building : RTSObject {
 			break;
 		}
 	}
+
 }

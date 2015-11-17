@@ -180,13 +180,30 @@ public class Unit : RTSObject, IOrderable {
 			    return false;
 		}
 	}
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), other.GetComponent<Collider>());
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
+        {
+            GetComponent<Collider>().isTrigger = false;
+        }
+        
+    }
     
 	private void CancelDeploy()
 	{
 		((IDeployable)this).StopDeploy ();
 	}
-	
-	void OnDestroy()
+   
+    void OnDestroy()
 	{
 		//Remove object from selected manager
 		selectedManager.DeselectObject(this);

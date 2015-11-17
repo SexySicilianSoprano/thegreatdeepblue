@@ -43,7 +43,8 @@ public abstract class RTSObject : MonoBehaviour {
         get;
         private set;
     }
-
+    
+    public RTSObject AttackingEnemy;
     public UnitSpawner Spawner;
 	
     // Health details

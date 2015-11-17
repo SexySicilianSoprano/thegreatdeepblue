@@ -65,29 +65,38 @@ public class VehicleMovement : LandMovement {
 				Debug.DrawLine (transform.position, transform.position+Vector3.forward*10);
 			}
 		}
-		
-		if (Path != null && Path.Count > 0) {
 
-			//We have a path, lets move!
-			//Make sure we're pointing at the target
-			if (PointingAtTarget ()) {
-				//We're pointing at the target, lets move
-				MoveForward ();
-			}
-			
-			//Update the current tile
-			UpdateCurrentTile ();
-			
-			//Set the units height, x angle and z angle to correct values
-			SetAngles ();
+        if (Path != null && Path.Count > 0)
+        {
 
-			rb.isKinematic = true;
-		} 
+            //We have a path, lets move!
+            //Make sure we're pointing at the target
+            if (PointingAtTarget())
+            {
+                //We're pointing at the target, lets move
+                MoveForward();
+            }
+
+            //Update the current tile
+            UpdateCurrentTile();
+
+            //Set the units height, x angle and z angle to correct values
+            SetAngles();
+
+            rb.isKinematic = true;
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
 	}
 
 	public override void MoveTo(Vector3 position)
 	{
-		if (m_ArrivalTile != null) m_ArrivalTile.ExpectingArrival = false;
+        if (m_ArrivalTile != null)
+        {
+            m_ArrivalTile.ExpectingArrival = false;
+        }
 		m_ArrivalTile = Grid.GetClosestArrivalTile(position);
 		m_ArrivalTile.ExpectingArrival = true;
 		
@@ -107,7 +116,7 @@ public class VehicleMovement : LandMovement {
 
 	public override void Follow (Transform target)
 	{
-		
+        MoveTo(target.position);		
 	}
 	
 	public override void AssignDetails(Item item)

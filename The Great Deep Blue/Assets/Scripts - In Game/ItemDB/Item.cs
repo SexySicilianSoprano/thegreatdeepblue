@@ -214,7 +214,6 @@ public class Item {
                     //Create unit straight away and finish build
 					FinishBuild ();
                     m_UnitFinished = true;
-
 				}
 				
 				GUIEvents.ItemUpdateTimer -= Update;
@@ -300,5 +299,5 @@ public class Item {
 	private void UnPause()
 	{
 		m_Paused = false;
-	}
+	}   
 }

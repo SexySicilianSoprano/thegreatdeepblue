@@ -151,7 +151,7 @@ public class BuildingBeingPlaced : MonoBehaviour {
     void OnTriggerExit(Collider other) {
         BuildValid = true;
     }
-    	
+        
 	void OnDestroy()
 	{
 		//Make sure to destroy the materials we created
