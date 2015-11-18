@@ -12,13 +12,14 @@ public class VehicleCombat : Combat {
     private bool m_FireAtEnemy = false;
 
     private float m_FireRate;
+    private float m_TurretSpeed;
 
     private Vector3 CurrentPos;
     private Vector3 TargetPos;
-    /* 
+    
     private Transform Spawner;
     private Vector3 SpawnerPos;
-    */
+    
 
     
     
@@ -27,7 +28,7 @@ public class VehicleCombat : Combat {
     {
         SwitchMode(CombatMode.Defensive);
         m_Parent = GetComponent<RTSObject>();
-        //Spawner = m_Parent.transform.GetChild(0);
+        Spawner = m_Parent.transform.GetChild(0);
     }
 
     /*
@@ -58,14 +59,16 @@ public class VehicleCombat : Combat {
 
     void Update()
     {
-        // Update positions
-        //SpawnerPos = Spawner.transform.position;
+        SwitchMode(CombatMode.Defensive);
+        //Update positions
+        SpawnerPos = Spawner.transform.position;
         CurrentPos = CurrentLocation;
         CalculateFireRate();
+        m_TurretSpeed = 2 / 6;
 
         if (TargetSet && canFire == true)
         {
-            TargetPos = TargetLocation;
+            TargetPos = TargetLocation;            
             Attack(m_Target);
         }        
         else if (TargetSet == false || m_Target == null)
@@ -76,15 +79,11 @@ public class VehicleCombat : Combat {
         if (m_Parent.AttackingEnemy)
         {
             m_Target = m_Parent.AttackingEnemy;
-            if (m_FireAtEnemy == true && m_FollowEnemy == true)
+            if (m_FireAtEnemy == true)
             {
                 Attack(m_Target);
             }
-            else if (m_FireAtEnemy == true && m_FollowEnemy == false)
-            {
-                Attack(m_Target);
-            }
-            else if (m_FireAtEnemy == false && m_FollowEnemy == false)
+            else if (m_FireAtEnemy == false)
             {
 
             }
@@ -121,60 +120,14 @@ public class VehicleCombat : Combat {
         isAntiStructure = weapon.isAntiStructure;
         Projectile = weapon.Projectile;
     }
-
-    /*
-    // ##### Functions #####
+       
     public override void Attack(RTSObject obj)
     {
         m_Target = obj;
         TargetSet = true;
         if (m_Target)
         {
-            // Is target in line with the turret?
-            if (TargetInLine())
-            {                
-                // Is the target within maximum range?
-                if (TargetInRange())
-                {
-                    // Target is within range
-                    Debug.Log("Target in range!");
-                    // Start firing
-                    Debug.DrawLine(SpawnerPos, TargetPos);
-                    //LaunchProjectile(Projectile);
-                    m_Target.TakeDamage(Damage);
-                    canFire = false;
-                    StartCoroutine(WaitAndFire());
-
-                    if (m_Target == null)
-                    {
-                        Stop();
-                    }
-                }
-                else
-                {
-                    // Target not in range
-                    // Move to range
-                    Debug.Log("Target not in range!");
-                }
-            }
-            else
-            {
-                RotateTurret();
-            }
-        }
-        else
-        {
-            Stop();
-        }
-    } 
-    */
-
-    public override void Attack(RTSObject obj)
-    {
-        m_Target = obj;
-        TargetSet = true;
-        if (m_Target)
-        {
+            RotateTowards(TargetPos);
             if (canFire)
             {
                 // Is the target within maximum range?
@@ -206,7 +159,7 @@ public class VehicleCombat : Combat {
     private void Fire()
     {
         // Start firing
-        Debug.DrawLine(CurrentPos, TargetPos);
+        Debug.DrawLine(SpawnerPos, TargetPos);
         //LaunchProjectile(Projectile);
         m_Target.TakeDamage(Damage);
         m_Target.AttackingEnemy = m_Parent;
@@ -224,10 +177,14 @@ public class VehicleCombat : Combat {
 
     public void Follow() {
         // Follow target until in range
-        GetComponent<Movement>().Follow(m_Target.transform);
+        if (m_FollowEnemy)
+        {
+            GetComponent<Movement>().Follow(m_Target.transform);
 
-        if (TargetInRange()) {
-            GetComponent<Movement>().Stop();
+            if (TargetInRange())
+            {
+                GetComponent<Movement>().Stop();
+            }
         }
     }
 
@@ -266,6 +223,15 @@ public class VehicleCombat : Combat {
         Debug.DrawRay(Spawner.transform.position, newDir, Color.red);
         Spawner.transform.rotation = Quaternion.LookRotation(newDir);
     } */
+
+    private void RotateTowards(Vector3 location)
+    {
+        Vector3 m_Direction = (location - Spawner.transform.position).normalized;
+
+        Quaternion m_LookRotation = Quaternion.LookRotation(new Vector3(m_Direction.x, m_Direction.y * 0, m_Direction.z));
+
+        Spawner.transform.rotation = Quaternion.Slerp(Spawner.transform.rotation, m_LookRotation, Time.deltaTime * m_TurretSpeed);
+    }
 
     private void CalculateFireRate() {
         // Calculates rate of fire with 60 divided by shots per minute

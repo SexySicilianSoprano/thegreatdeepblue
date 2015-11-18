@@ -367,11 +367,14 @@ public class UIManager : MonoBehaviour, IUIManager {
 				//Friendly Unit, is the unit selected?
 				if (m_SelectedManager.IsObjectSelected(currentObject))
 				{
-					//Is the unit deployable?
-					if (currentObject.GetComponent<Unit>().IsDeployable())
-					{
-						currentObject.GetComponent<Unit>().GiveOrder (Orders.CreateDeployOrder());
-					}
+                    //Is the unit deployable?
+                    if (currentObject.GetComponent<Unit>())
+                    {
+                        if (currentObject.GetComponent<Unit>().IsDeployable())
+                        {
+                            currentObject.GetComponent<Unit>().GiveOrder(Orders.CreateDeployOrder());
+                        }
+                    }
 				}
 			}
 			break;

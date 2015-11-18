@@ -10,7 +10,7 @@ public class Selected : MonoBehaviour {
 		private set;
 	}
 	
-	private bool m_JustBeenSelected = false;
+    private bool m_JustBeenSelected = false;
 	private float m_JustBeenSelectedTimer = 0;
 	private GLItem m_GLItem;
 	private Material m_GLMat;
@@ -49,6 +49,7 @@ public class Selected : MonoBehaviour {
 		}
 
 		rb = GetComponent<Rigidbody>();
+        
 	}
 	
 	// Update is called once per frame
@@ -123,7 +124,8 @@ public class Selected : MonoBehaviour {
 		m_JustBeenSelectedTimer = 0;
 		m_GLManager.AddItemToRender (m_GLItem);
 
-		rb.isKinematic = true;
+        GetComponent<VehicleMovement>().AffectedByCurrent = false;
+		//rb.isKinematic = true;
 	}
 	
 	public void SetDeselected()
@@ -132,8 +134,10 @@ public class Selected : MonoBehaviour {
 		m_JustBeenSelected = false;
 		m_GLManager.RemoveItemToRender (m_GLItem);
 
-		rb.isKinematic = false;
-	}
+
+        GetComponent<VehicleMovement>().AffectedByCurrent = true;
+        //rb.isKinematic = false;
+    }
 	
 	public void AssignGroupNumber(int number)
 	{

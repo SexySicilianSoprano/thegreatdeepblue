@@ -3,26 +3,30 @@ using System.Collections;
 
 public class UnitSpawner : MonoBehaviour {
 
-    private Transform Spawner;
-    private Vector3 SpawnerPos;
+    private Transform m_Spawner;
+    private Transform m_ReadySpot;
+    private Vector3 m_SpawnerPos;
+    private Vector3 m_ReadyPos;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        Spawner = gameObject.transform.GetChild(0);
+        m_Spawner = gameObject.transform.GetChild(0);
+        m_ReadySpot = gameObject.transform.GetChild(1);
     }
 
     void Update()
     {
-        SpawnerPos = Spawner.transform.position;
+        m_SpawnerPos = m_Spawner.transform.position;
+        m_ReadyPos = m_ReadySpot.transform.position;
     }
 	
     public void Spawn (Item item)
     {
-        Vector3 m_ReadyPosition = new Vector3(SpawnerPos.x * 10, SpawnerPos.y, SpawnerPos.z * 10);
-        GameObject newUnit = Instantiate(item.Prefab, SpawnerPos, Spawner.rotation) as GameObject;
-        Debug.Log(newUnit.GetComponent<Unit>());
-        newUnit.GetComponent<Movement>().MoveTo(m_ReadyPosition);
-        
+        //Quaternion m_SpawnRot = Quaternion.LookRotation(new Vector3(m_SpawnerPos.x, m_SpawnerPos.y, m_SpawnerPos.z));     
+        GameObject newUnit = Instantiate(item.Prefab, m_SpawnerPos, m_Spawner.rotation) as GameObject;        
+        newUnit.layer = 8;
+        newUnit.tag = "Player1";
+        //newUnit.GetComponent<Movement>().MoveTo(m_ReadyPos);       
     }
 }
