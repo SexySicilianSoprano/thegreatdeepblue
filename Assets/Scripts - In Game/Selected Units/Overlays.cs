@@ -4,7 +4,7 @@ using System.Collections;
 public static class Overlays {
 	
 	private static int Height = 100, Width = 100;
-	private static int HealthHeight = 20;
+	private static int HealthHeight = 0;
 	
 	private static Color BorderColour = Color.white;
 	private static Color HealthColour = Color.green;
@@ -23,7 +23,7 @@ public static class Overlays {
 				}
 				else if (j > Height-HealthHeight)
 				{
-					texToReturn.SetPixel (i, j, HealthColour);
+					//texToReturn.SetPixel (i, j, HealthColour);
 				}
 				else
 				{

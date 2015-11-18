@@ -109,7 +109,7 @@ public class Selected : MonoBehaviour {
 	{
 		if (IsSelected)
 		{
-			if (OverlayRect.xMax < Screen.width-m_MainMenuWidth)
+			if (OverlayRect.xMax < Screen.width-m_MainMenuWidth && gameObject.layer == 8)
 			{
 				GUI.DrawTexture (OverlayRect, Overlay);
 			}
@@ -118,12 +118,15 @@ public class Selected : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-		IsSelected = true;
-		m_JustBeenSelected = true;
-		m_JustBeenSelectedTimer = 0;
-		m_GLManager.AddItemToRender (m_GLItem);
+		if (gameObject.layer == 8){
+			IsSelected = true;
+			m_JustBeenSelected = true;
+			m_JustBeenSelectedTimer = 0;
+			m_GLManager.AddItemToRender (m_GLItem);
+			
+			rb.isKinematic = true;		
+		}
 
-		rb.isKinematic = true;
 	}
 	
 	public void SetDeselected()
@@ -166,7 +169,7 @@ public class Selected : MonoBehaviour {
 			GL.Begin(GL.LINES);
 			
 			//If we're travelling set to green, if we're attacking set to red (keep as green for now)
-			GL.Color(Color.green);
+			GL.Color(Color.blue);
 			
 			GL.Vertex (screenPosition);
 			GL.Vertex (screenTarget);

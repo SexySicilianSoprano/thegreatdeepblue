@@ -43,10 +43,12 @@ public abstract class RTSObject : MonoBehaviour {
         get;
         private set;
     }
+
+    public UnitSpawner Spawner;
 	
     // Health details
-	private float m_Health;
-	private float m_MaxHealth;	
+	public float m_Health;
+	public float m_MaxHealth;	
 
     // Action voids
 	public abstract void SetSelected();
@@ -79,25 +81,18 @@ public abstract class RTSObject : MonoBehaviour {
 		m_Health = m_MaxHealth;
 	}
 
-    /*
-    protected void AssignWeaponDetails(Weapon weapon)
-    {
-        Weapon = weapon;
-        m_Damage = weapon.Damage;
-        m_FireRate = weapon.FireRate;
-        m_Range = weapon.FireRate;
-    } */
-    	
-	public void TakeDamage(float damage)
+   	public void TakeDamage(float damage)
 	{
 		m_Health -= damage;
 
         if (m_Health == 0 || m_Health <= 0) {
+
+            GameObject Explosion = Instantiate(Resources.Load("Explosion_Ship"), gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+            gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject.SetActive (false);
             Destroy(gameObject);
         }
 	}
-
-    
+        
     protected void AssignPlayer(Player player) {
         // Assign player
         PlayerIdentifier = player.ID;
@@ -105,5 +100,5 @@ public abstract class RTSObject : MonoBehaviour {
         // Assign player color
         PlayerColor = player.Color;               
     }
-
+    
 }
