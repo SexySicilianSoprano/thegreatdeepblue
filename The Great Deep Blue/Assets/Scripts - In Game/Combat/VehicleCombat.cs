@@ -60,7 +60,6 @@ public class VehicleCombat : Combat {
     void Update()
     {
         SwitchMode(CombatMode.Defensive);
-        //Update positions
         SpawnerPos = Spawner.transform.position;
         CurrentPos = CurrentLocation;
         CalculateFireRate();
@@ -71,7 +70,7 @@ public class VehicleCombat : Combat {
             TargetPos = TargetLocation;            
             Attack(m_Target);
         }        
-        else if (TargetSet == false || m_Target == null)
+        else if (TargetSet && m_Target == null)
         {
             Stop();
         }
@@ -159,6 +158,10 @@ public class VehicleCombat : Combat {
     private void Fire()
     {
         // Start firing
+        /*Vector3 newVector = new Vector3(SpawnerPos.x, SpawnerPos.y + 1, SpawnerPos.z);
+        GameObject newExplosion = Instantiate(Resources.Load("Effects/Prefabs/Destroyer_Muzzle", typeof(GameObject)), newVector, gameObject.transform.rotation) as GameObject;
+        newExplosion.transform.parent = gameObject.transform;*/
+        gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play(true);
         Debug.DrawLine(SpawnerPos, TargetPos);
         //LaunchProjectile(Projectile);
         m_Target.TakeDamage(Damage);
@@ -264,7 +267,7 @@ public class VehicleCombat : Combat {
                 break;
 
             case CombatMode.Defensive:
-                m_FollowEnemy = false;
+                m_FollowEnemy = true;
                 m_FireAtEnemy = true;
                 break;
 

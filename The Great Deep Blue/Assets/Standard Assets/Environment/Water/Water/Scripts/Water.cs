@@ -279,7 +279,7 @@ namespace UnityStandardAssets.Water
                 m_ReflectionCameras.TryGetValue(currentCamera, out reflectionCamera);
                 if (!reflectionCamera) // catch both not-in-dictionary and in-dictionary-but-deleted-GO
                 {
-                    GameObject go = new GameObject("Water Refl Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(), typeof(Camera), typeof(Skybox));
+                    GameObject go = new GameObject("Water Refl Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(), typeof(Camera)/*, typeof(Skybox)*/);
                     reflectionCamera = go.GetComponent<Camera>();
                     reflectionCamera.enabled = false;
                     reflectionCamera.transform.position = transform.position;
@@ -312,7 +312,7 @@ namespace UnityStandardAssets.Water
                 {
                     GameObject go =
                         new GameObject("Water Refr Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(),
-                            typeof(Camera), typeof(Skybox));
+                            typeof(Camera) /*, typeof(Skybox)*/ );
                     refractionCamera = go.GetComponent<Camera>();
                     refractionCamera.enabled = false;
                     refractionCamera.transform.position = transform.position;

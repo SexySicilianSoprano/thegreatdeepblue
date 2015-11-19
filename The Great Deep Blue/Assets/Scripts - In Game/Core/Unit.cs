@@ -203,7 +203,7 @@ public class Unit : RTSObject, IOrderable {
 		((IDeployable)this).StopDeploy ();
 	}
    
-    void OnDestroy()
+    new void OnDestroy()
 	{
 		//Remove object from selected manager
 		selectedManager.DeselectObject(this);

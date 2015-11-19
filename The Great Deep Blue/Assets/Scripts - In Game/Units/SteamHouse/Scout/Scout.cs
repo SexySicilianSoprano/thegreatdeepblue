@@ -6,8 +6,8 @@ public class Scout : Vehicle {
 	// Use this for initialization
 	protected new void Start ()
     {
-        AssignDetails(ItemDB.Scout);
-        GetComponent<Movement>().AssignDetails(ItemDB.Scout);
+        //AssignDetails(ItemDB.Scout);
+        //GetComponent<Movement>().AssignDetails(ItemDB.Scout);
         GetComponent<Combat>().AssignDetails(WeaponDB.TestMachineGun);
 
         base.Start();

@@ -64,7 +64,7 @@ public class Manager : MonoBehaviour, IManager {
 			m_MoneyToAdd -= tempMoney;
 		}
 		
-		if (Input.GetKeyDown ("a"))
+		if (Input.GetKeyDown ("tab"))
 		{
 			AddMoney (1000);
 		}

@@ -8,10 +8,14 @@ public class Building : RTSObject {
 	
 	protected void Start()
 	{
-		//Tell the manager this building has been added
-        if (!gameObject.GetComponent<BuildingBeingPlaced>()) { 
-		    ManagerResolver.Resolve<IManager>().BuildingAdded(this);
-        }
+        //Tell the manager this building has been added
+        if (gameObject.tag == "Player1")
+        {
+            if (!gameObject.GetComponent<BuildingBeingPlaced>())
+            {
+                ManagerResolver.Resolve<IManager>().BuildingAdded(this);
+            }
+        }        
     }
 
     public int BuildingIdentifier

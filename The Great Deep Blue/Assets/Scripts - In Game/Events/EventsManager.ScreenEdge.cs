@@ -4,7 +4,7 @@ using System.Collections;
 public partial class EventsManager {
 	
 	//Screen Edge variables
-	private bool atScreenEdge = false;
+	public bool atScreenEdge = false;
 	private float atScreenEdgeCounter = 0;
 
 	private void CheckScreenEdgeEvents()
@@ -26,7 +26,7 @@ public partial class EventsManager {
 			atScreenEdge = true;
 		}
 		
-		if (Input.mousePosition.x == Screen.width-1)
+		if (Input.mousePosition.x >= Screen.width * 0.95f)
 		{
 			if (tempEventArgs == null)
 			{
@@ -54,7 +54,7 @@ public partial class EventsManager {
 			atScreenEdge = true;
 		}
 		
-		if (Input.mousePosition.y == Screen.height-1)
+		if (Input.mousePosition.y >= Screen.height * 0.95f)
 		{
 			if (tempEventArgs == null)
 			{
@@ -71,7 +71,7 @@ public partial class EventsManager {
 		if (atScreenEdge)
 		{
 			atScreenEdgeCounter += Time.deltaTime;
-			tempEventArgs.duration = atScreenEdgeCounter;						
+			tempEventArgs.duration = atScreenEdgeCounter;
 		}
 		else
 		{

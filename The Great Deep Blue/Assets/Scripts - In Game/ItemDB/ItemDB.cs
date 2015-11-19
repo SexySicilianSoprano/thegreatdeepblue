@@ -14,6 +14,7 @@ public static class ItemDB {
 
     // ##### STEAM HOUSE BUILDINGS #####
 
+    /*
     public static Item Scout = new Item
     {
         ID = 0,
@@ -32,7 +33,7 @@ public static class ItemDB {
         RequiredBuildings = new int[] { 1 },
         Cost = 100,
         BuildTime = 3.0f,
-    };
+    }; */
      
     public static Item Destroyer = new Item
     {
@@ -45,7 +46,7 @@ public static class ItemDB {
         Speed = 20.0f,
         RotationSpeed = 2.0f,
         Acceleration = 1.0f,
-        Explosion = m_SmallExplosion,
+        Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
         Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
 		ItemImage = Resources.Load("Item Images/SteamHouse/Destroyer_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 1,
@@ -65,7 +66,7 @@ public static class ItemDB {
         Name = "Floating Fortress",
 		Health = 100.0f,
 		Armour = 10.0f,
-		Explosion = m_LargeExplosion,
+		Explosion = Resources.Load("Effects/Prefabs/Explosion_4", typeof(GameObject)) as GameObject,
 		Prefab = Resources.Load ("Models/Buildings/SteamHouse/Floating Fortress/FloatingFortress", typeof(GameObject)) as GameObject,
 		SortOrder = 100,
 		RequiredBuildings = new int[] { 7, 6, 100 },
@@ -83,7 +84,7 @@ public static class ItemDB {
 		Name = "Naval Yard",
 		Health = 100.0f,
 		Armour = 3.0f,
-		Explosion = m_LargeExplosion,
+		Explosion = Resources.Load("Effects/Prefabs/Explosion_4") as GameObject,
 		Prefab = Resources.Load ("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
         ItemImage = Resources.Load ("Item Images/SteamHouse/NavalYard_Icon", typeof(Texture2D)) as Texture2D,
 		SortOrder = 0,
@@ -97,7 +98,7 @@ public static class ItemDB {
 			
 	public static void Initialise()
 	{
-        InitialiseItem (Scout);
+        //InitialiseItem (Scout);
         InitialiseItem (Destroyer);
         InitialiseItem (FloatingFortress);
 		InitialiseItem (NavalYard);
