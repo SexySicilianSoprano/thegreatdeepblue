@@ -51,10 +51,11 @@ public abstract class RTSObject : MonoBehaviour {
     }
 
     public RTSObject AttackingEnemy;
-    public UnitSpawner Spawner;    
-	
+    public UnitSpawner Spawner;
+    FMOD.Studio.EventInstance sfx_Manager;
+
     // Health details
-	public float m_Health;
+    public float m_Health;
 	public float m_MaxHealth;	
 
     // Action voids
@@ -91,7 +92,8 @@ public abstract class RTSObject : MonoBehaviour {
 
    	public void TakeDamage(float damage)
 	{
-		m_Health -= damage;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/hit");
+        m_Health -= damage;
 
         if (m_Health == 0 || m_Health <= 0) {
             Vector3 newVector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z);
@@ -112,7 +114,7 @@ public abstract class RTSObject : MonoBehaviour {
     }
 
     protected void OnDestroy() {
-        
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/sinking");
         Destroy(gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject);
     }
     

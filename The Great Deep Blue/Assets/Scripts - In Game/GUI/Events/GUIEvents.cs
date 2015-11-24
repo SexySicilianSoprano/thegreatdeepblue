@@ -23,7 +23,8 @@ public class GUIEvents
 	{
 		if (TypeButtonChanged != null)
 		{
-			TypeButtonChanged(sender, new TypeButtonEventArgs(button));
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/menu_click");
+            TypeButtonChanged(sender, new TypeButtonEventArgs(button));
 		}
 	}
 	
@@ -31,7 +32,8 @@ public class GUIEvents
 	{
 		if (QueueButtonChanged != null)
 		{
-			QueueButtonChanged(sender, new QueueButtonEventArgs(button));
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/menu_click");
+            QueueButtonChanged(sender, new QueueButtonEventArgs(button));
 		}
 	}
 	
@@ -39,7 +41,8 @@ public class GUIEvents
 	{
 		if (MaintenanceButtonChanged != null)
 		{
-			MaintenanceButtonChanged(sender, new MaintenanceButtonEventArgs(button));
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/menu_click");
+            MaintenanceButtonChanged(sender, new MaintenanceButtonEventArgs(button));
 		}
 	}
 	

@@ -19,16 +19,16 @@ public class VehicleCombat : Combat {
     
     private Transform Spawner;
     private Vector3 SpawnerPos;
-    
 
-    
-    
+    FMOD.Studio.EventInstance sfx_Manager;
+        
     // Use this for initialization
     void Start()
     {
         SwitchMode(CombatMode.Defensive);
         m_Parent = GetComponent<RTSObject>();
         Spawner = m_Parent.transform.GetChild(0);
+        sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Destroyer/firing");
     }
 
     /*
@@ -163,6 +163,8 @@ public class VehicleCombat : Combat {
         newExplosion.transform.parent = gameObject.transform;*/
         gameObject.transform.GetChild(1).GetComponent<ParticleSystem>().Play(true);
         Debug.DrawLine(SpawnerPos, TargetPos);
+        //sfx_Manager.start();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/"+ m_Parent.Name +"/firing");
         //LaunchProjectile(Projectile);
         m_Target.TakeDamage(Damage);
         m_Target.AttackingEnemy = m_Parent;

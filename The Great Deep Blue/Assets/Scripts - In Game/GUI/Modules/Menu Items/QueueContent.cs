@@ -41,13 +41,13 @@ public class QueueContent : IQueueContent
 				{
 					//Item Clicked
 					if (Event.current.button == 0)
-					{
+					{                        
                         //Left Button
                         if (item.Paused)
                         {
                             item.UnPauseBuild();
                         }
-                        else if (item.TypeIdentifier == Const.TYPE_Building || item.IsFinished && m_UIManager.CurrentMode == Mode.Normal)
+                        else if (item.TypeIdentifier == Const.TYPE_Building && item.IsFinished && m_UIManager.CurrentMode == Mode.Normal)
                         {
                             //Building has finished, needs to be placed, pass control to the UI manager and wait for a response
                             m_UIManager.UserPlacingBuilding(item, () =>

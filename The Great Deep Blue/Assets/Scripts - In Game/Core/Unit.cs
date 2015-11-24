@@ -10,7 +10,7 @@ public class Unit : RTSObject, IOrderable {
 	protected bool m_IsAttackable = true;
 	protected bool m_IsInteractable = false;
 
-	protected IGUIManager guiManager
+    protected IGUIManager guiManager
 	{
 		get;
 		private set;
@@ -111,6 +111,7 @@ public class Unit : RTSObject, IOrderable {
 			// Stop Order
 		    case Const.ORDER_STOP:
 
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");     
                 GetComponent<Combat>().Stop();
 			    if (IsMoveable())
 			    {
@@ -132,6 +133,7 @@ public class Unit : RTSObject, IOrderable {
 				    {
 					    CancelDeploy ();
 				    }
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");
                     GetComponent<Movement>().MoveTo (order.OrderLocation);
 			    }
 			    break;
@@ -151,6 +153,7 @@ public class Unit : RTSObject, IOrderable {
                 if (IsAttackable())
                 {
                     // Attack
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_attack");
                     GetComponent<Combat>().Attack(order.Target);
                 }
 
@@ -205,7 +208,12 @@ public class Unit : RTSObject, IOrderable {
    
     new void OnDestroy()
 	{
-		//Remove object from selected manager
-		selectedManager.DeselectObject(this);
+        if (gameObject.tag == "Player1")
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_kill");
+        }
+            
+        //Remove object from selected manager
+        selectedManager.DeselectObject(this);
 	}
 }

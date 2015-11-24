@@ -26,10 +26,9 @@ public class Selected : MonoBehaviour {
 	private float m_MainMenuWidth;
 	
 	private Vector3 m_WorldExtents;
-	
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start () 
 	{
 		Overlay = Overlays.CreateTexture ();
 		IsSelected = false;
@@ -117,8 +116,10 @@ public class Selected : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-		if (gameObject.layer == 8){
-			IsSelected = true;
+		if (gameObject.layer == 8)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/" + GetComponent<RTSObject>().Name + "_aknowledge");
+            IsSelected = true;
 			m_JustBeenSelected = true;
 			m_JustBeenSelectedTimer = 0;
 			m_GLManager.AddItemToRender (m_GLItem);
