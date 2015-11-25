@@ -47,19 +47,48 @@ public static class GUIStyles
 	//Dynamic Styles-------------------------------------------------------
 	
 	//Type button style
-	public static GUIStyle CreateTypeButtonStyle()
+	public static GUIStyle CreateTypeButtonStyleB()
 	{
 		GUIStyle style = new GUIStyle();
 		
-		style.normal.background = GUITextures.TypeButtonNormal;
-		style.normal.textColor = Color.white;
+		style.normal.background = GUITextures.TypeButtonNormalB;
+		//style.normal.textColor = Color.white;
 		
-		style.hover.background = GUITextures.TypeButtonHover;
-		style.hover.textColor = Color.white;
+		style.hover.background = GUITextures.TypeButtonHoverB;
+		//style.hover.textColor = Color.white;
 		
 		style.alignment = TextAnchor.MiddleCenter;
 		style.fontSize = 30;
+		return style;
+	}
+
+	public static GUIStyle CreateTypeButtonStyleSc()
+	{
+		GUIStyle style = new GUIStyle();
 		
+		style.normal.background = GUITextures2.TypeButtonNormalSc;
+		//style.normal.textColor = Color.white;
+		
+		style.hover.background = GUITextures2.TypeButtonHoverSc;
+		//style.hover.textColor = Color.white;
+		
+		style.alignment = TextAnchor.MiddleCenter;
+		style.fontSize = 30;
+		return style;
+	}
+
+	public static GUIStyle CreateTypeButtonStyleSh()
+	{
+		GUIStyle style = new GUIStyle();
+		
+		style.normal.background = GUITextures3.TypeButtonNormalSh;
+		//style.normal.textColor = Color.white;
+		
+		style.hover.background = GUITextures3.TypeButtonHoverSh;
+		//style.hover.textColor = Color.white;
+		
+		style.alignment = TextAnchor.MiddleCenter;
+		style.fontSize = 30;
 		return style;
 	}
 	
@@ -67,14 +96,14 @@ public static class GUIStyles
 	{
 		GUIStyle style = new GUIStyle();
 		
-		style.normal.background = GUITextures.TypeButtonNormal;
-		style.normal.textColor = Color.white;
+		style.normal.background = GUITextures.TypeButtonNormalB;
+		//style.normal.textColor = Color.white;
 		
-		style.hover.background = GUITextures.TypeButtonHover;
-		style.hover.textColor = Color.white;
+		style.hover.background = GUITextures.TypeButtonHoverB;
+		//style.hover.textColor = Color.white;
 		
-		style.alignment = TextAnchor.MiddleCenter;
-		style.fontSize = 30;
+		/*style.alignment = TextAnchor.MiddleCenter;
+		style.fontSize = 30;*/
 		
 		return style;
 	}

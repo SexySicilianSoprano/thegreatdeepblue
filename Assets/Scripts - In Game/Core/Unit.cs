@@ -10,7 +10,7 @@ public class Unit : RTSObject, IOrderable {
 	protected bool m_IsAttackable = true;
 	protected bool m_IsInteractable = false;
 
-	protected IGUIManager guiManager
+    protected IGUIManager guiManager
 	{
 		get;
 		private set;
@@ -111,6 +111,7 @@ public class Unit : RTSObject, IOrderable {
 			// Stop Order
 		    case Const.ORDER_STOP:
 
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");     
                 GetComponent<Combat>().Stop();
 			    if (IsMoveable())
 			    {
@@ -132,6 +133,7 @@ public class Unit : RTSObject, IOrderable {
 				    {
 					    CancelDeploy ();
 				    }
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");
                     GetComponent<Movement>().MoveTo (order.OrderLocation);
 			    }
 			    break;
@@ -151,6 +153,7 @@ public class Unit : RTSObject, IOrderable {
                 if (IsAttackable())
                 {
                     // Attack
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_attack");
                     GetComponent<Combat>().Attack(order.Target);
                 }
 
@@ -180,15 +183,37 @@ public class Unit : RTSObject, IOrderable {
 			    return false;
 		}
 	}
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), other.GetComponent<Collider>());
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
+        {
+            GetComponent<Collider>().isTrigger = false;
+        }
+        
+    }
     
 	private void CancelDeploy()
 	{
 		((IDeployable)this).StopDeploy ();
 	}
-	
-	void OnDestroy()
+   
+    new void OnDestroy()
 	{
-		//Remove object from selected manager
-		selectedManager.DeselectObject(this);
+        if (gameObject.tag == "Player1")
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_kill");
+        }
+            
+        //Remove object from selected manager
+        selectedManager.DeselectObject(this);
 	}
 }

@@ -10,7 +10,7 @@ public abstract class Movement : MonoBehaviour, IMoveable {
 	
 	public float Speed { get; protected set; }
 	public float CurrentSpeed { get; protected set; }
-
+    
 	public abstract void MoveTo (Vector3 location);
 
 	public abstract void Follow (Transform target);

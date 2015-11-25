@@ -7,7 +7,7 @@ public class MiniMapController : MonoBehaviour, IMiniMapController {
 	public static MiniMapController main;
 	
 	//Minimap rect in pixel space
-	private Rect m_MiniMapRect;
+	public Rect m_MiniMapRect;
 	
 	//Menu Width (needed to calculate correct viewport in minimap)
 	private float m_MenuWidth;
@@ -40,7 +40,7 @@ public class MiniMapController : MonoBehaviour, IMiniMapController {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		UpdateViewPort ();
 	}
 	
 	public void LoadMiniMap(out float guiWidth, out Rect miniMapRect)

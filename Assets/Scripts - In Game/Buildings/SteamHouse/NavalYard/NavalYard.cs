@@ -7,12 +7,13 @@ public class NavalYard : Building {
 	new void Start () 
 	{
 		AssignDetails (ItemDB.NavalYard);
+        Spawner = gameObject.GetComponent<UnitSpawner>();
 		base.Start ();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
+
 	}
 }

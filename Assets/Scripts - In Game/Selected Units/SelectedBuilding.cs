@@ -17,9 +17,9 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	private float m_HealthSize = 2.0f;
 	private float m_HealthWidth;
-
-	// Use this for initialization
-	void Start () 
+    
+    // Use this for initialization
+    void Start () 
 	{
 		//Calculate world co-ordinates
 		//8 vertices for outline (determined from collider)
@@ -73,7 +73,8 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-		m_GLManager.AddItemToRender(m_GLItem);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/selection");
+        m_GLManager.AddItemToRender(m_GLItem);
 	}
 	
 	public void SetDeselected()

@@ -8,9 +8,20 @@ public class Building : RTSObject {
 	
 	protected void Start()
 	{
-		//Tell the manager this building has been added
-		ManagerResolver.Resolve<IManager>().BuildingAdded(this);
-	}
+        //Tell the manager this building has been added
+        if (gameObject.tag == "Player1")
+        {
+            if (!gameObject.GetComponent<BuildingBeingPlaced>())
+            {
+                ManagerResolver.Resolve<IManager>().BuildingAdded(this);
+            }
+        }        
+    }
+
+    public int BuildingIdentifier
+    {
+        get; set;
+    }
 	
 	public bool InteractWith(IOrderable obj)
 	{
@@ -51,4 +62,5 @@ public class Building : RTSObject {
 			break;
 		}
 	}
+
 }

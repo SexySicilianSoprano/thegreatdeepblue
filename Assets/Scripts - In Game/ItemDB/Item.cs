@@ -10,7 +10,6 @@ public class Item {
 	public string Name;
 	public float Health;
 	public float Armour;
-	public float Damage = 0;
 	
 	public float Speed = 0;
 	public float RotationSpeed = 0;
@@ -23,6 +22,7 @@ public class Item {
 	
 	public int TypeIdentifier;
 	public int TeamIdentifier;
+    public int BuildingIdentifier;
     public int PlayerIdentifier;
 	
 	private Texture2D m_ItemImage;
@@ -58,6 +58,7 @@ public class Item {
 	private bool m_Paused = false;
 	private bool m_Building = false;
 	private bool m_Finished = false;
+    private bool m_UnitFinished = false;
 	
 	private float m_Timer = 0;
 	private IManager m_Manager;
@@ -87,6 +88,15 @@ public class Item {
 			return m_Finished;
 		}
 	}
+
+    public bool IsUnitFinished
+    {
+        get
+        {
+            return m_UnitFinished;
+        }
+
+    }
 	
 	//-----------------------------------------------------------------
 	
@@ -124,6 +134,7 @@ public class Item {
 		TypeIdentifier = item.TypeIdentifier;
 		TeamIdentifier = item.TeamIdentifier;
         PlayerIdentifier = item.PlayerIdentifier;
+        BuildingIdentifier = item.BuildingIdentifier;
 		m_ItemImage = item.ItemImage;
 		ItemImageHover = item.ItemImageHover;
 		SortOrder = item.SortOrder;
@@ -193,16 +204,16 @@ public class Item {
 			else
 			{
 				//Is this a building or a unit?
-				if (TypeIdentifier == Const.TYPE_Building || TypeIdentifier == Const.TYPE_Support)
+				if (TypeIdentifier == Const.TYPE_Building)
 				{
 					//Wait for user to place building before finishing
 					m_Finished = true;
 				}
 				else
 				{
-					//Create unit straight away and finish build
-					
+                    //Create unit straight away and finish build
 					FinishBuild ();
+                    m_UnitFinished = true;
 				}
 				
 				GUIEvents.ItemUpdateTimer -= Update;
@@ -267,6 +278,13 @@ public class Item {
 		m_Building = false;
 		m_Finished = false;
 	}
+
+    public void SpawnUnit()
+    {       
+        m_UnitFinished = false;
+        m_Building = false;
+        m_Finished = false;        
+    }
 	
 	public float GetProgress()
 	{
@@ -281,5 +299,5 @@ public class Item {
 	private void UnPause()
 	{
 		m_Paused = false;
-	}
+	}   
 }

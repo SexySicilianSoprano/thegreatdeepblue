@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// Queue content. This is where the UP/DOWN buttons are located.
+/// </summary>
+
 public class QueueContent : IQueueContent
 {
 	private List<Item> m_Items = new List<Item>();
@@ -12,49 +16,53 @@ public class QueueContent : IQueueContent
 	private bool m_ArrowsEnabled = false;
 	private Rect[] m_ArrowRects = new Rect[2];
 	private bool m_Building = false;
+    private Building m_Host;
 	
 	private IUIManager m_UIManager;
 	
-	public QueueContent(Rect area)
+	public QueueContent(Rect area, Building building)
 	{
+        m_Host = building;
 		CalculateSize (area);
 		m_UIManager = ManagerResolver.Resolve<IUIManager>();
 	}
 	
 	public void Execute()
 	{
-		//Draw Items
-		int counter = 0;
+        //Draw Items
+        int counter = 0;
 		int itemsDrawn = 0;
 		
 		foreach (Item item in m_Items)
 		{
 			if (counter >= m_ArrowOffset)
 			{
-				if (GUI.Button (m_Area[itemsDrawn], item.Name, item.ButtonStyle))
+				if (GUI.Button (m_Area[itemsDrawn], "", item.ButtonStyle))
 				{
 					//Item Clicked
 					if (Event.current.button == 0)
-					{
-						//Left Button
-						if (item.Paused)
-						{
-							item.UnPauseBuild ();
-						}
-						else if ((item.TypeIdentifier == Const.TYPE_Building || item.TypeIdentifier == Const.TYPE_Support) && item.IsFinished && m_UIManager.CurrentMode == Mode.Normal)
-						{
-							//Building has finished, needs to be placed, pass control to the UI manager and wait for a response
-							m_UIManager.UserPlacingBuilding(item, () => 
-							{
-								//Building was placed
-								m_Building = false;
-							});
-						}
-						else if (!m_Building)
-						{
-							item.StartBuild ();
-							m_Building = true;
-						}
+					{                        
+                        //Left Button
+                        if (item.Paused)
+                        {
+                            item.UnPauseBuild();
+                        }
+                        else if (item.TypeIdentifier == Const.TYPE_Building && item.IsFinished && m_UIManager.CurrentMode == Mode.Normal)
+                        {
+                            //Building has finished, needs to be placed, pass control to the UI manager and wait for a response
+                            m_UIManager.UserPlacingBuilding(item, () =>
+                            {
+                                //Building was placed
+                                m_Building = false;
+                            });
+                            
+                        }
+                        else if (!m_Building)
+                        {
+                            item.StartBuild();
+                            m_Building = true;
+                        }
+                        
 					}
                     else if (Event.current.button == 1)
 					{
@@ -71,20 +79,27 @@ public class QueueContent : IQueueContent
 						}
 					}
 				}
-				
-				if (item.IsBuilding && !item.IsFinished)
-				{
-					int index = (int)(item.GetProgress ()*360);
-					
-					if (index <= 359)
-					{
-						GUI.DrawTexture (m_Area[itemsDrawn], ItemProgressTextures.Overlays[index]);
-					}
-				}
-				else if (item.IsBuilding && item.IsFinished)
-				{
-					GUI.Label (m_Area[itemsDrawn], Strings.Ready, GUIStyles.ItemFinishedLabel);
-				}
+
+                if (item.IsBuilding && !item.IsFinished)
+                {
+                    int index = (int)(item.GetProgress() * 360);
+
+                    if (index <= 359)
+                    {
+                        GUI.DrawTexture(m_Area[itemsDrawn], ItemProgressTextures.Overlays[index]);
+                    }
+                }
+                else if (item.IsBuilding && item.IsFinished)
+                {
+                    GUI.Label(m_Area[itemsDrawn], Strings.Ready, GUIStyles.ItemFinishedLabel);
+                }
+                else if (item.IsUnitFinished)
+                {
+                    Debug.Log(m_Host);
+                    item.SpawnUnit();
+                    m_Building = false;
+                    m_Host.Spawner.Spawn(item);
+                }
 				
 				itemsDrawn++;
 				

@@ -43,10 +43,20 @@ public abstract class RTSObject : MonoBehaviour {
         get;
         private set;
     }
-	
+
+    public GameObject Explosion
+    {
+        get;
+        private set;
+    }
+
+    public RTSObject AttackingEnemy;
+    public UnitSpawner Spawner;
+    FMOD.Studio.EventInstance sfx_Manager;
+
     // Health details
-	private float m_Health;
-	private float m_MaxHealth;	
+    public float m_Health;
+	public float m_MaxHealth;	
 
     // Action voids
 	public abstract void SetSelected();
@@ -77,27 +87,24 @@ public abstract class RTSObject : MonoBehaviour {
 		TeamIdentifier = item.TeamIdentifier;
 		m_MaxHealth = item.Health;
 		m_Health = m_MaxHealth;
+        Explosion = item.Explosion;
 	}
 
-    /*
-    protected void AssignWeaponDetails(Weapon weapon)
-    {
-        Weapon = weapon;
-        m_Damage = weapon.Damage;
-        m_FireRate = weapon.FireRate;
-        m_Range = weapon.FireRate;
-    } */
-    	
-	public void TakeDamage(float damage)
+   	public void TakeDamage(float damage)
 	{
-		m_Health -= damage;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/hit");
+        m_Health -= damage;
 
         if (m_Health == 0 || m_Health <= 0) {
-            Destroy(gameObject);
+            Vector3 newVector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z);
+            GameObject newExplosion = Instantiate(Explosion, newVector, gameObject.transform.rotation) as GameObject;
+            newExplosion.GetComponent<ParticleSystem>().Play(true);
+            gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject.SetActive (false);
+            Destroy(this.gameObject);
+            Destroy(gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject);
         }
 	}
-
-    
+        
     protected void AssignPlayer(Player player) {
         // Assign player
         PlayerIdentifier = player.ID;
@@ -106,4 +113,9 @@ public abstract class RTSObject : MonoBehaviour {
         PlayerColor = player.Color;               
     }
 
+    protected void OnDestroy() {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/sinking");
+        Destroy(gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject);
+    }
+    
 }
