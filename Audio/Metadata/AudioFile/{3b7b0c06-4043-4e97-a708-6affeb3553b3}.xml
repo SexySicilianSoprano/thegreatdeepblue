@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.07.00">
+    <object class="AudioFile" id="{3b7b0c06-4043-4e97-a708-6affeb3553b3}">
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.064195011337868479</value>
+        </property>
+        <property name="audioFilePath">
+            <value>$(AUDIO_BIN_DIR)/mouse_down_01 {4c321ae8-a81e-49c5-9e90-e221c2f1d987}.wav</value>
+        </property>
+        <relationship name="container">
+            <destination>{24eedc7a-8ce8-4704-953b-be949a98a778}</destination>
+        </relationship>
+    </object>
+</objects>
