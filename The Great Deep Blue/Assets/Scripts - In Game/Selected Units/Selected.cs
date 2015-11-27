@@ -27,6 +27,15 @@ public class Selected : MonoBehaviour {
 	
 	private Vector3 m_WorldExtents;
 
+    //Player identifier variables
+    private int primaryPlayer
+    {
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer.controlledLayer;
+        }
+    }
+
     // Use this for initialization
     void Start () 
 	{
@@ -107,7 +116,7 @@ public class Selected : MonoBehaviour {
 	{
 		if (IsSelected)
 		{
-			if (OverlayRect.xMax < Screen.width-m_MainMenuWidth && gameObject.layer == 8)
+			if (OverlayRect.xMax < Screen.width-m_MainMenuWidth && gameObject.layer == primaryPlayer)
 			{
 				GUI.DrawTexture (OverlayRect, Overlay);
 			}
@@ -116,7 +125,7 @@ public class Selected : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-		if (gameObject.layer == 8)
+		if (gameObject.layer == primaryPlayer)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/" + GetComponent<RTSObject>().Name + "_aknowledge");
             IsSelected = true;

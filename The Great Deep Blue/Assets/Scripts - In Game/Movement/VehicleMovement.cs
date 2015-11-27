@@ -89,19 +89,22 @@ public class VehicleMovement : LandMovement {
         }
         else
         {
+            m_Parent.GetComponent<Rigidbody>().velocity = transform.forward * 0;
             m_PlayMovingSound = false;
             AffectedByCurrent = true;
         }
 
         if (m_PlayMovingSound && !m_SoundIsPlaying)
         {
-            sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + m_Parent.Name + "/movement");
-            sfx_Manager.start();
+           // sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + m_Parent.Name + "/movement");
+            //sfx_Manager.start();
+            m_SoundIsPlaying = true;
         }
         else if (!m_PlayMovingSound && m_SoundIsPlaying)
         {
-            sfx_Manager.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            sfx_Manager.release();
+            //sfx_Manager.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+           // sfx_Manager.release();
+            m_SoundIsPlaying = false;
         }
     }
 
@@ -140,12 +143,12 @@ public class VehicleMovement : LandMovement {
 
     public override void Stop()
     {
-        m_Parent.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
         if (Path != null && Path.Count > 0)
         {
             Vector3 nextPos = Path[0];
             Path.Clear();
             Path.Add(nextPos);
+            m_Parent.GetComponent<Rigidbody>().velocity = transform.forward * 0;
         }
     }
 
@@ -157,9 +160,9 @@ public class VehicleMovement : LandMovement {
 
     public override void AssignDetails(Item item)
     {
-        Speed = item.Speed;
+        Speed = item.Speed / 2;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed / 6;
+        RotationalSpeed = item.RotationSpeed / 2;
         Acceleration = item.Acceleration;
     }
 
@@ -186,7 +189,7 @@ public class VehicleMovement : LandMovement {
                 m_CurrentTile.SetOccupied(m_Parent, true);
             }
             else
-            {
+            {                
                 m_CurrentTile.SetOccupied(m_Parent, false);
             }
         }

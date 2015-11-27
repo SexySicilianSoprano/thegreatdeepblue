@@ -24,7 +24,7 @@ public class Unit : RTSObject, IOrderable {
 	
 	protected void Start()
 	{
-		guiManager = ManagerResolver.Resolve<IGUIManager>();
+        guiManager = ManagerResolver.Resolve<IGUIManager>();
 		selectedManager = ManagerResolver.Resolve<ISelectedManager>();
         ManagerResolver.Resolve<IManager>().UnitAdded(this);
         /*
@@ -184,9 +184,10 @@ public class Unit : RTSObject, IOrderable {
 		}
 	}
 
+    // Trigger reactions for unit creation
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
+        if (other.gameObject.layer == playerLayer)
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), other.GetComponent<Collider>());
         }
@@ -194,11 +195,7 @@ public class Unit : RTSObject, IOrderable {
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
-        {
-            GetComponent<Collider>().isTrigger = false;
-        }
-        
+        GetComponent<Collider>().isTrigger = false;      
     }
     
 	private void CancelDeploy()
@@ -208,7 +205,7 @@ public class Unit : RTSObject, IOrderable {
    
     new void OnDestroy()
 	{
-        if (gameObject.tag == "Player1")
+        if (gameObject.layer == primaryPlayer.controlledLayer)
         {
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_kill");
         }

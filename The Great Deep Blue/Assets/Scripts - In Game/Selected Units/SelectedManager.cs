@@ -16,8 +16,24 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 		get;
 		private set;
 	}
-		
-	public void Awake()
+
+    public Player primaryPlayer
+    {
+        get
+        {
+            return GetComponent<GameManager>().primaryPlayer;
+        }
+    }
+
+    public Player enemyPlayer
+    {
+        get
+        {
+            return GetComponent<GameManager>().enemyPlayer;
+        }
+    }
+
+    public void Awake()
 	{
 		for (int i=0; i<10; i++)
 		{
@@ -33,7 +49,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 	{
 		if (!SelectedObjects.Contains (obj))
 		{
-			if (obj is IOrderable && obj.gameObject.layer == 8)
+			if (obj is IOrderable && obj.gameObject.layer == primaryPlayer.controlledLayer)
 			{
 				SelectedActiveObjects.Add ((IOrderable)obj);
 			}
