@@ -32,7 +32,7 @@ public class Selected : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer.controlledLayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledLayer;
         }
     }
 

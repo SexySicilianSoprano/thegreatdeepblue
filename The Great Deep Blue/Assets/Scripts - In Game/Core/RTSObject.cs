@@ -48,7 +48,7 @@ public abstract class RTSObject : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer();
         }        
     }
 

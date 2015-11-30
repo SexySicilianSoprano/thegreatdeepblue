@@ -3,11 +3,21 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    public Player m_Player1 = new Player();
-    public Player m_Player2 = new Player();
+    private bool m_GameSet = false;
+    private Player m_Player1 = new Player();
+    private Player m_Player2 = new Player();
+    private GameObject m_FloatingFortress1;
+    private GameObject m_FloatingFortress2;
 
-    public Player primaryPlayer = new Player();
-    public Player enemyPlayer = new Player();
+    public Player primaryPlayer()
+    {
+        return m_Player1;
+    }
+
+    public Player enemyPlayer()
+    {
+         return m_Player2;
+    }    
 
     public GameObject victoryPanel;
 
@@ -17,18 +27,26 @@ public class GameManager : MonoBehaviour {
         m_Player1.AssignDetails(SetPlayer.Player1);
         m_Player2.AssignDetails(SetPlayer.Player2);
 
-        primaryPlayer = m_Player1;
-        enemyPlayer = m_Player2;
-
-        Debug.Log(primaryPlayer.controlledLayer + " is da shiet!");
+        m_FloatingFortress1 = GameObject.Find("FloatingFortress_1");
+        m_FloatingFortress2 = GameObject.Find("FloatingFortress_2");    
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (!GameObject.Find("FloatingFortressEnemy"))
+        if (!m_GameSet)
         {
-            victoryPanel.SetActive(true);
-        } 
+            // Win condition
+            if (!m_FloatingFortress1 && primaryPlayer() == m_Player2 || !m_FloatingFortress2 && primaryPlayer() == m_Player1)
+            {
+                victoryPanel.SetActive(true);
+                m_GameSet = true;
+            }
+            // Lose condition
+            else if (!m_FloatingFortress1 && primaryPlayer() == m_Player1 || !m_FloatingFortress2 && primaryPlayer() == m_Player2)
+            {
+                m_GameSet = true;
+            }
+        }
 	}
 }

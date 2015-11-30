@@ -17,7 +17,7 @@ public class HealthBarArmi : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer.controlledLayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledLayer;
         }
     }
 
@@ -25,7 +25,7 @@ public class HealthBarArmi : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().enemyPlayer.controlledLayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().enemyPlayer().controlledLayer;
         }
     }
 

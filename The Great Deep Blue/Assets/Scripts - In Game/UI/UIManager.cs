@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         get
         {
-            return GetComponent<GameManager>().primaryPlayer;
+            return GetComponent<GameManager>().primaryPlayer();
         }
     }
 
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         get
         {
-            return GetComponent<GameManager>().enemyPlayer;
+            return GetComponent<GameManager>().enemyPlayer();
         }
     }
 

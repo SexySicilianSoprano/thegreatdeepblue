@@ -125,7 +125,14 @@ public class VehicleMovement : LandMovement {
 
     private void MoveForward()
     {
+        //m_Parent.transform.Translate(Vector3.forward * Speed);
         m_Parent.GetComponent<Rigidbody>().AddForce(transform.forward * Speed);
+
+        if (m_TargetTile == m_ArrivalTile)
+        {
+            Stop();
+            m_Parent.GetComponent<Rigidbody>().velocity = transform.forward * 0;
+        }
     }
 
     public override void MoveTo(Vector3 location)
