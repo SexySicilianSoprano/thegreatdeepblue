@@ -13,8 +13,7 @@ public static class ItemDB {
 	private static List<Item> AllItems = new List<Item>();
 
     // ##### STEAM HOUSE BUILDINGS #####
-
-    /*
+    
     public static Item Scout = new Item
     {
         ID = 0,
@@ -24,16 +23,16 @@ public static class ItemDB {
         Health = 40.0f,
         Armour = 1.0f,
         Speed = 40.0f,
-        RotationSpeed = 3.0f,
+        RotationSpeed = 6.0f,
         Acceleration = 5.0f,
-        Explosion = m_SmallExplosion,
+        Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
         Prefab = Resources.Load("Models/Units/SteamHouse/Scout/Scout", typeof(GameObject)) as GameObject,
 		ItemImage = Resources.Load("Item Images/SteamHouse/ScoutBoat_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 0,
         RequiredBuildings = new int[] { 1 },
         Cost = 100,
         BuildTime = 3.0f,
-    }; */
+    };
      
     public static Item Destroyer = new Item
     {

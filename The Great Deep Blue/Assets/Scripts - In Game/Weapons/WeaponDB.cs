@@ -14,6 +14,7 @@ public class WeaponDB {
         Damage = 10,
         Range = 100,
         FireRate = 30,
+        TurretSpeed = 1.0f,
         isAntiArmor = true,
         isAntiStructure = false,
         Projectile = ProjectileDB.CannonBall
@@ -24,9 +25,10 @@ public class WeaponDB {
     {
         ID = 0,
         Name = "TestMachinegun",
-        Damage = 10,
+        Damage = 2,
         Range = 100,
-        FireRate = 120,
+        FireRate = 160,
+        TurretSpeed = 1.5f,
         isAntiArmor = true,
         isAntiStructure = false,
         Projectile = ProjectileDB.CannonBall

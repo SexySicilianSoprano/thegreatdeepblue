@@ -7,10 +7,7 @@ public class Building : RTSObject {
 	private bool sellable = false;
 	
 	public void Start()
-	{
-
-        Debug.Log(gameObject + " PL " + playerLayer);
-        Debug.Log(gameObject + " CL " + primaryPlayer.controlledLayer);
+	{        
         //Tell the manager this building has been added
         if (playerLayer == primaryPlayer.controlledLayer)
         {
