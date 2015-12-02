@@ -17,7 +17,7 @@ public class WeaponDB {
         TurretSpeed = 1.0f,
         isAntiArmor = true,
         isAntiStructure = false,
-        Projectile = ProjectileDB.CannonBall
+        //Projectile = ProjectileDB.CannonBall
         
     };
 
@@ -31,7 +31,7 @@ public class WeaponDB {
         TurretSpeed = 1.5f,
         isAntiArmor = true,
         isAntiStructure = false,
-        Projectile = ProjectileDB.CannonBall
+        //Projectile = ProjectileDB.CannonBall
     };
 
     public static void Initialise()

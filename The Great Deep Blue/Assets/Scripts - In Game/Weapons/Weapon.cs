@@ -20,7 +20,7 @@ public class Weapon {
     public float TurretSpeed;
 
     // Projectile and animation
-    public Projectile Projectile;
+    //public Projectile Projectile;
    
     public void AssignDetails (Weapon Weapon)
     {
@@ -32,7 +32,7 @@ public class Weapon {
         FireRate = Weapon.FireRate;
         isAntiArmor = Weapon.isAntiArmor;
         isAntiStructure = Weapon.isAntiStructure;
-        Projectile = Weapon.Projectile;
+        //Projectile = Weapon.Projectile;
     }
 
 }

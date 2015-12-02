@@ -4,12 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public static class ItemDB {
-	
-	private static GameObject m_SmallExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
-	private static GameObject m_MediumExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
-	private static GameObject m_LargeExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
-	private static GameObject m_GiantExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
-	
+		
 	private static List<Item> AllItems = new List<Item>();
 
     // ##### STEAM HOUSE BUILDINGS #####
@@ -30,7 +25,7 @@ public static class ItemDB {
 		ItemImage = Resources.Load("Item Images/SteamHouse/ScoutBoat_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 0,
         RequiredBuildings = new int[] { 1 },
-        Cost = 100,
+        Cost = 150,
         BuildTime = 3.0f,
     };
      
@@ -50,7 +45,7 @@ public static class ItemDB {
 		ItemImage = Resources.Load("Item Images/SteamHouse/Destroyer_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 1,
         RequiredBuildings = new int[] { 1 },
-        Cost = 100,
+        Cost = 300,
         BuildTime = 5.0f,
     };
 	

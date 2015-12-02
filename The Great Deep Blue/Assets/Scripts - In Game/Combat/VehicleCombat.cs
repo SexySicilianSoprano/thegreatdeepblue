@@ -90,7 +90,7 @@ public class VehicleCombat : Combat {
         TurretSpeed = weapon.TurretSpeed;
         isAntiArmor = weapon.isAntiArmor;
         isAntiStructure = weapon.isAntiStructure;
-        Projectile = weapon.Projectile;
+        //Projectile = weapon.Projectile;
     }
        
     public override void Attack(RTSObject obj)
@@ -165,6 +165,7 @@ public class VehicleCombat : Combat {
 
             if (TargetInRange())
             {
+                GetComponent<Rigidbody>().velocity = transform.forward * 0;
                 GetComponent<Movement>().Stop();
             }
         }

@@ -74,11 +74,11 @@ public class VehicleMovement : LandMovement {
 
         if (Path != null && Path.Count > 0)
         {
+            //We have a path, lets move!
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
             MoveForward();
-
-            //We have a path, lets move!
+            
             //Make sure we're pointing at the target            
             if (!PointingAtTarget())
             {
@@ -88,30 +88,30 @@ public class VehicleMovement : LandMovement {
             UpdateCurrentTile();
         }
         else
-        {
-            m_Parent.GetComponent<Rigidbody>().velocity = transform.forward * 0;
+        {           
             m_PlayMovingSound = false;
             AffectedByCurrent = true;
         }
 
         if (m_PlayMovingSound && !m_SoundIsPlaying)
         {
-           // sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + m_Parent.Name + "/movement");
+            //sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + m_Parent.Name + "/movement");
             //sfx_Manager.start();
             m_SoundIsPlaying = true;
         }
         else if (!m_PlayMovingSound && m_SoundIsPlaying)
         {
             //sfx_Manager.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-           // sfx_Manager.release();
+            //sfx_Manager.release();
             m_SoundIsPlaying = false;
         }
     }
 
     private void FindPath(Vector3 location)
     {
-        //path = new NavMeshPath();
-        //NavMesh.CalculatePath(m_Parent.transform.position, location, NavMesh.AllAreas, path);
+        path = new NavMeshPath();
+        NavMesh.CalculatePath(m_Parent.transform.position, location, NavMesh.AllAreas, path);
+
     }
 
     private void RotateTowards(Vector3 location)
@@ -120,27 +120,27 @@ public class VehicleMovement : LandMovement {
 
         m_LookRotation = Quaternion.LookRotation(new Vector3(m_Direction.x, m_Direction.y * 0, m_Direction.z));
 
-        m_Parent.transform.rotation = Quaternion.Slerp(m_Parent.transform.rotation, m_LookRotation, Time.deltaTime * RotationalSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, m_LookRotation, Time.deltaTime * RotationalSpeed);
     }
 
     private void MoveForward()
     {
         //m_Parent.transform.Translate(Vector3.forward * Speed);
-        m_Parent.GetComponent<Rigidbody>().AddForce(transform.forward * Speed);
-
-        if (m_TargetTile == m_ArrivalTile)
+        GetComponent<Rigidbody>().AddForce(transform.forward * Speed);
+        
+        if (m_ArrivalTile == m_TargetTile || Vector3.Distance(m_Parent.transform.position, m_TargetTile.Center) == 2f )
         {
             Stop();
-            m_Parent.GetComponent<Rigidbody>().velocity = transform.forward * 0;
         }
     }
 
     public override void MoveTo(Vector3 location)
-    {
+    {        
         if (m_ArrivalTile != null)
         {
             m_ArrivalTile.ExpectingArrival = false;
         }
+        
         m_ArrivalTile = Grid.GetClosestArrivalTile(location);
         m_ArrivalTile.ExpectingArrival = true;
 
@@ -155,7 +155,8 @@ public class VehicleMovement : LandMovement {
             Vector3 nextPos = Path[0];
             Path.Clear();
             Path.Add(nextPos);
-            m_Parent.GetComponent<Rigidbody>().velocity = transform.forward * 0;
+
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
 
