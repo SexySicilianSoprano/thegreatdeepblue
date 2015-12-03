@@ -11,7 +11,6 @@ public abstract class Combat : MonoBehaviour, IAttackable {
     public float Damage;
     public float Range;
     public float FireRate;
-    public float TurretSpeed;
 
     public bool isRanged;
     public bool isAntiArmor;

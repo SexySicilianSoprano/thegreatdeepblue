@@ -41,7 +41,7 @@ public class QueueContent : IQueueContent
 				{
 					//Item Clicked
 					if (Event.current.button == 0)
-					{                        
+					{
                         //Left Button
                         if (item.Paused)
                         {

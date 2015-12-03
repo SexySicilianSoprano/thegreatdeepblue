@@ -4,10 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 
 public static class ItemDB {
-		
+	
+	private static GameObject m_SmallExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
+	private static GameObject m_MediumExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
+	private static GameObject m_LargeExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
+	private static GameObject m_GiantExplosion = Resources.Load ("", typeof(GameObject)) as GameObject;
+	
 	private static List<Item> AllItems = new List<Item>();
 
     // ##### STEAM HOUSE BUILDINGS #####
+
     
     public static Item Scout = new Item
     {
@@ -18,14 +24,14 @@ public static class ItemDB {
         Health = 40.0f,
         Armour = 1.0f,
         Speed = 40.0f,
-        RotationSpeed = 6.0f,
+        RotationSpeed = 3.0f,
         Acceleration = 5.0f,
-        Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
+        Explosion = m_SmallExplosion,
         Prefab = Resources.Load("Models/Units/SteamHouse/Scout/Scout", typeof(GameObject)) as GameObject,
 		ItemImage = Resources.Load("Item Images/SteamHouse/ScoutBoat_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 0,
         RequiredBuildings = new int[] { 1 },
-        Cost = 150,
+        Cost = 100,
         BuildTime = 3.0f,
     };
      
@@ -45,9 +51,49 @@ public static class ItemDB {
 		ItemImage = Resources.Load("Item Images/SteamHouse/Destroyer_Icon", typeof(Texture2D)) as Texture2D,
         SortOrder = 1,
         RequiredBuildings = new int[] { 1 },
-        Cost = 300,
+        Cost = 100,
         BuildTime = 5.0f,
     };
+
+	public static Item FishingBoat = new Item
+	{
+		ID = 2,
+		TypeIdentifier = Const.TYPE_Ship,
+		TeamIdentifier = Const.TEAM_STEAMHOUSE,
+		Name = "Fishing Boat",
+		Health = 100.0f,
+		Armour = 3.0f,
+		Speed = 20.0f,
+		RotationSpeed = 2.0f,
+		Acceleration = 1.0f,
+		Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
+		//Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
+		ItemImage = Resources.Load("Item Images/SteamHouse/FishingBoat_Icon", typeof(Texture2D)) as Texture2D,
+		SortOrder = 2,
+		RequiredBuildings = new int[] { 1 },
+		Cost = 100,
+		BuildTime = 5.0f,
+	};
+
+	public static Item Dreadnought = new Item
+	{
+		ID = 3,
+		TypeIdentifier = Const.TYPE_Ship,
+		TeamIdentifier = Const.TEAM_STEAMHOUSE,
+		Name = "Dreadnought",
+		Health = 100.0f,
+		Armour = 3.0f,
+		Speed = 20.0f,
+		RotationSpeed = 2.0f,
+		Acceleration = 1.0f,
+		Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
+		//Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
+		ItemImage = Resources.Load("Item Images/SteamHouse/Dreadnought_Icon", typeof(Texture2D)) as Texture2D,
+		SortOrder = 3,
+		RequiredBuildings = new int[] { 1 },
+		Cost = 100,
+		BuildTime = 5.0f,
+	};
 	
     // ##### STEAM HOUSE BUILDINGS #####    
 
@@ -88,14 +134,36 @@ public static class ItemDB {
 		ObjectType = typeof(NavalYard),
 	};
 
+	public static Item Refinery = new Item
+	{
+		ID = 2,
+		TypeIdentifier = Const.TYPE_Building,
+		TeamIdentifier = Const.TEAM_STEAMHOUSE,
+		BuildingIdentifier = Const.BUILDING_Refinery,
+		Name = "Refinery",
+		Health = 100.0f,
+		Armour = 3.0f,
+		Explosion = Resources.Load("Effects/Prefabs/Explosion_4") as GameObject,
+		Prefab = Resources.Load ("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
+		ItemImage = Resources.Load ("Item Images/SteamHouse/Refinery_Icon", typeof(Texture2D)) as Texture2D,
+		SortOrder = 1,
+		RequiredBuildings = new int[] { 0 },
+		Cost = 700,
+		BuildTime = 5.0f,
+		ObjectType = typeof(Refinery),
+	};
+
     // Functions
 			
 	public static void Initialise()
 	{
-        //InitialiseItem (Scout);
+        InitialiseItem (Scout);
         InitialiseItem (Destroyer);
+		InitialiseItem (FishingBoat);
+		InitialiseItem (Dreadnought);
         InitialiseItem (FloatingFortress);
 		InitialiseItem (NavalYard);
+		InitialiseItem (Refinery);
 	}
 	
 	private static void InitialiseItem(Item item)

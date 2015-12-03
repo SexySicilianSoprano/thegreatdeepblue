@@ -26,18 +26,10 @@ public class Selected : MonoBehaviour {
 	private float m_MainMenuWidth;
 	
 	private Vector3 m_WorldExtents;
+	
 
-    //Player identifier variables
-    private int primaryPlayer
-    {
-        get
-        {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledLayer;
-        }
-    }
-
-    // Use this for initialization
-    void Start () 
+	// Use this for initialization
+	void Start () 
 	{
 		Overlay = Overlays.CreateTexture ();
 		IsSelected = false;
@@ -116,7 +108,7 @@ public class Selected : MonoBehaviour {
 	{
 		if (IsSelected)
 		{
-			if (OverlayRect.xMax < Screen.width-m_MainMenuWidth && gameObject.layer == primaryPlayer)
+			if (OverlayRect.xMax < Screen.width-m_MainMenuWidth && gameObject.layer == 8)
 			{
 				GUI.DrawTexture (OverlayRect, Overlay);
 			}
@@ -125,10 +117,8 @@ public class Selected : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-		if (gameObject.layer == primaryPlayer)
-        {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/" + GetComponent<RTSObject>().Name + "_aknowledge");
-            IsSelected = true;
+		if (gameObject.layer == 8){
+			IsSelected = true;
 			m_JustBeenSelected = true;
 			m_JustBeenSelectedTimer = 0;
 			m_GLManager.AddItemToRender (m_GLItem);

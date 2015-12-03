@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile {
+public class Projectile : MonoBehaviour {
 
     // Projectile Identification
     public int ID;

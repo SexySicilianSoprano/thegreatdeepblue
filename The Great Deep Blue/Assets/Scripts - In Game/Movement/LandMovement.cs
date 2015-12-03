@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public abstract class LandMovement : Movement {
 	
-	protected GetPathThread m_GetPathThread;
+	//protected GetPathThread m_GetPathThread;
 	
 	protected Tile m_CurrentTile;
 	protected Tile m_TargetTile;
@@ -55,7 +55,6 @@ public abstract class LandMovement : Movement {
 			return tempValue;
 		}
 		set
-
 		{
 			lock (m_PathChangedLock)
 			{

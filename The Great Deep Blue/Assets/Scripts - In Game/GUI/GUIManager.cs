@@ -20,7 +20,7 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 	
 	private ITypeButton[] m_TypeButtons = new TypeButton[3];
 
-	private IMaintenanceButtons[] m_MaintenanceButtons = new IMaintenanceButtons[3];
+	//private IMaintenanceButtons[] m_MaintenanceButtons = new IMaintenanceButtons[3];
 	private IManager m_Manager;
 	
 	//Properties
@@ -133,9 +133,9 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		Rect rect3 = new Rect(x, y+(size*2), size, size);
 		
 		//Assign maintenance buttons
-		m_MaintenanceButtons[0] = new Maintenance_Sell(rect1);
+		/*m_MaintenanceButtons[0] = new Maintenance_Sell(rect1);
 		m_MaintenanceButtons[1] = new Maintenance_Fix(rect2);
-		m_MaintenanceButtons[2] = new Maintanance_Disable(rect3);
+		m_MaintenanceButtons[2] = new Maintanance_Disable(rect3);*/
 		
 		//Resolve Manager
 		m_Manager = ManagerResolver.Resolve<IManager>();
@@ -169,10 +169,10 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		}
 
 		//Draw maintenance buttons
-		foreach (IMaintenanceButtons button in m_MaintenanceButtons)
+		/*foreach (IMaintenanceButtons button in m_MaintenanceButtons)
 		{
 			button.Execute ();
-		}
+		}*/
 		
 		//Draw Money Label
 		GUI.Label (m_AboveMiniMapBG, m_Manager.Money.ToString (), GUIStyles.MoneyLabel);
@@ -277,8 +277,8 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		Rect rect3 = new Rect(x, y+(size*2), size, size);
 		
 		//Update Maintenance Buttons
-		m_MaintenanceButtons[0].Resize (rect1);
+		/*m_MaintenanceButtons[0].Resize (rect1);
 		m_MaintenanceButtons[1].Resize (rect2);
-		m_MaintenanceButtons[2].Resize (rect3);
+		m_MaintenanceButtons[2].Resize (rect3);*/
 	}
 }

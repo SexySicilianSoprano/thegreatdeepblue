@@ -10,7 +10,7 @@ public class Unit : RTSObject, IOrderable {
 	protected bool m_IsAttackable = true;
 	protected bool m_IsInteractable = false;
 
-    protected IGUIManager guiManager
+	protected IGUIManager guiManager
 	{
 		get;
 		private set;
@@ -24,7 +24,7 @@ public class Unit : RTSObject, IOrderable {
 	
 	protected void Start()
 	{
-        guiManager = ManagerResolver.Resolve<IGUIManager>();
+		guiManager = ManagerResolver.Resolve<IGUIManager>();
 		selectedManager = ManagerResolver.Resolve<ISelectedManager>();
         ManagerResolver.Resolve<IManager>().UnitAdded(this);
         /*
@@ -111,7 +111,6 @@ public class Unit : RTSObject, IOrderable {
 			// Stop Order
 		    case Const.ORDER_STOP:
 
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");     
                 GetComponent<Combat>().Stop();
 			    if (IsMoveable())
 			    {
@@ -133,7 +132,6 @@ public class Unit : RTSObject, IOrderable {
 				    {
 					    CancelDeploy ();
 				    }
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");
                     GetComponent<Movement>().MoveTo (order.OrderLocation);
 			    }
 			    break;
@@ -153,7 +151,6 @@ public class Unit : RTSObject, IOrderable {
                 if (IsAttackable())
                 {
                     // Attack
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_attack");
                     GetComponent<Combat>().Attack(order.Target);
                 }
 
@@ -184,10 +181,9 @@ public class Unit : RTSObject, IOrderable {
 		}
 	}
 
-    // Trigger reactions for unit creation
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == playerLayer)
+        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), other.GetComponent<Collider>());
         }
@@ -195,7 +191,11 @@ public class Unit : RTSObject, IOrderable {
 
     public void OnTriggerExit(Collider other)
     {
-        GetComponent<Collider>().isTrigger = false;      
+        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
+        {
+            GetComponent<Collider>().isTrigger = false;
+        }
+        
     }
     
 	private void CancelDeploy()
@@ -205,12 +205,7 @@ public class Unit : RTSObject, IOrderable {
    
     new void OnDestroy()
 	{
-        if (gameObject.layer == primaryPlayer.controlledLayer)
-        {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_kill");
-        }
-            
-        //Remove object from selected manager
-        selectedManager.DeselectObject(this);
+		//Remove object from selected manager
+		selectedManager.DeselectObject(this);
 	}
 }

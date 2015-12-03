@@ -6,10 +6,10 @@ public class Building : RTSObject {
 	
 	private bool sellable = false;
 	
-	public void Start()
-	{        
+	protected void Start()
+	{
         //Tell the manager this building has been added
-        if (playerLayer == primaryPlayer.controlledLayer)
+        if (gameObject.tag == "Player1")
         {
             if (!gameObject.GetComponent<BuildingBeingPlaced>())
             {

@@ -177,7 +177,6 @@ public class MiniMapController : MonoBehaviour, IMiniMapController {
 	{
 		GL.PushMatrix ();
 		mat.SetPass (0);
-        
 		GL.LoadPixelMatrix();
 		GL.Color (Color.white);
 		GL.Begin(GL.LINES);
