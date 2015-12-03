@@ -40,7 +40,7 @@ public static class GUIStyles
 		
 		m_ItemFinishedLabel = new GUIStyle();
 		m_ItemFinishedLabel.fontSize = 20;
-		m_ItemFinishedLabel.normal.textColor = Color.black;
+		m_ItemFinishedLabel.normal.textColor = Color.white;
 		m_ItemFinishedLabel.alignment = TextAnchor.MiddleCenter;
 	}
 	

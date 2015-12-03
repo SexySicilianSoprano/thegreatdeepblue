@@ -22,8 +22,8 @@ public class GUIEvents
 	public static void TypeButtonPressed(object sender, ButtonType button)
 	{
 		if (TypeButtonChanged != null)
-		{
-			TypeButtonChanged(sender, new TypeButtonEventArgs(button));
+		{           
+            TypeButtonChanged(sender, new TypeButtonEventArgs(button));
 		}
 	}
 	
@@ -31,7 +31,7 @@ public class GUIEvents
 	{
 		if (QueueButtonChanged != null)
 		{
-			QueueButtonChanged(sender, new QueueButtonEventArgs(button));
+            QueueButtonChanged(sender, new QueueButtonEventArgs(button));
 		}
 	}
 	
@@ -39,7 +39,7 @@ public class GUIEvents
 	{
 		if (MaintenanceButtonChanged != null)
 		{
-			MaintenanceButtonChanged(sender, new MaintenanceButtonEventArgs(button));
+            MaintenanceButtonChanged(sender, new MaintenanceButtonEventArgs(button));
 		}
 	}
 	

@@ -17,9 +17,26 @@ public class UIManager : MonoBehaviour, IUIManager {
 	
 	//Mode Variables
 	private Mode m_Mode = Mode.Normal;
-	
-	//Interface variables the UI needs to deal with
-	private ISelectedManager m_SelectedManager;
+
+    //Player identifier variables
+    private Player primaryPlayer
+    {
+        get
+        {
+            return GetComponent<GameManager>().primaryPlayer();
+        }
+    }
+
+    private Player enemyPlayer
+    {
+        get
+        {
+            return GetComponent<GameManager>().enemyPlayer();
+        }
+    }
+
+    //Interface variables the UI needs to deal with
+    private ISelectedManager m_SelectedManager;
 	private ICamera m_Camera;
 	private IGUIManager m_GuiManager;
 	private IMiniMapController m_MiniMapController;
@@ -56,11 +73,17 @@ public class UIManager : MonoBehaviour, IUIManager {
 		main = this;
 	}
 
+    void SetPlayerIdentifiers()
+    {
+        
+    }
+
 	// Use this for initialization
 	void Start () 
 	{
-		//Resolve interface variables
-		m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
+        Debug.Log(primaryPlayer.controlledLayer + " swag");
+        //Resolve interface variables
+        m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
 		m_Camera = ManagerResolver.Resolve<ICamera>();	
 		m_GuiManager = ManagerResolver.Resolve<IGUIManager>();
 		m_MiniMapController = ManagerResolver.Resolve<IMiniMapController>();
@@ -74,7 +97,10 @@ public class UIManager : MonoBehaviour, IUIManager {
 		
 		//Attach gui width changed event	
 		GUIEvents.MenuWidthChanged += MenuWidthChanged;
-		
+
+        //Resolve player tag / layer variables
+        SetPlayerIdentifiers();
+
 		//Loader.main.FinishedLoading (this);
 	}
 	
@@ -113,16 +139,19 @@ public class UIManager : MonoBehaviour, IUIManager {
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity, ~(1 << 16)))
 			{
 				currentObject = hit.collider.gameObject;
-				switch (hit.collider.gameObject.layer)
+				switch (currentObject.layer)
 				{
-				case 8:
-					//Friendly unit
-					hoverOver = HoverOver.FriendlyUnit;
-					break;
-					
+				case 8:					
 				case 9:
-                    //Enemy Unit
-					hoverOver = HoverOver.EnemyUnit;
+                    if (currentObject.layer == primaryPlayer.controlledLayer)
+                    {
+                        hoverOver = HoverOver.FriendlyUnit;
+                    }
+                    else
+                    {
+                        hoverOver = HoverOver.EnemyUnit;
+                    }
+					
 					break;
 					
 				case 11:
@@ -362,7 +391,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 			//We've left clicked, what have we left clicked on?
 			int currentObjLayer = currentObject.layer;
 			
-			if (currentObjLayer == 8)
+			if (currentObjLayer == primaryPlayer.controlledLayer)
 			{
 				//Friendly Unit, is the unit selected?
 				if (m_SelectedManager.IsObjectSelected(currentObject))
@@ -388,8 +417,8 @@ public class UIManager : MonoBehaviour, IUIManager {
                     //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
                     // m_ItemBeingPlaced.ObjectType.ToString ());
 
-                newObject.layer = 8;
-                newObject.tag = "Player1";
+                newObject.layer = primaryPlayer.controlledLayer;
+                newObject.tag = primaryPlayer.controlledTag;
 				
                 /*
 				BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
@@ -407,7 +436,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 				m_ItemBeingPlaced.FinishBuild ();
 				m_CallBackFunction.Invoke ();
 				m_Placed = true;
-                newObject.GetComponent<Collider>().isTrigger = false;
+                newObject.GetComponent<BoxCollider>().isTrigger = false;
         		SwitchToModeNormal ();
 			}
 			break;
@@ -416,7 +445,7 @@ public class UIManager : MonoBehaviour, IUIManager {
        
 	public void LeftButton_DoubleClickDown(MouseEventArgs e)
 	{
-		if (currentObject.layer == 8)
+		if (currentObject.layer == primaryPlayer.controlledLayer)
 		{
 			//Select all units of that type on screen
 			
@@ -437,7 +466,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 			
 			//We've left clicked, have we left clicked on a unit?
 			int currentObjLayer = currentObject.layer;
-			if (!m_GuiManager.Dragging && (currentObjLayer == 8 || currentObjLayer == 9 || currentObjLayer == 12 || currentObjLayer == 13))
+			if (!m_GuiManager.Dragging && (currentObjLayer == primaryPlayer.controlledLayer || currentObjLayer == enemyPlayer.controlledLayer || currentObjLayer == 12 || currentObjLayer == 13))
 			{
 				if (!IsShiftDown)
 				{
@@ -469,16 +498,16 @@ public class UIManager : MonoBehaviour, IUIManager {
 			//We've right clicked, have we right clicked on ground, interactable object or enemy?
 			int currentObjLayer = currentObject.layer;
 			
-			if (currentObjLayer == 11 || currentObjLayer == 17 || currentObjLayer == 18 || currentObjLayer == 20)
+			if (currentObjLayer == 11 || currentObjLayer == 17 || currentObjLayer == 18)
 			{
 				//Terrain -> Move Command
 				m_SelectedManager.GiveOrder (Orders.CreateMoveOrder (e.WorldPosClick));
 			}
-			else if (currentObjLayer == 8 || currentObjLayer == 14)
+			else if (currentObjLayer == primaryPlayer.controlledLayer|| currentObjLayer == 14)
 			{
 				//Friendly Unit -> Interact (if applicable)
 			}
-			else if (currentObjLayer == 9 || currentObjLayer == 15)
+			else if (currentObjLayer == enemyPlayer.controlledLayer || currentObjLayer == 15)
 			{
                 //Enemy Unit -> Attack                    
                 m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));                    	

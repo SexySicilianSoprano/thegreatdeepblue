@@ -71,7 +71,7 @@ public class MyCamera : MonoBehaviour
 		
 		// Refresh the focus point position
 		RefreshFocusPoint();
-
+		
 		// call this method to refresh the status.
 		// this method contains rules to change between states
 		UpdateStatus();
@@ -102,7 +102,7 @@ public class MyCamera : MonoBehaviour
 		// calculate the goal
 		Vector3 goal = thePlayer.transform.position; // get the player position
 		//goal.y = 135.0f;
-		goal.x *= 1.025f;
+		//goal.x *= 1.025f;
 		
 		// now we do the reverse engineering. Adding units of vectors to the goal, based on the cameraobject -forward, until it reachs the current
 		// y of the camera, to discovery the position to follow
@@ -125,12 +125,11 @@ public class MyCamera : MonoBehaviour
 		Vector3 movement = Vector3.zero;
 		movement.x = InputManager.instance.GetPanAxis().x;
 		movement.z = InputManager.instance.GetPanAxis().y;
-		transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based to world space.
+		transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based to self space.
 	}
 	
 	/// <summary>
 	/// Does the rotate around behavior based to the focus point.
-	/// QUESTION: Do we really need this? Feels out of place honestly.
 	/// </summary>
 	private void RotateAroundControll()
 	{

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.07.00">
+    <object class="EventFolder" id="{a6a75843-06cb-4ee8-b17d-00815f27a2b9}">
+        <property name="name">
+            <value>Floating Fortress</value>
+        </property>
+        <relationship name="folder">
+            <destination>{8607b8da-102c-4705-85ae-87b141481116}</destination>
+        </relationship>
+    </object>
+</objects>

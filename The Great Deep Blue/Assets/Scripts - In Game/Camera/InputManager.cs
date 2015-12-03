@@ -44,7 +44,6 @@ public class InputManager : MonoBehaviour
 		panAxis = Vector2.zero;
 		
 		if (Input.GetKey(upArrow))
-		//if (Input.GetAxis("Vertical"))
 		{
 			panAxis.y = 1;
 		}
@@ -54,7 +53,6 @@ public class InputManager : MonoBehaviour
 		}
 		
 		if (Input.GetKey(rightArrow))
-		//if (Input.GetAxis ("Horizontal"))
 		{
 			panAxis.x = 1;
 		}
@@ -68,12 +66,7 @@ public class InputManager : MonoBehaviour
 	{
 		return panAxis;
 	}
-
-	/// <summary>
-	/// Gets the rotate around left.
-	/// QUESTION: Do we really need this?
-	/// </summary>
-	/// <returns><c>true</c>, if rotate around left was gotten, <c>false</c> otherwise.</returns>
+	
 	public bool GetRotateAroundLeft()
 	{
 		return Input.GetKey(rotateAroundLeft);

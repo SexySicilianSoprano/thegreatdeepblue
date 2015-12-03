@@ -17,13 +17,13 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	private float m_HealthSize = 2.0f;
 	private float m_HealthWidth;
-
-	// Use this for initialization
-	void Start () 
+    
+    // Use this for initialization
+    void Start () 
 	{
-		/*//Calculate world co-ordinates
+		//Calculate world co-ordinates
 		//8 vertices for outline (determined from collider)
-		Bounds bounds = GetComponent<Collider>().bounds;
+		Bounds bounds = GetComponent<BoxCollider>().bounds;
 		Vector3 center = bounds.center;
 		float xExtent = bounds.extents.x;
 		float yExtent = bounds.extents.y;
@@ -59,7 +59,7 @@ public class SelectedBuilding : MonoBehaviour {
 		m_HealthWidth = Mathf.Abs (WorldHealthVertices[0].x - WorldHealthVertices[4].x);
 		
 		//Create GLItem
-		m_GLItem = new GLItem(ExecuteFunction);*/
+		m_GLItem = new GLItem(ExecuteFunction);
 		
 		//Resolve GLManager
 		m_GLManager = ManagerResolver.Resolve<IGLManager>();
@@ -73,12 +73,13 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-		//m_GLManager.AddItemToRender(m_GLItem);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/selection", transform.position.normalized);
+        m_GLManager.AddItemToRender(m_GLItem);
 	}
 	
 	public void SetDeselected()
 	{
-		//m_GLManager.RemoveItemToRender (m_GLItem);
+		m_GLManager.RemoveItemToRender (m_GLItem);
 	}
 	
 	public void ExecuteFunction()

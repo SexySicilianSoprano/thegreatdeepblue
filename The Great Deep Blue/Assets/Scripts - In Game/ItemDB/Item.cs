@@ -283,7 +283,7 @@ public class Item {
     {       
         m_UnitFinished = false;
         m_Building = false;
-        m_Finished = false;
+        m_Finished = false;        
     }
 	
 	public float GetProgress()

@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetPlayer : MonoBehaviour {
-    
-    public Player Player1 = new Player()
+public static class SetPlayer {
+
+    public static Player Player1 = new Player
+    {
+        ID = 0,
+        screenName = "Mingebag",
+        color = new Color(255, 0, 0),
+        controlledLayer = 8,
+        controlledTag = "Player1"
+    };
+
+    public static Player Player2 = new Player
     {
         ID = 1,
-        ScreenName = "Mingebag",
-        Color = new Color (255,0,0),
+        screenName = "TestEnemy",
+        color = new Color(0, 0, 255),
+        controlledLayer = 9,
+        controlledTag = "Player2"
     };
-
-    public Player Player2 = new Player()
-    {
-        ID = 2,
-        ScreenName = "TestEnemy",
-        Color = new Color(0, 0, 255), 
-    };
-
-
-
+    
 }
