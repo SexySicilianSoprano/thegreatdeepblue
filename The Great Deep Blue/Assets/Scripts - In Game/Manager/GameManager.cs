@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
 
     public Player enemyPlayer()
     {
-         return m_Player2;
+        return m_Player2;
     }    
 
     public GameObject victoryPanel;

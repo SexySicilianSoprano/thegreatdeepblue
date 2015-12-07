@@ -86,9 +86,16 @@ public class VehicleMovement : LandMovement {
             }           
             
             UpdateCurrentTile();
+
+            if (HasReachedDestination())
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                
+                Path.Clear();
+            }
         }
         else
-        {           
+        {
             m_PlayMovingSound = false;
             AffectedByCurrent = true;
         }
@@ -113,7 +120,7 @@ public class VehicleMovement : LandMovement {
         NavMesh.CalculatePath(m_Parent.transform.position, location, NavMesh.AllAreas, path);
 
     }
-
+    // Turning towards the destination
     private void RotateTowards(Vector3 location)
     {
         m_Direction = (location - m_Parent.transform.position).normalized;
@@ -123,17 +130,24 @@ public class VehicleMovement : LandMovement {
         transform.rotation = Quaternion.Slerp(transform.rotation, m_LookRotation, Time.deltaTime * RotationalSpeed);
     }
 
+    // Onward!
     private void MoveForward()
     {
-        //m_Parent.transform.Translate(Vector3.forward * Speed);
-        GetComponent<Rigidbody>().AddForce(transform.forward * Speed);
-        
-        if (m_ArrivalTile == m_TargetTile || Vector3.Distance(m_Parent.transform.position, m_TargetTile.Center) == 2f )
-        {
-            Stop();
-        }
+        GetComponent<Rigidbody>().AddForce(m_Parent.transform.forward * Speed);
     }
 
+    // Has the unit reached its destination?
+    private bool HasReachedDestination()
+    {
+        if (m_CurrentTile == m_ArrivalTile || Vector3.Distance(transform.position, m_ArrivalTile.Center) <= 10 )
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    // Gives the moving command
     public override void MoveTo(Vector3 location)
     {        
         if (m_ArrivalTile != null)
@@ -155,8 +169,6 @@ public class VehicleMovement : LandMovement {
             Vector3 nextPos = Path[0];
             Path.Clear();
             Path.Add(nextPos);
-
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
 

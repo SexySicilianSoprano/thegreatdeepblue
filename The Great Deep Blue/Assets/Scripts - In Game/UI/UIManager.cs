@@ -436,7 +436,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 				m_ItemBeingPlaced.FinishBuild ();
 				m_CallBackFunction.Invoke ();
 				m_Placed = true;
-                newObject.GetComponent<Collider>().isTrigger = false;
+                newObject.GetComponent<BoxCollider>().isTrigger = false;
         		SwitchToModeNormal ();
 			}
 			break;
@@ -498,7 +498,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 			//We've right clicked, have we right clicked on ground, interactable object or enemy?
 			int currentObjLayer = currentObject.layer;
 			
-			if (currentObjLayer == 11 || currentObjLayer == 17 || currentObjLayer == 18)
+			if (currentObjLayer == 11 || currentObjLayer == 17 || currentObjLayer == 20)
 			{
 				//Terrain -> Move Command
 				m_SelectedManager.GiveOrder (Orders.CreateMoveOrder (e.WorldPosClick));

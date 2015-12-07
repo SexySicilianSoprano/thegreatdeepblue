@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.07.00">
+    <object class="AudioFile" id="{e985fc87-137e-4943-bd28-c3b17f29294c}">
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>4</value>
+        </property>
+        <property name="audioFilePath">
+            <value>$(AUDIO_BIN_DIR)/boat_engine_04 {1fb57e58-1505-4ab5-a5c6-7feca578693d}.wav</value>
+        </property>
+        <relationship name="container">
+            <destination>{24eedc7a-8ce8-4704-953b-be949a98a778}</destination>
+        </relationship>
+    </object>
+</objects>

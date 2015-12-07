@@ -18,7 +18,7 @@ public static class ItemDB {
         Health = 40.0f,
         Armour = 1.0f,
         Speed = 40.0f,
-        RotationSpeed = 6.0f,
+        RotationSpeed = 4.0f,
         Acceleration = 5.0f,
         Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
         Prefab = Resources.Load("Models/Units/SteamHouse/Scout/Scout", typeof(GameObject)) as GameObject,
@@ -38,7 +38,7 @@ public static class ItemDB {
         Health = 100.0f,
         Armour = 3.0f,
         Speed = 20.0f,
-        RotationSpeed = 2.0f,
+        RotationSpeed = 1.5f,
         Acceleration = 1.0f,
         Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
         Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
@@ -48,17 +48,58 @@ public static class ItemDB {
         Cost = 300,
         BuildTime = 5.0f,
     };
-	
+
+    public static Item FishingBoat = new Item
+    {
+        ID = 2,
+        TypeIdentifier = Const.TYPE_Ship,
+        TeamIdentifier = Const.TEAM_STEAMHOUSE,
+        Name = "FishingBoat",
+        Health = 100.0f,
+        Armour = 3.0f,
+        Speed = 20.0f,
+        RotationSpeed = 1.5f,
+        Acceleration = 1.0f,
+        Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
+        Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
+        ItemImage = Resources.Load("Item Images/SteamHouse/FishingBoat_Icon", typeof(Texture2D)) as Texture2D,
+        SortOrder = 1,
+        RequiredBuildings = new int[] { 1 },
+        Cost = 300,
+        BuildTime = 5.0f,
+    };
+
+    public static Item Dreadnought = new Item
+    {
+        ID = 3,
+        TypeIdentifier = Const.TYPE_Ship,
+        TeamIdentifier = Const.TEAM_STEAMHOUSE,
+        Name = "Dreadnought",
+        Health = 100.0f,
+        Armour = 3.0f,
+        Speed = 20.0f,
+        RotationSpeed = 1.5f,
+        Acceleration = 1.0f,
+        Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
+        Prefab = Resources.Load("Models/Units/SteamHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
+        ItemImage = Resources.Load("Item Images/SteamHouse/Dreadnought_Icon", typeof(Texture2D)) as Texture2D,
+        SortOrder = 1,
+        RequiredBuildings = new int[] { 1 },
+        Cost = 300,
+        BuildTime = 5.0f,
+    };
+
+
     // ##### STEAM HOUSE BUILDINGS #####    
 
-	public static Item FloatingFortress = new Item
+    public static Item FloatingFortress = new Item
 	{
 		ID = 0,
 		TypeIdentifier = Const.TYPE_Building,
 		TeamIdentifier = Const.TEAM_STEAMHOUSE,
         BuildingIdentifier = Const.BUILDING_FloatingFortress,
         Name = "Floating Fortress",
-		Health = 100.0f,
+		Health = 300.0f,
 		Armour = 10.0f,
 		Explosion = Resources.Load("Effects/Prefabs/Explosion_4", typeof(GameObject)) as GameObject,
 		Prefab = Resources.Load ("Models/Buildings/SteamHouse/Floating Fortress/FloatingFortress", typeof(GameObject)) as GameObject,
@@ -88,14 +129,54 @@ public static class ItemDB {
 		ObjectType = typeof(NavalYard),
 	};
 
+    public static Item Refinery = new Item
+    {
+        ID = 2,
+        TypeIdentifier = Const.TYPE_Building,
+        TeamIdentifier = Const.TEAM_STEAMHOUSE,
+        BuildingIdentifier = Const.BUILDING_Refinery,
+        Name = "Refinery",
+        Health = 100.0f,
+        Armour = 3.0f,
+        Explosion = Resources.Load("Effects/Prefabs/Explosion_4") as GameObject,
+        Prefab = Resources.Load("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
+        ItemImage = Resources.Load("Item Images/SteamHouse/Refinery_Icon", typeof(Texture2D)) as Texture2D,
+        SortOrder = 0,
+        RequiredBuildings = new int[] { 0 },
+        Cost = 700,
+        BuildTime = 5.0f,
+        ObjectType = typeof(Refinery),
+    };
+     
+    public static Item Laboratory = new Item
+    {
+        ID = 3,
+        TypeIdentifier = Const.TYPE_Building,
+        TeamIdentifier = Const.TEAM_STEAMHOUSE,
+        BuildingIdentifier = Const.BUILDING_Laboratory,
+        Name = "Laboratory",
+        Health = 100.0f,
+        Armour = 3.0f,
+        Explosion = Resources.Load("Effects/Prefabs/Explosion_4") as GameObject,
+        Prefab = Resources.Load("Models/Buildings/SteamHouse/Naval Yard/NavalYard", typeof(GameObject)) as GameObject,
+        ItemImage = Resources.Load("Item Images/SteamHouse/Laboratory_Icon", typeof(Texture2D)) as Texture2D,
+        SortOrder = 0,
+        RequiredBuildings = new int[] { 0 },
+        Cost = 700,
+        BuildTime = 5.0f,
+        ObjectType = typeof(Laboratory),
+    };
+
     // Functions
-			
-	public static void Initialise()
+
+    public static void Initialise()
 	{
-        //InitialiseItem (Scout);
+        InitialiseItem (Scout);
         InitialiseItem (Destroyer);
         InitialiseItem (FloatingFortress);
 		InitialiseItem (NavalYard);
+        InitialiseItem (Refinery);
+        InitialiseItem (Laboratory);
 	}
 	
 	private static void InitialiseItem(Item item)

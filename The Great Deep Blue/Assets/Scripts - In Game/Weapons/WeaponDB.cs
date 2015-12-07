@@ -14,7 +14,7 @@ public class WeaponDB {
         Damage = 10,
         Range = 100,
         FireRate = 30,
-        TurretSpeed = 1.0f,
+        TurretSpeed = 2.0f,
         isAntiArmor = true,
         isAntiStructure = false,
         //Projectile = ProjectileDB.CannonBall
@@ -28,7 +28,7 @@ public class WeaponDB {
         Damage = 2,
         Range = 100,
         FireRate = 160,
-        TurretSpeed = 1.5f,
+        TurretSpeed = 3f,
         isAntiArmor = true,
         isAntiStructure = false,
         //Projectile = ProjectileDB.CannonBall
@@ -37,6 +37,7 @@ public class WeaponDB {
     public static void Initialise()
     {
         InitialiseWeapon(TestCannon);
+        InitialiseWeapon(TestMachineGun);
     }
 
     private static void InitialiseWeapon(Weapon weapon)
