@@ -48,7 +48,7 @@ public class VehicleMovement : LandMovement {
 	void Start () 
 	{
 		m_Parent = GetComponent<RTSObject>();
-		m_CurrentTile.SetOccupied(m_Parent, false);
+		//m_CurrentTile.SetOccupied(m_Parent, false);
 
 		rb = GetComponent<Rigidbody>();
 	}

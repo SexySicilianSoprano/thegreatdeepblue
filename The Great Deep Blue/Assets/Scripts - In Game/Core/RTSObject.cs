@@ -73,7 +73,6 @@ public abstract class RTSObject : MonoBehaviour {
 
     public RTSObject AttackingEnemy;
     public UnitSpawner Spawner;
-    FMOD.Studio.EventInstance sfx_Manager;
 
     // Health details
     public float m_Health;
@@ -117,13 +116,13 @@ public abstract class RTSObject : MonoBehaviour {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/hit", transform.position.normalized);
         m_Health -= damage;
 
-        if (m_Health == 0 || m_Health <= 0) {
+        if (m_Health == 0 || m_Health <= 0)
+        {
             Vector3 newVector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z);
             GameObject newExplosion = Instantiate(Explosion, newVector, gameObject.transform.rotation) as GameObject;
             newExplosion.GetComponent<ParticleSystem>().Play(true);
             gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject.SetActive (false);
-            Destroy(gameObject);
-            //Destroy(gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject);
+            Destroy(gameObject);            
         }
 	}
      
