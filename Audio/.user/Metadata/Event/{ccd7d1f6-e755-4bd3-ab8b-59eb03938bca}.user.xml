@@ -31,8 +31,8 @@
     <object class="SingleSound" id="{812c72a1-5592-4680-a446-874f189bf34c}"/>
     <object class="SingleSound" id="{b86aff7f-fc38-4cc7-b31c-8929bedc24c4}"/>
     <object class="EventMixerGroup" id="{0bee3ce6-365f-46db-b0b7-a36d629a44d3}"/>
-    <object class="TempoMarker" id="{b2919be9-7a10-497a-890c-00509c4515d7}"/>
     <object class="LoopRegion" id="{41703777-b6b6-4b14-9e3a-0e2177fc6f67}"/>
+    <object class="TempoMarker" id="{b2919be9-7a10-497a-890c-00509c4515d7}"/>
     <object class="MixerBusEffectChain" id="{203064db-2356-4d0e-98a8-e782c5723a95}"/>
     <object class="MixerBusPanner" id="{cabf9a7e-055b-4e65-ba8b-69e76c9018bb}"/>
     <object class="MixerBusFader" id="{7898dcd9-d71b-49b7-8d1e-bc33b625465f}"/>
