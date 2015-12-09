@@ -122,6 +122,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 			break;
 		}
 	}
+    
+    
 	
 	private void ModeNormalBehaviour()
 	{
@@ -387,59 +389,60 @@ public class UIManager : MonoBehaviour, IUIManager {
 	{
 		switch (m_Mode)
 		{
-		case Mode.Normal:
-			//We've left clicked, what have we left clicked on?
-			int currentObjLayer = currentObject.layer;
+		    case Mode.Normal:
+			    //We've left clicked, what have we left clicked on?
+			    int currentObjLayer = currentObject.layer;
 			
-			if (currentObjLayer == primaryPlayer.controlledLayer)
-			{
-				//Friendly Unit, is the unit selected?
-				if (m_SelectedManager.IsObjectSelected(currentObject))
-				{
-                    //Is the unit deployable?
-                    if (currentObject.GetComponent<Unit>())
-                    {
-                        if (currentObject.GetComponent<Unit>().IsDeployable())
+			    if (currentObjLayer == primaryPlayer.controlledLayer)
+			    {
+				    //Friendly Unit, is the unit selected?
+				    if (m_SelectedManager.IsObjectSelected(currentObject))
+				    {
+                        //Is the unit deployable?
+                        if (currentObject.GetComponent<Unit>())
                         {
-                            currentObject.GetComponent<Unit>().GiveOrder(Orders.CreateDeployOrder());
+                            if (currentObject.GetComponent<Unit>().IsDeployable())
+                            {
+                                currentObject.GetComponent<Unit>().GiveOrder(Orders.CreateDeployOrder());
+                            }
                         }
-                    }
-				}
-			}
-			break;
+				    }
+			    }
+			    break;
 			
-		case Mode.PlaceBuilding:
-			//We've left clicked, if we're valid place the building
-			if (m_PositionValid)
-			{
-				GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ObjectBeingPlaced.transform.rotation);
-                    //UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent
-                    //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
-                    // m_ItemBeingPlaced.ObjectType.ToString ());
+		    case Mode.PlaceBuilding:
+                //We've left clicked, if we're valid place the building
 
-                newObject.layer = primaryPlayer.controlledLayer;
-                newObject.tag = primaryPlayer.controlledTag;
-				
-                /*
-				BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
-				
-				if (tempCollider == null)
-				{
-					tempCollider = newObject.AddComponent<BoxCollider>();
-				}
-				
-				tempCollider.center = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderCenter;
-				tempCollider.size = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderSize;
-				tempCollider.isTrigger = true;
-				*/
+			    if (m_PositionValid)
+			    {
+				    GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ObjectBeingPlaced.transform.rotation);
+                        //UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent
+                        //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
+                        // m_ItemBeingPlaced.ObjectType.ToString ());
 
-				m_ItemBeingPlaced.FinishBuild ();
-				m_CallBackFunction.Invoke ();
-				m_Placed = true;
-                newObject.GetComponent<BoxCollider>().isTrigger = false;
-        		SwitchToModeNormal ();
-			}
-			break;
+                    newObject.layer = primaryPlayer.controlledLayer;
+                    newObject.tag = primaryPlayer.controlledTag;
+				
+                    /*
+				    BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
+				
+				    if (tempCollider == null)
+				    {
+					    tempCollider = newObject.AddComponent<BoxCollider>();
+				    }
+				
+				    tempCollider.center = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderCenter;
+				    tempCollider.size = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderSize;
+				    tempCollider.isTrigger = true;
+				    */
+
+				    m_ItemBeingPlaced.FinishBuild ();
+				    m_CallBackFunction.Invoke ();
+				    m_Placed = true;
+                    newObject.GetComponent<BoxCollider>().isTrigger = false;
+        		    SwitchToModeNormal ();
+			    }
+	        break;
 		}
 	}
        
@@ -624,6 +627,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 		m_ItemBeingPlaced = item;
 		m_ObjectBeingPlaced = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab);
 		m_ObjectBeingPlaced.AddComponent<BuildingBeingPlaced>();
+        
 	}
 }
 
