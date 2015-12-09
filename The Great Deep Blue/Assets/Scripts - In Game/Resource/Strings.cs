@@ -22,4 +22,5 @@ public static class Strings
 	public const string V = "V";
 	
 	public const string Ready = "Ready";
+	public const string TBA = "TBA";
 }

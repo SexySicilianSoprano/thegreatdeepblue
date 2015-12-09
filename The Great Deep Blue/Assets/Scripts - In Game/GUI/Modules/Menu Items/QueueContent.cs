@@ -93,6 +93,10 @@ public class QueueContent : IQueueContent
                 {
                     GUI.Label(m_Area[itemsDrawn], Strings.Ready, GUIStyles.ItemFinishedLabel);
                 }
+				else if (item.ID == 2 || item.ID == 3)
+				{
+					GUI.Label(m_Area[itemsDrawn], Strings.TBA, GUIStyles.ItemFinishedLabel);
+				}
                 else if (item.IsUnitFinished)
                 {
                     Debug.Log(m_Host);

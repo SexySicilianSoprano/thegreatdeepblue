@@ -124,9 +124,9 @@ public class MyCamera : MonoBehaviour
 	{
 		Vector3 movement = Vector3.zero;
 
-		movement.x = InputManager.instance.GetPanAxis().x;
-		movement.z = InputManager.instance.GetPanAxis().y;
-		transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based to world space.
+		movement.x += InputManager.instance.GetPanAxis().x;
+		movement.z += InputManager.instance.GetPanAxis().y;
+		transform.Translate(movement * Time.deltaTime * panSpeed); // move based to world space.
 	}
 	
 	/// <summary>
@@ -175,8 +175,8 @@ public class MyCamera : MonoBehaviour
 		//bonus rule supposed to apply MANUAL status if moving mouse cursor over screen edge
 		//TODO: make it work lol. It works, but it doesn't center focus back to FF. Figure out how to fix it
 		else if (status == MyCameraStatusEnum.AT_PLAYER 
-		    && (Input.mousePosition.x >= Screen.width-5 
-		    || Input.mousePosition.y >= Screen.height-5
+		    && (Input.mousePosition.x >= Screen.width*0.98f
+		    || Input.mousePosition.y >= Screen.height*0.98f
 		    || Input.mousePosition.x == 0
 		    || Input.mousePosition.y == 0))
 		{
@@ -187,6 +187,7 @@ public class MyCamera : MonoBehaviour
 		else if (status == MyCameraStatusEnum.AT_PLAYER && MiniMapController.main.m_MiniMapRect.Contains (Input.mousePosition))
 		{
 			status = MyCameraStatusEnum.MANUAL;
+			Debug.Log (status);
 		}
 
 		// rule 2: MANUAL to AT_PLAYER

@@ -173,6 +173,8 @@ public static class ItemDB {
 	{
         InitialiseItem (Scout);
         InitialiseItem (Destroyer);
+		InitialiseItem (FishingBoat);
+		InitialiseItem (Dreadnought);
         InitialiseItem (FloatingFortress);
 		InitialiseItem (NavalYard);
         InitialiseItem (Refinery);
