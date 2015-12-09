@@ -123,9 +123,10 @@ public class MyCamera : MonoBehaviour
 	private void PanControll()
 	{
 		Vector3 movement = Vector3.zero;
+
 		movement.x = InputManager.instance.GetPanAxis().x;
 		movement.z = InputManager.instance.GetPanAxis().y;
-		transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based to self space.
+		transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based to world space.
 	}
 	
 	/// <summary>
