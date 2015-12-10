@@ -17,7 +17,7 @@ public class HealthBarArmi : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer.controlledLayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledLayer;
         }
     }
 
@@ -25,7 +25,7 @@ public class HealthBarArmi : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().enemyPlayer.controlledLayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().enemyPlayer().controlledLayer;
         }
     }
 
@@ -40,9 +40,6 @@ public class HealthBarArmi : MonoBehaviour {
 		maxHealth = GetComponent<RTSObject>().m_MaxHealth;
 
 		GameObject newHealthSlider = Instantiate (sliderPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
-		/*if (GetComponent<Player_ID>()){
-			GetComponent<Player_ID>().CmdSliderSpawn(newHealthSlider);
-		}*/
 		newHealthSlider.transform.SetParent(canvasRectT, true);
 
 		newHealthSlider.transform.position = new Vector3 (0,0,0);
@@ -59,7 +56,6 @@ public class HealthBarArmi : MonoBehaviour {
 		healthBarSlider.value = GetComponent<RTSObject>().m_Health;
 		healthBarSlider.maxValue = GetComponent<RTSObject>().m_MaxHealth;
 		
-		/*
 		if (gameObject.layer == enemyPlayer)
         {
 			healthBarSlider.gameObject.SetActive (false);
@@ -69,7 +65,6 @@ public class HealthBarArmi : MonoBehaviour {
 				healthBarSlider.gameObject.SetActive (true);
 			}
 		}
-		*/
 	}
 
 }

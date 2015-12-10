@@ -120,6 +120,41 @@ public class BuildingBeingPlaced : MonoBehaviour {
         }*/
     }
 
+    void Update()
+    {
+        if (BuildValid)
+        {
+            GetComponent<Renderer>().material.color = new Color(0, 255, 0, 150);
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = new Color(255, 0, 0, 150);
+        }
+
+        if (GetComponent<RTSObject>().primaryPlayer.controlledLayer == 8)
+        {
+            if (Vector3.Distance(gameObject.transform.position, GameObject.Find("FloatingFortress_1").transform.position) <= 50)
+            {
+                BuildValid = true;
+            }
+            else
+            {
+                BuildValid = false;
+            }
+        }
+        else {
+
+            if (Vector3.Distance(gameObject.transform.position, GameObject.Find("FloatingFortress_2").transform.position) <= 50)
+            {
+                BuildValid = true;
+            }
+            else
+            {
+                BuildValid = false;
+            }
+        }
+    }
+
     public void SetToValid()
     {
         for (int i = 0; i < m_BuildingMaterials.Count; i++)
@@ -135,21 +170,14 @@ public class BuildingBeingPlaced : MonoBehaviour {
             m_BuildingMaterials[i].color = m_InvalidBuildingColors[i];
         }
     }
-
-    void OnTriggerEnter(Collider other)
+    
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 8 || other.gameObject.layer == 9 || other.gameObject.layer == 12 || other.gameObject.layer == 3)
         {
             BuildValid = false;
         }
-        else
-        {
-            BuildValid = true;
-        }    
-    }
-
-    void OnTriggerExit(Collider other) {
-        BuildValid = true;
+        
     }
         
 	void OnDestroy()

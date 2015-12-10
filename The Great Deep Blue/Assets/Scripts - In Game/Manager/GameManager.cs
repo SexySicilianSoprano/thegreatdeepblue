@@ -4,23 +4,19 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
     private bool m_GameSet = false;
-    public Player m_Player1 = new Player();
-    public Player m_Player2 = new Player();
+    private Player m_Player1 = new Player();
+    private Player m_Player2 = new Player();
     private GameObject m_FloatingFortress1;
     private GameObject m_FloatingFortress2;
 
-    public Player primaryPlayer
+    public Player primaryPlayer()
     {
-    	get;
-    	set;
-        //return m_Player1;
+        return m_Player1;
     }
 
-    public Player enemyPlayer
+    public Player enemyPlayer()
     {
-		get;
-		set;
-        //return m_Player2;
+        return m_Player2;
     }    
 
     public GameObject victoryPanel;
@@ -41,13 +37,13 @@ public class GameManager : MonoBehaviour {
         if (!m_GameSet)
         {
             // Win condition
-            if (!m_FloatingFortress1 && primaryPlayer == m_Player2 || !m_FloatingFortress2 && primaryPlayer == m_Player1)
+            if (!m_FloatingFortress1 && primaryPlayer() == m_Player2 || !m_FloatingFortress2 && primaryPlayer() == m_Player1)
             {
-                //victoryPanel.SetActive(true);
+                victoryPanel.SetActive(true);
                 m_GameSet = true;
             }
             // Lose condition
-            else if (!m_FloatingFortress1 && primaryPlayer == m_Player1 || !m_FloatingFortress2 && primaryPlayer == m_Player2)
+            else if (!m_FloatingFortress1 && primaryPlayer() == m_Player1 || !m_FloatingFortress2 && primaryPlayer() == m_Player2)
             {
                 m_GameSet = true;
             }
