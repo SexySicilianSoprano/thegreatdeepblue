@@ -226,7 +226,6 @@ public class Item {
 		return new Item(this);
 	}
 	
-    // ### Building handlers ###
 	public void StartBuild()
 	{
 		GUIEvents.ItemUpdateTimer += Update;

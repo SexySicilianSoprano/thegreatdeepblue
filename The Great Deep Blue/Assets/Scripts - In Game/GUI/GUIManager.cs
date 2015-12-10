@@ -159,19 +159,19 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		GUI.DrawTexture (m_LeftMiniMapBG, m_MainMenuBGColor);
 		GUI.DrawTexture (m_RightMiniMapBG, m_MainMenuBGColor);
 		GUI.DrawTexture (m_AboveMiniMapBG, m_MainMenuBGColor);
-		GUI.DrawTexture (m_BelowMiniMapBG, m_MainMenuBGColor);
+		//GUI.DrawTexture (m_BelowMiniMapBG, m_MainMenuBGColor);
 
 		//Draw Type Buttons
 
 		foreach (IButton typeButton in m_TypeButtons)
 		{
-			typeButton.Execute ();
+			//typeButton.Execute ();
 		}
 
 		//Draw maintenance buttons
 		foreach (IMaintenanceButtons button in m_MaintenanceButtons)
 		{
-			button.Execute ();
+			//button.Execute ();
 		}
 		
 		//Draw Money Label
@@ -203,17 +203,13 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 	{
 		switch (building.ID)
 		{
-		    case Const.BUILDING_FloatingFortress:
-			    m_TypeButtons[0].AddNewQueue (building);
-			    break;
+		case Const.BUILDING_FloatingFortress:
+			m_TypeButtons[0].AddNewQueue (building);
+			break;
 			
-		    case Const.BUILDING_NavalYard:
-			    m_TypeButtons[1].AddNewQueue (building);
-                m_TypeButtons[2].AddNewQueue (building);
-                break;
-
-            case Const.BUILDING_Laboratory:
-                break;
+		case Const.BUILDING_NavalYard:
+			m_TypeButtons[1].AddNewQueue (building);
+			break;
 		}
 	}
 

@@ -18,13 +18,16 @@ public class VehicleCombat : Combat {
     
     private Transform Spawner;
     private Vector3 SpawnerPos;
+
+    //FMOD.Studio.EventInstance sfx_Manager;
         
     // Use this for initialization
     void Start()
     {
         SwitchMode(CombatMode.Defensive);
         m_Parent = GetComponent<RTSObject>();
-        Spawner = m_Parent.transform.GetChild(0);        
+        Spawner = m_Parent.transform.GetChild(0);
+        //sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Destroyer/firing");
     }
 
     void Update()
@@ -34,15 +37,15 @@ public class VehicleCombat : Combat {
         CurrentPos = CurrentLocation;
         CalculateFireRate();
 
-        if (TargetSet && m_Target == null)
-        {
-            Stop();
-        }
-        else if (TargetSet && canFire == true)
+        if (TargetSet && canFire == true)
         {
             TargetPos = TargetLocation;            
             Attack(m_Target);
-        } 
+        }        
+        else if (TargetSet && m_Target == null)
+        {
+            Stop();
+        }
 
         if (m_Parent.AttackingEnemy)
         {
@@ -138,7 +141,7 @@ public class VehicleCombat : Combat {
         
         gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
         Debug.DrawLine(SpawnerPos, TargetPos);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + m_Parent.Name + "/firing", transform.position.normalized);
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/"+ m_Parent.Name +"/firing");
         //LaunchProjectile(Projectile);
         m_Target.TakeDamage(Damage);
         m_Target.AttackingEnemy = m_Parent;
@@ -161,8 +164,9 @@ public class VehicleCombat : Combat {
             GetComponent<Movement>().Follow(m_Target.transform);
 
             if (TargetInRange())
-            { 
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
+            {
+                GetComponent<Rigidbody>().velocity = transform.forward * 0;
+                GetComponent<Movement>().Stop();
             }
         }
     }
@@ -178,7 +182,7 @@ public class VehicleCombat : Combat {
         NewProjectile.GetComponent<Rigidbody>().AddForce(Direction * ProjectileSpeed);   
     }
 
-    // Checks if target is in line of fires
+    // Checks if target is in line
     private bool TargetInLine()
     {
         //Vector3 Forward = Spawner.transform.TransformDirection(Vector3.forward);
@@ -186,7 +190,7 @@ public class VehicleCombat : Combat {
         Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider == m_Target.GetComponent<BoxCollider>())
+            if (hit.collider == m_Target.GetComponent<Collider>())
             {
                 return true;
             }

@@ -23,7 +23,7 @@ public class SelectedBuilding : MonoBehaviour {
 	{
 		//Calculate world co-ordinates
 		//8 vertices for outline (determined from collider)
-		Bounds bounds = GetComponent<BoxCollider>().bounds;
+		Bounds bounds = GetComponent<Collider>().bounds;
 		Vector3 center = bounds.center;
 		float xExtent = bounds.extents.x;
 		float yExtent = bounds.extents.y;
@@ -73,7 +73,7 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/selection", transform.position.normalized);
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/selection");
         m_GLManager.AddItemToRender(m_GLItem);
 	}
 	

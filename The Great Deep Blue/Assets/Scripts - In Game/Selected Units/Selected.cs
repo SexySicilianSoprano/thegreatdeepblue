@@ -32,7 +32,7 @@ public class Selected : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledLayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer.controlledLayer;
         }
     }
 
@@ -85,7 +85,7 @@ public class Selected : MonoBehaviour {
 	private void FindMaxWorldSize()
 	{
 		//Calculate size of overlay based on the objects size
-		Vector3 worldSize = GetComponent<BoxCollider>().bounds.extents;
+		Vector3 worldSize = GetComponent<Collider>().bounds.extents;
 		float maxDimension = Mathf.Max (worldSize.x, worldSize.z);
 		m_WorldExtents = new Vector3(maxDimension, 0, 0);
 	}
@@ -126,8 +126,8 @@ public class Selected : MonoBehaviour {
 	public void SetSelected()
 	{
 		if (gameObject.layer == primaryPlayer)
-        {            
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/" + GetComponent<RTSObject>().Name + "_aknowledge", transform.position.normalized);
+        {
+            //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + GetComponent<RTSObject>().Name + "/" + GetComponent<RTSObject>().Name + "_aknowledge");
             IsSelected = true;
 			m_JustBeenSelected = true;
 			m_JustBeenSelectedTimer = 0;

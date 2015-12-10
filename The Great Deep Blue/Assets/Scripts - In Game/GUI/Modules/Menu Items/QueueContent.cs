@@ -98,10 +98,7 @@ public class QueueContent : IQueueContent
                     Debug.Log(m_Host);
                     item.SpawnUnit();
                     m_Building = false;
-                    if (item.Prefab != null)
-                    {
-                        m_Host.Spawner.Spawn(item);
-                    }
+                    m_Host.Spawner.Spawn(item);
                 }
 				
 				itemsDrawn++;

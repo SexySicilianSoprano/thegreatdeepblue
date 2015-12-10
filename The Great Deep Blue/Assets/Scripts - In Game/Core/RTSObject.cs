@@ -48,7 +48,7 @@ public abstract class RTSObject : MonoBehaviour {
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer();
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer;
         }        
     }
 
@@ -73,6 +73,7 @@ public abstract class RTSObject : MonoBehaviour {
 
     public RTSObject AttackingEnemy;
     public UnitSpawner Spawner;
+    //FMOD.Studio.EventInstance sfx_Manager;
 
     // Health details
     public float m_Health;
@@ -112,22 +113,27 @@ public abstract class RTSObject : MonoBehaviour {
 
    	public void TakeDamage(float damage)
 	{
-        
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/hit", transform.position.normalized);
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/hit");
         m_Health -= damage;
+        if(GetComponent<iDie>()){
+        	gameObject.GetComponent<iDie>().CmdIGotHit(damage);
+        }
 
-        if (m_Health == 0 || m_Health <= 0)
-        {
+        if (m_Health == 0 || m_Health <= 0) {
             Vector3 newVector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z);
             GameObject newExplosion = Instantiate(Explosion, newVector, gameObject.transform.rotation) as GameObject;
             newExplosion.GetComponent<ParticleSystem>().Play(true);
+			if(GetComponent<iDie>()){
+				gameObject.GetComponent<iDie>().iDied();
+			}
             gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject.SetActive (false);
-            Destroy(gameObject);            
+            Destroy(gameObject);
+            //Destroy(gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject);
         }
 	}
      
     protected void OnDestroy() {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/sinking", transform.position.normalized);
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/sinking");
         Destroy(gameObject.GetComponent<HealthBarArmi>().healthBarSlider.gameObject);
     }
     

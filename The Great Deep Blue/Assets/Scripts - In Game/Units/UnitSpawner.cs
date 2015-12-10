@@ -8,6 +8,9 @@ public class UnitSpawner : MonoBehaviour {
     private Vector3 m_SpawnerPos;
     private Vector3 m_ReadyPos;
 
+
+    //FMOD.Studio.EventInstance sfx_Manager;
+
     // Use this for initialization
     void Start ()
     {
@@ -27,7 +30,8 @@ public class UnitSpawner : MonoBehaviour {
         GameObject newUnit = Instantiate(item.Prefab, m_SpawnerPos, m_Spawner.rotation) as GameObject;
         newUnit.layer = gameObject.layer;
         newUnit.tag = gameObject.tag;
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + item.Name + "/" + item.Name + "_ready", transform.position.normalized);
+        //sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + item.Name + "/" + item.Name + "_ready");
+        //sfx_Manager.start();
 
         //newUnit.GetComponent<Movement>().MoveTo(m_ReadyPos);       
     }
