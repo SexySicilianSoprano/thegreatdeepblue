@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour, IUIManager {
 	
@@ -81,7 +82,6 @@ public class UIManager : MonoBehaviour, IUIManager {
 	// Use this for initialization
 	void Start () 
 	{
-        Debug.Log(primaryPlayer.controlledLayer + " swag");
         //Resolve interface variables
         m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
 		m_Camera = ManagerResolver.Resolve<ICamera>();	
@@ -350,7 +350,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
         {
-            m_ObjectBeingPlaced.transform.position = hit.point;
+            m_ObjectBeingPlaced.transform.position = new Vector3 (hit.point.x, 3.6F, hit.point.z);
         }
                 
         if (m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().BuildValid == true)
@@ -415,32 +415,66 @@ public class UIManager : MonoBehaviour, IUIManager {
 
 			    if (m_PositionValid)
 			    {
-				    GameObject newObject = (GameObject)Instantiate (m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ObjectBeingPlaced.transform.rotation);
+                    if (SceneManager.GetActiveScene().name == "Scene_Multiplayer")
+                    {/*
+                        if (primaryPlayer.controlledLayer == 8)
+                        {*/
+
+                            Debug.Log("This is sparta");
+                            //GameObject.Find("Player1").GetComponent<BuildingSpawnMultiplayer>().spawnItem = m_ItemBeingPlaced;
+                            GameObject.Find("Player1").GetComponent<BuildingSpawnMultiplayer>().objectBeingPlaced = new Vector3(m_ObjectBeingPlaced.transform.position.x, 3.6F, m_ObjectBeingPlaced.transform.position.z);
+                            GameObject.Find("Player1").GetComponent<BuildingSpawnMultiplayer>().objectRotation = m_ObjectBeingPlaced.transform.rotation;
+                            GameObject.Find("Player1").GetComponent<BuildingSpawnMultiplayer>().CmdCall(m_ItemBeingPlaced.ID);
+
+                            m_ItemBeingPlaced.FinishBuild();
+                            m_CallBackFunction.Invoke();
+                            m_Placed = true;
+                            SwitchToModeNormal();
+
+                        /* }
+                         else
+                         {
+                             Debug.Log("This is parta-mies");
+                             //GameObject.Find("Player2").GetComponent<BuildingSpawnMultiplayer>().spawnItem = m_ItemBeingPlaced;
+                             GameObject.Find("Player2").GetComponent<BuildingSpawnMultiplayer>().objectBeingPlaced = new Vector3(m_ObjectBeingPlaced.transform.position.x, -0.5f, m_ObjectBeingPlaced.transform.position.z);
+                             GameObject.Find("Player2").GetComponent<BuildingSpawnMultiplayer>().objectRotation = m_ObjectBeingPlaced.transform.rotation;
+                             GameObject.Find("Player2").GetComponent<BuildingSpawnMultiplayer>().CmdCall(m_ItemBeingPlaced.ID);
+
+                             m_ItemBeingPlaced.FinishBuild();
+                             m_CallBackFunction.Invoke();
+                             m_Placed = true;
+                             SwitchToModeNormal();
+                         }*/
+                    }
+                    else
+                    {
+                        GameObject newObject = (GameObject)Instantiate(m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ObjectBeingPlaced.transform.rotation);
                         //UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent
                         //(newObject, "Assets/Scripts - In Game/UI/UIManager.cs (376,5)", 
                         // m_ItemBeingPlaced.ObjectType.ToString ());
 
-                    newObject.layer = primaryPlayer.controlledLayer;
-                    newObject.tag = primaryPlayer.controlledTag;
-				
-                    /*
-				    BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
-				
-				    if (tempCollider == null)
-				    {
-					    tempCollider = newObject.AddComponent<BoxCollider>();
-				    }
-				
-				    tempCollider.center = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderCenter;
-				    tempCollider.size = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderSize;
-				    tempCollider.isTrigger = true;
-				    */
+                        newObject.layer = primaryPlayer.controlledLayer;
+                        newObject.tag = primaryPlayer.controlledTag;
 
-				    m_ItemBeingPlaced.FinishBuild ();
-				    m_CallBackFunction.Invoke ();
-				    m_Placed = true;
-                    newObject.GetComponent<BoxCollider>().isTrigger = false;
-        		    SwitchToModeNormal ();
+                        /*
+                        BoxCollider tempCollider = newObject.GetComponent<BoxCollider>();
+
+                        if (tempCollider == null)
+                        {
+                            tempCollider = newObject.AddComponent<BoxCollider>();
+                        }
+
+                        tempCollider.center = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderCenter;
+                        tempCollider.size = m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().ColliderSize;
+                        tempCollider.isTrigger = true;
+                        */
+
+                        m_ItemBeingPlaced.FinishBuild();
+                        m_CallBackFunction.Invoke();
+                        m_Placed = true;
+                        newObject.GetComponent<BoxCollider>().isTrigger = false;
+                        SwitchToModeNormal();
+                    }
 			    }
 	        break;
 		}

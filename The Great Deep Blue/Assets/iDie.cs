@@ -9,11 +9,18 @@ public class iDie : NetworkBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		if (this.gameObject.name == "DestroyerMultiplayer2(Clone)"){
+
+        if (this.gameObject.name == "ScoutMultiplayer2(Clone)")
+        {
+            myHealth = gameObject.GetComponent<Scout>().m_Health;
+        }
+
+        if (this.gameObject.name == "DestroyerMultiplayer2(Clone)"){
 			myHealth = gameObject.GetComponent<Destroyer>().m_Health;
 		}
 		
-		if (this.gameObject.name == "Player1"){
+		if (this.gameObject.name == "Player1" && this.gameObject.name == "Player2")
+        {
 			myHealth = gameObject.GetComponent<FloatingFortress>().m_Health;
 		}
 		
@@ -25,18 +32,18 @@ public class iDie : NetworkBehaviour {
 	[Command]
 	void CmdPleaseDestroyThisObject(GameObject obj){
 		NetworkServer.Destroy (obj);
-	}
-	
-	/*
+    }
+		
 	[Command]
-	void CmdPleaseHurtThisObject(GameObject obj, float dmg){
-		obj.gameObject.GetComponent<iDie>().iGotHit(dmg);
-	}*/
-	
+	public void CmdPleaseHurtThisObject(GameObject obj, float dmg){
+		obj.gameObject.GetComponent<iDie>().CmdIGotHit(dmg);
+	}
+
+	/*
 	public void iDied(){
 		CmdPleaseDestroyThisObject(GetComponent<HealthBarArmi>().healthBarSlider.gameObject);
 		CmdPleaseDestroyThisObject(this.gameObject);
-	}
+	}*/
 	
 	/*
 	public void iDamagedSomeone(GameObject target, float dmg){
@@ -50,13 +57,18 @@ public class iDie : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		
+        		
 		if (this.gameObject.name == "DestroyerMultiplayer2(Clone)"){
 			gameObject.GetComponent<Destroyer>().m_Health = myHealth;
 		}
-		
-		if (this.gameObject.name == "Player1"){
+
+        if (this.gameObject.name == "ScoutMultiplayer2(Clone)")
+        {
+            gameObject.GetComponent<Scout>().m_Health = myHealth;
+        }
+
+        if (this.gameObject.name == "Player1" && this.gameObject.name == "Player2")
+        {
 			gameObject.GetComponent<FloatingFortress>().m_Health = myHealth;
 		}
 		
@@ -70,4 +82,9 @@ public class iDie : NetworkBehaviour {
 		}*/
 
 	}
+
+    void OnDestroy()
+    {
+        CmdPleaseDestroyThisObject(this.gameObject);
+    }
 }

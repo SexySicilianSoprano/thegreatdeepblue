@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(RTSObject))]
 public class VehicleCombat : Combat {
@@ -134,16 +135,32 @@ public class VehicleCombat : Combat {
 
     private void Fire()
     {
-        // Start firing
-        
-        gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
-        Debug.DrawLine(SpawnerPos, TargetPos);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + m_Parent.Name + "/firing", transform.position.normalized);
-        //LaunchProjectile(Projectile);
-        m_Target.TakeDamage(Damage);
-        m_Target.AttackingEnemy = m_Parent;
-        canFire = false;
-        StartCoroutine(WaitAndFire());
+        // Start firing        
+        if (SceneManager.GetActiveScene().name == "Scene_Multiplayer")
+        {
+            gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
+            Debug.DrawLine(SpawnerPos, TargetPos);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + m_Parent.Name + "/firing", transform.position.normalized);
+            //LaunchProjectile(Projectile);
+
+            GetComponent<iDie>().CmdPleaseHurtThisObject(m_Target.gameObject, Damage);
+
+            m_Target.TakeDamage(Damage);
+            m_Target.AttackingEnemy = m_Parent;
+            canFire = false;
+            StartCoroutine(WaitAndFire());
+        }
+        else
+        {
+            gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
+            Debug.DrawLine(SpawnerPos, TargetPos);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + m_Parent.Name + "/firing", transform.position.normalized);
+            //LaunchProjectile(Projectile);
+            m_Target.TakeDamage(Damage);
+            m_Target.AttackingEnemy = m_Parent;
+            canFire = false;
+            StartCoroutine(WaitAndFire());
+        }
     }
 
     public override void Stop()

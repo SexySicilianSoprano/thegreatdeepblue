@@ -16,6 +16,7 @@ public class Item {
 	public float Acceleration = 0;
 	
 	public GameObject Prefab;
+    public GameObject MultiPlayerPrefab;
 	
 	public int Cost;
 	public float BuildTime;
@@ -129,6 +130,7 @@ public class Item {
 		Speed = item.Speed;
 		RotationSpeed = item.RotationSpeed;
 		Prefab = item.Prefab;
+        MultiPlayerPrefab = item.MultiPlayerPrefab;
 		Cost = item.Cost;
 		BuildTime = item.BuildTime;
 		TypeIdentifier = item.TypeIdentifier;

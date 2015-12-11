@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class UnitSpawner : MonoBehaviour {
 
-    private Transform m_Spawner;
-    private Transform m_ReadySpot;
-    private Vector3 m_SpawnerPos;
-    private Vector3 m_ReadyPos;
+    public Transform m_Spawner;
+    public Transform m_ReadySpot;
+    public Vector3 m_SpawnerPos;
+    public Vector3 m_ReadyPos;
 
     // Use this for initialization
     void Start ()
@@ -23,12 +24,19 @@ public class UnitSpawner : MonoBehaviour {
 	
     public void Spawn (Item item)
     {
-        //Quaternion m_SpawnRot = Quaternion.LookRotation(new Vector3(m_SpawnerPos.x, m_SpawnerPos.y, m_SpawnerPos.z));     
-        GameObject newUnit = Instantiate(item.Prefab, m_SpawnerPos, m_Spawner.rotation) as GameObject;
-        newUnit.layer = gameObject.layer;
-        newUnit.tag = gameObject.tag;
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + item.Name + "/" + item.Name + "_ready", transform.position.normalized);
-
+        if (SceneManager.GetActiveScene().name == "Scene_Multiplayer")
+        {
+            GetComponent<UnitSpawnMultiplayer>().CmdCall(item.ID);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + item.Name + "/" + item.Name + "_ready", transform.position.normalized);
+        }
+        else
+        {
+            //Quaternion m_SpawnRot = Quaternion.LookRotation(new Vector3(m_SpawnerPos.x, m_SpawnerPos.y, m_SpawnerPos.z));     
+            GameObject newUnit = Instantiate(item.Prefab, m_SpawnerPos, m_Spawner.rotation) as GameObject;
+            newUnit.layer = gameObject.layer;
+            newUnit.tag = gameObject.tag;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + item.Name + "/" + item.Name + "_ready", transform.position.normalized);
+        }
         //newUnit.GetComponent<Movement>().MoveTo(m_ReadyPos);       
     }
 }

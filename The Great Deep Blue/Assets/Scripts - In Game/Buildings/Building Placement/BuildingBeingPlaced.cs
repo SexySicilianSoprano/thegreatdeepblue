@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider))]
 public class BuildingBeingPlaced : MonoBehaviour {
@@ -130,27 +131,55 @@ public class BuildingBeingPlaced : MonoBehaviour {
         {
             GetComponent<Renderer>().material.color = new Color(255, 0, 0, 150);
         }
-
-        if (GetComponent<RTSObject>().primaryPlayer.controlledLayer == 8)
+        if (SceneManager.GetActiveScene().name == "Scene_Multiplayer")
         {
-            if (Vector3.Distance(gameObject.transform.position, GameObject.Find("FloatingFortress_1").transform.position) <= 50)
+            if (GetComponent<RTSObject>().primaryPlayer.controlledLayer == 8)
             {
-                BuildValid = true;
+                if (Vector3.Distance(gameObject.transform.position, GameObject.Find("Player1").transform.position) <= 50)
+                {
+                    BuildValid = true;
+                }
+                else
+                {
+                    BuildValid = false;
+                }
             }
             else
             {
-                BuildValid = false;
+
+                if (Vector3.Distance(gameObject.transform.position, GameObject.Find("Player2").transform.position) <= 50)
+                {
+                    BuildValid = true;
+                }
+                else
+                {
+                    BuildValid = false;
+                }
             }
         }
-        else {
-
-            if (Vector3.Distance(gameObject.transform.position, GameObject.Find("FloatingFortress_2").transform.position) <= 50)
+        else
+        {
+            if (GetComponent<RTSObject>().primaryPlayer.controlledLayer == 8)
             {
-                BuildValid = true;
+                if (Vector3.Distance(gameObject.transform.position, GameObject.Find("FloatingFortress_1").transform.position) <= 50)
+                {
+                    BuildValid = true;
+                }
+                else
+                {
+                    BuildValid = false;
+                }
             }
             else
             {
-                BuildValid = false;
+                if (Vector3.Distance(gameObject.transform.position, GameObject.Find("FloatingFortress_2").transform.position) <= 50)
+                {
+                    BuildValid = true;
+                }
+                else
+                {
+                    BuildValid = false;
+                }
             }
         }
     }

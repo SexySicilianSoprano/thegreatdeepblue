@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Replay : MonoBehaviour {
 
@@ -19,6 +20,6 @@ public class Replay : MonoBehaviour {
     }
 	
 	public void ReplayLevel(string scenenNimi){
-		Application.LoadLevel(scenenNimi);
+		SceneManager.LoadScene(scenenNimi);
 	}
 }

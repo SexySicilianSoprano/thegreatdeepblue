@@ -9,13 +9,18 @@ public class Building : RTSObject {
 	public void Start()
 	{        
         //Tell the manager this building has been added
+            
+    }
+
+    public void AddQueue()
+    {
         if (playerLayer == primaryPlayer.controlledLayer)
         {
             if (!gameObject.GetComponent<BuildingBeingPlaced>())
             {
                 ManagerResolver.Resolve<IManager>().BuildingAdded(this);
             }
-        }        
+        }
     }
 
     public int BuildingIdentifier

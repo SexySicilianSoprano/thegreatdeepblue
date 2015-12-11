@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour, ILevelLoader {
 	
@@ -62,7 +63,7 @@ public class LevelLoader : MonoBehaviour, ILevelLoader {
 	{
 		m_Loading = true;
 		//Application.LoadLevelAsync (levelID);
-		Application.LoadLevel (levelID);
+		SceneManager.LoadScene (levelID);
 	}
 	
 	void OnLevelWasLoaded()
