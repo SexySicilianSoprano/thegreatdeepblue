@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.07.00">
+    <object class="AudioFile" id="{0bd50a21-4720-4e1e-b3ad-8eaf96caaa98}">
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.12426303854875284</value>
+        </property>
+        <property name="audioFilePath">
+            <value>$(AUDIO_BIN_DIR)/mouse_hover_03 {ea3a2e27-cedf-4a47-a261-b67ee9cfe3a6}.wav</value>
+        </property>
+        <relationship name="container">
+            <destination>{24eedc7a-8ce8-4704-953b-be949a98a778}</destination>
+        </relationship>
+    </object>
+</objects>
