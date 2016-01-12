@@ -74,11 +74,11 @@ public class VehicleMovement : LandMovement {
 
         if (Path != null && Path.Count > 0)
         {
+            //We have a path, lets move!
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
             MoveForward();
-
-            //We have a path, lets move!
+            
             //Make sure we're pointing at the target            
             if (!PointingAtTarget())
             {
@@ -86,6 +86,13 @@ public class VehicleMovement : LandMovement {
             }           
             
             UpdateCurrentTile();
+
+            if (HasReachedDestination())
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                
+                Path.Clear();
+            }
         }
         else
         {
@@ -95,42 +102,59 @@ public class VehicleMovement : LandMovement {
 
         if (m_PlayMovingSound && !m_SoundIsPlaying)
         {
-            sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + m_Parent.Name + "/movement");
-            sfx_Manager.start();
+            //sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + m_Parent.Name + "/movement");
+            //sfx_Manager.start();
+            m_SoundIsPlaying = true;
         }
         else if (!m_PlayMovingSound && m_SoundIsPlaying)
         {
-            sfx_Manager.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            sfx_Manager.release();
+            //sfx_Manager.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            //sfx_Manager.release();
+            m_SoundIsPlaying = false;
         }
     }
 
     private void FindPath(Vector3 location)
     {
-        //path = new NavMeshPath();
-        //NavMesh.CalculatePath(m_Parent.transform.position, location, NavMesh.AllAreas, path);
-    }
+        path = new NavMeshPath();
+        NavMesh.CalculatePath(m_Parent.transform.position, location, NavMesh.AllAreas, path);
 
+    }
+    // Turning towards the destination
     private void RotateTowards(Vector3 location)
     {
         m_Direction = (location - m_Parent.transform.position).normalized;
 
         m_LookRotation = Quaternion.LookRotation(new Vector3(m_Direction.x, m_Direction.y * 0, m_Direction.z));
 
-        m_Parent.transform.rotation = Quaternion.Slerp(m_Parent.transform.rotation, m_LookRotation, Time.deltaTime * RotationalSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, m_LookRotation, Time.deltaTime * RotationalSpeed);
     }
 
+    // Onward!
     private void MoveForward()
     {
-        m_Parent.GetComponent<Rigidbody>().AddForce(transform.forward * Speed);
+        GetComponent<Rigidbody>().AddForce(m_Parent.transform.forward * Speed);
     }
 
-    public override void MoveTo(Vector3 location)
+    // Has the unit reached its destination?
+    private bool HasReachedDestination()
     {
+        if (m_CurrentTile == m_ArrivalTile || Vector3.Distance(transform.position, m_ArrivalTile.Center) <= 10 )
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    // Gives the moving command
+    public override void MoveTo(Vector3 location)
+    {        
         if (m_ArrivalTile != null)
         {
             m_ArrivalTile.ExpectingArrival = false;
         }
+        
         m_ArrivalTile = Grid.GetClosestArrivalTile(location);
         m_ArrivalTile.ExpectingArrival = true;
 
@@ -140,7 +164,6 @@ public class VehicleMovement : LandMovement {
 
     public override void Stop()
     {
-        m_Parent.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
         if (Path != null && Path.Count > 0)
         {
             Vector3 nextPos = Path[0];
@@ -157,9 +180,9 @@ public class VehicleMovement : LandMovement {
 
     public override void AssignDetails(Item item)
     {
-        Speed = item.Speed;
+        Speed = item.Speed / 2;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed / 6;
+        RotationalSpeed = item.RotationSpeed / 2;
         Acceleration = item.Acceleration;
     }
 
@@ -186,7 +209,7 @@ public class VehicleMovement : LandMovement {
                 m_CurrentTile.SetOccupied(m_Parent, true);
             }
             else
-            {
+            {                
                 m_CurrentTile.SetOccupied(m_Parent, false);
             }
         }

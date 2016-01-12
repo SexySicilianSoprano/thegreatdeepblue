@@ -24,7 +24,7 @@ public class Unit : RTSObject, IOrderable {
 	
 	protected void Start()
 	{
-		guiManager = ManagerResolver.Resolve<IGUIManager>();
+        guiManager = ManagerResolver.Resolve<IGUIManager>();
 		selectedManager = ManagerResolver.Resolve<ISelectedManager>();
         ManagerResolver.Resolve<IManager>().UnitAdded(this);
         /*
@@ -111,7 +111,7 @@ public class Unit : RTSObject, IOrderable {
 			// Stop Order
 		    case Const.ORDER_STOP:
 
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");     
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm", transform.position.normalized);     
                 GetComponent<Combat>().Stop();
 			    if (IsMoveable())
 			    {
@@ -133,7 +133,7 @@ public class Unit : RTSObject, IOrderable {
 				    {
 					    CancelDeploy ();
 				    }
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm");
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_confirm", transform.position.normalized);
                     GetComponent<Movement>().MoveTo (order.OrderLocation);
 			    }
 			    break;
@@ -153,7 +153,7 @@ public class Unit : RTSObject, IOrderable {
                 if (IsAttackable())
                 {
                     // Attack
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_attack");
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_attack", transform.position.normalized);
                     GetComponent<Combat>().Attack(order.Target);
                 }
 
@@ -184,21 +184,18 @@ public class Unit : RTSObject, IOrderable {
 		}
 	}
 
+    // Trigger reactions for unit creation
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
+        if (other.gameObject.layer == playerLayer)
         {
-            Physics.IgnoreCollision(GetComponent<Collider>(), other.GetComponent<Collider>());
+            Physics.IgnoreCollision(GetComponent<BoxCollider>(), other.GetComponent<BoxCollider>());
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 8 || other.gameObject.layer == 9)
-        {
-            GetComponent<Collider>().isTrigger = false;
-        }
-        
+        GetComponent<BoxCollider>().isTrigger = false;      
     }
     
 	private void CancelDeploy()
@@ -208,9 +205,9 @@ public class Unit : RTSObject, IOrderable {
    
     new void OnDestroy()
 	{
-        if (gameObject.tag == "Player1")
+        if (gameObject.layer == primaryPlayer.controlledLayer)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_kill");
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/" + Name + "/" + Name + "_kill", transform.position.normalized);
         }
             
         //Remove object from selected manager

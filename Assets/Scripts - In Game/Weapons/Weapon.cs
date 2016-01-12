@@ -17,9 +17,10 @@ public class Weapon {
     public float Damage;
     public float Range;
     public float FireRate;
+    public float TurretSpeed;
 
     // Projectile and animation
-    public Projectile Projectile;
+    //public Projectile Projectile;
    
     public void AssignDetails (Weapon Weapon)
     {
@@ -27,10 +28,11 @@ public class Weapon {
         Name = Weapon.Name;
         Damage = Weapon.Damage;
         Range = Weapon.Range;
+        TurretSpeed = Weapon.TurretSpeed;
         FireRate = Weapon.FireRate;
         isAntiArmor = Weapon.isAntiArmor;
         isAntiStructure = Weapon.isAntiStructure;
-        Projectile = Weapon.Projectile;
+        //Projectile = Weapon.Projectile;
     }
 
 }

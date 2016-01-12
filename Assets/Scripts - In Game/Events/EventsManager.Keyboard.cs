@@ -109,11 +109,11 @@ public partial class EventsManager {
 			}
 		}
 		
-		if (Input.GetKeyDown (KeyCode.S))
+		if (Input.GetKeyDown (KeyCode.X))
 		{
 			if (KeyAction != null)
 			{
-				KeyAction(this, new Key_S());
+				KeyAction(this, new Key_X());
 			}
 		}
 		

@@ -5,7 +5,7 @@ public class CannonBall : Projectile {
 
 	// Use this for initialization
 	void Start () {
-        AssignDetails(ProjectileDB.CannonBall);             
+        //AssignDetails(ProjectileDB.CannonBall);             
 	}
 	
 	// Update is called once per frame

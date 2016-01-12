@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// Queue content. This is where the UP/DOWN buttons are located.
+/// Queue content. This is where the constructors happen
 /// </summary>
 
-public class QueueContent : IQueueContent
+public class QueueContent : MonoBehaviour, IQueueContent
 {
 	private List<Item> m_Items = new List<Item>();
 	private Rect[] m_Area;
@@ -19,6 +19,8 @@ public class QueueContent : IQueueContent
     private Building m_Host;
 	
 	private IUIManager m_UIManager;
+
+	public GameObject Btn_Text;
 	
 	public QueueContent(Rect area, Building building)
 	{
@@ -92,7 +94,12 @@ public class QueueContent : IQueueContent
                 else if (item.IsBuilding && item.IsFinished)
                 {
                     GUI.Label(m_Area[itemsDrawn], Strings.Ready, GUIStyles.ItemFinishedLabel);
+					//Btn_Text.SetActive = true;
                 }
+				else if (item.ID == 2 || item.ID == 3)
+				{
+					GUI.Label(m_Area[itemsDrawn], Strings.TBA, GUIStyles.ItemFinishedLabel);
+				}
                 else if (item.IsUnitFinished)
                 {
                     Debug.Log(m_Host);

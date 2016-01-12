@@ -24,7 +24,10 @@ public class Item {
 	public int TeamIdentifier;
     public int BuildingIdentifier;
     public int PlayerIdentifier;
-	
+
+	private GameObject m_Button;
+	public GameObject Button;
+
 	private Texture2D m_ItemImage;
 	public Texture2D ItemImage
 	{
@@ -136,6 +139,7 @@ public class Item {
         PlayerIdentifier = item.PlayerIdentifier;
         BuildingIdentifier = item.BuildingIdentifier;
 		m_ItemImage = item.ItemImage;
+		m_Button = item.Button;
 		ItemImageHover = item.ItemImageHover;
 		SortOrder = item.SortOrder;
 		RequiredBuildings = item.RequiredBuildings;

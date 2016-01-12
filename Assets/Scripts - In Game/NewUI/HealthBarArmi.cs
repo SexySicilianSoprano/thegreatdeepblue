@@ -12,10 +12,26 @@ public class HealthBarArmi : MonoBehaviour {
 	public GameObject sliderPrefab;
 	public float currentHealth;
 	public float maxHealth;
-	
-	void Start()
+
+    private int primaryPlayer
     {
-        GameObject canvas = GameObject.Find("Canvas");
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledLayer;
+        }
+    }
+
+    private int enemyPlayer
+    {
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<GameManager>().enemyPlayer().controlledLayer;
+        }
+    }
+
+    void Start()
+    {
+        GameObject canvas = GameObject.Find("UI_health");
         canvasRectT = canvas.GetComponent<RectTransform>();
 
         sliderPrefab = Resources.Load("Slider") as GameObject;
@@ -40,7 +56,7 @@ public class HealthBarArmi : MonoBehaviour {
 		healthBarSlider.value = GetComponent<RTSObject>().m_Health;
 		healthBarSlider.maxValue = GetComponent<RTSObject>().m_MaxHealth;
 		
-		if (gameObject.layer == 9)
+		if (gameObject.layer == enemyPlayer)
         {
 			healthBarSlider.gameObject.SetActive (false);
 

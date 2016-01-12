@@ -11,16 +11,16 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 	private Rect m_MiniMapRect;
 	private float m_MainMenuWidth;
 	
-	private Rect m_RightMiniMapBG;
+	/*private Rect m_RightMiniMapBG;
 	private Rect m_LeftMiniMapBG;
 	private Rect m_AboveMiniMapBG;
-	private Rect m_BelowMiniMapBG;
+	private Rect m_BelowMiniMapBG;*/
 	
-	private Texture2D m_MainMenuBGColor;
+	//private Texture2D m_MainMenuBGColor;
 	
 	private ITypeButton[] m_TypeButtons = new TypeButton[3];
 
-	private IMaintenanceButtons[] m_MaintenanceButtons = new IMaintenanceButtons[3];
+	//private IMaintenanceButtons[] m_MaintenanceButtons = new IMaintenanceButtons[3];
 	private IManager m_Manager;
 	
 	//Properties
@@ -69,7 +69,7 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		main = this;
 		
 		//Set Textures
-		m_MainMenuBGColor = TextureGenerator.MakeTexture (Color.black);
+		//m_MainMenuBGColor = TextureGenerator.MakeTexture (Color.black);
 	}
 
 	// Use this for initialization
@@ -82,10 +82,10 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		MainMenuWidth = tempWidth;
 		
 		//Build Borders around the map
-		float sideBorderWidth = (m_MainMenuWidth-(m_MiniMapRect.width*Screen.width))/2;
-		float topBorderHeight = (1-m_MiniMapRect.yMax)*Screen.height;
+		//float sideBorderWidth = (m_MainMenuWidth-(m_MiniMapRect.width*Screen.width))/2;
+		//float topBorderHeight = (1-m_MiniMapRect.yMax)*Screen.height;
 		
-		m_LeftMiniMapBG = new Rect();
+		/*m_LeftMiniMapBG = new Rect();
 		m_LeftMiniMapBG.xMin = Screen.width-m_MainMenuWidth;
 		m_LeftMiniMapBG.xMax = m_LeftMiniMapBG.xMin + sideBorderWidth;
 		m_LeftMiniMapBG.yMin = 0;
@@ -115,7 +115,7 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		menuArea.xMax = m_RightMiniMapBG.xMax;
 		menuArea.yMin = m_BelowMiniMapBG.yMin;
 		menuArea.yMax = Screen.height;
-		
+
 		//Create type buttons
 		m_TypeButtons[0] = new TypeButton(ButtonType.Building, menuArea);
 		m_TypeButtons[1] = new TypeButton(ButtonType.Ship, menuArea);
@@ -130,12 +130,12 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		
 		Rect rect1 = new Rect(x, y, size, size);
 		Rect rect2 = new Rect(x, y+size, size, size);
-		Rect rect3 = new Rect(x, y+(size*2), size, size);
+		Rect rect3 = new Rect(x, y+(size*2), size, size);*/
 		
 		//Assign maintenance buttons
-		m_MaintenanceButtons[0] = new Maintenance_Sell(rect1);
+		/*m_MaintenanceButtons[0] = new Maintenance_Sell(rect1);
 		m_MaintenanceButtons[1] = new Maintenance_Fix(rect2);
-		m_MaintenanceButtons[2] = new Maintanance_Disable(rect3);
+		m_MaintenanceButtons[2] = new Maintanance_Disable(rect3);*/
 		
 		//Resolve Manager
 		m_Manager = ManagerResolver.Resolve<IManager>();
@@ -156,26 +156,26 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 	void OnGUI()
 	{
 		//Draw Menu Backgrounds
-		GUI.DrawTexture (m_LeftMiniMapBG, m_MainMenuBGColor);
+		/*GUI.DrawTexture (m_LeftMiniMapBG, m_MainMenuBGColor);
 		GUI.DrawTexture (m_RightMiniMapBG, m_MainMenuBGColor);
 		GUI.DrawTexture (m_AboveMiniMapBG, m_MainMenuBGColor);
-		GUI.DrawTexture (m_BelowMiniMapBG, m_MainMenuBGColor);
+		GUI.DrawTexture (m_BelowMiniMapBG, m_MainMenuBGColor);*/
 
 		//Draw Type Buttons
 
-		foreach (IButton typeButton in m_TypeButtons)
+		/*foreach (IButton typeButton in m_TypeButtons)
 		{
 			typeButton.Execute ();
-		}
+		}*/
 
 		//Draw maintenance buttons
-		foreach (IMaintenanceButtons button in m_MaintenanceButtons)
+		/*foreach (IMaintenanceButtons button in m_MaintenanceButtons)
 		{
 			button.Execute ();
-		}
+		}*/
 		
 		//Draw Money Label
-		GUI.Label (m_AboveMiniMapBG, m_Manager.Money.ToString (), GUIStyles.MoneyLabel);
+		//GUI.Label (m_AboveMiniMapBG, m_Manager.Money.ToString (), GUIStyles.MoneyLabel);
 	}
 	
 	public bool IsWithin(Vector3 worldPos)
@@ -225,10 +225,10 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		ManagerResolver.Resolve<IMiniMapController>().LoadMiniMap (out m_MainMenuWidth, out m_MiniMapRect);
 		
 		//Build Borders around the map
-		float sideBorderWidth = (m_MainMenuWidth-(m_MiniMapRect.width*Screen.width))/2;
-		float topBorderHeight = (1-m_MiniMapRect.yMax)*Screen.height;
+		//float sideBorderWidth = (m_MainMenuWidth-(m_MiniMapRect.width*Screen.width))/2;
+		//float topBorderHeight = (1-m_MiniMapRect.yMax)*Screen.height;
 		
-		m_LeftMiniMapBG = new Rect();
+		/*m_LeftMiniMapBG = new Rect();
 		m_LeftMiniMapBG.xMin = Screen.width-m_MainMenuWidth;
 		m_LeftMiniMapBG.xMax = m_LeftMiniMapBG.xMin + sideBorderWidth;
 		m_LeftMiniMapBG.yMin = 0;
@@ -258,13 +258,13 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		menuArea.xMax = m_RightMiniMapBG.xMax;
 		menuArea.yMin = m_BelowMiniMapBG.yMin;
 		menuArea.yMax = Screen.height;
-		
+
 		//Update type buttons with new viewable area
 		foreach (ITypeButton button in m_TypeButtons)
 		{
 			button.Resize(menuArea);
 		}
-		
+
 		//Calcualte Maintenace button rects
 		float size = m_RightMiniMapBG.width-4;
 		float totalHeight = size*3;
@@ -274,11 +274,11 @@ public class GUIManager : MonoBehaviour, IGUIManager {
 		
 		Rect rect1 = new Rect(x, y, size, size);
 		Rect rect2 = new Rect(x, y+size, size, size);
-		Rect rect3 = new Rect(x, y+(size*2), size, size);
+		Rect rect3 = new Rect(x, y+(size*2), size, size);*/
 		
 		//Update Maintenance Buttons
-		m_MaintenanceButtons[0].Resize (rect1);
+		/*m_MaintenanceButtons[0].Resize (rect1);
 		m_MaintenanceButtons[1].Resize (rect2);
-		m_MaintenanceButtons[2].Resize (rect3);
+		m_MaintenanceButtons[2].Resize (rect3);*/
 	}
 }
