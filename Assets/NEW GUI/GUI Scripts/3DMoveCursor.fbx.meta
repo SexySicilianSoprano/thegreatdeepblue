@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f919a61a9f4cba944bd2fef66519d9c5
-timeCreated: 1452851110
+guid: d4677bda595d6694d8e8f6d3ae1c7fd6
+timeCreated: 1446115114
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -49,7 +49,45 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Scene
+      takeName: Scene
+      firstFrame: 1
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Circle.001
+        weight: 1
+      - path: Plane.002
+        weight: 1
+      - path: Plane.004
+        weight: 1
+      - path: Plane.005
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -71,7 +109,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
