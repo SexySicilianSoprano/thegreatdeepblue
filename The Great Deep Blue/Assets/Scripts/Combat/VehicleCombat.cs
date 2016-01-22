@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-[RequireComponent(typeof(RTSObject))]
+[RequireComponent(typeof(RTSEntity))]
 public class VehicleCombat : Combat {
 
     // ##### Private variables #####
@@ -23,7 +23,7 @@ public class VehicleCombat : Combat {
     void Start()
     {
         SwitchMode(CombatMode.Defensive);
-        m_Parent = GetComponent<RTSObject>();
+        m_Parent = GetComponent<RTSEntity>();
         Spawner = m_Parent.transform.GetChild(0);        
     }
 
@@ -90,7 +90,7 @@ public class VehicleCombat : Combat {
         //Projectile = weapon.Projectile;
     }
        
-    public override void Attack(RTSObject obj)
+    public override void Attack(RTSEntity obj)
     {
         m_Target = obj;
         TargetSet = true;

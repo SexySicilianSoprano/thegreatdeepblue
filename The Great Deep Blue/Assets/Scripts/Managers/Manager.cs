@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Manager : MonoBehaviour {
 
+    public static Manager main;
+
 	// Use this for initialization
 	void Start ()
     {

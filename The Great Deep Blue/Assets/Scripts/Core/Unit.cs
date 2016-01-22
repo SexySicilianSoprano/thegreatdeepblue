@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 //[RequireComponent(typeof(Selected))]
-public class Unit : RTSObject{
+public class Unit : RTSEntity{
 	
 	//Member Variables
     protected bool m_IsMoveable = true;	

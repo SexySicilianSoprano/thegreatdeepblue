@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(RTSObject))]
+[RequireComponent(typeof(RTSEntity))]
 public class VehicleMovement : LandMovement {
     
     private NavMeshPath path;
@@ -45,7 +45,7 @@ public class VehicleMovement : LandMovement {
 	// Use this for initialization
 	void Start () 
 	{
-		m_Parent = GetComponent<RTSObject>();
+		m_Parent = GetComponent<RTSEntity>();
 		//m_CurrentTile.SetOccupied(m_Parent, false);
 
 		rb = GetComponent<Rigidbody>();

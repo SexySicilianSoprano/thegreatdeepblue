@@ -11,15 +11,18 @@ public class MainCamera : MonoBehaviour, ICamera {
 	public float AngleOffset = 20.0f;
 	public float m_MaxFieldOfView = 85.0f;
 	public float m_MinFieldOfView = 20.0f;
-	
-	public float ScrollSpeed = 8.0f;
-	public float ScrollAcceleration = 30.0f;
-	
+
+    //Input-related variables
+    public Vector3 i_MousePos = Input.mousePosition;
+    public float i_ScrollEvent = Input.GetAxis("Mouse ScrollWheel");
+    public float ScrollSpeed = 8.0f;
+	public float ScrollAcceleration = 30.0f;	
 	public float ZoomRate = 500.0f;
-	
-	private float m_MenuWidth;
+    public int MouseScrollSpeed = 0;
 	
 	private bool canWeScroll = true;
+    private bool atScreenEdge = false;
+    private float atScreenEdgeCounter = 0;
 	
 	public GameObject StartPoint;
 	
@@ -46,17 +49,17 @@ public class MainCamera : MonoBehaviour, ICamera {
 	// Update is called once per frame
 	void Update () 
 	{
-		
-	}
+        CheckScreenEdgeEvents();
+    }
 	
-	public void Pan(object sender, ScreenEdgeEventArgs e)
+	public void Pan(object sender)
 	{
 		if (canWeScroll)
 		{
-			float totalSpeed = e.duration*ScrollAcceleration;
+			float totalSpeed = MouseScrollSpeed*ScrollAcceleration;
 			float targetSpeed = totalSpeed < ScrollSpeed ? totalSpeed : ScrollSpeed;
 			
-			transform.Translate (e.x*Time.deltaTime*targetSpeed, 0, e.y*Time.deltaTime*targetSpeed, Space.World);
+			transform.Translate (i_MousePos.x*Time.deltaTime*targetSpeed, 0, i_MousePos.y*Time.deltaTime*targetSpeed, Space.World);
 			
 			//Check if we have scrolled past edge
 			if (transform.position.x < m_Boundries.xMin)
@@ -90,7 +93,7 @@ public class MainCamera : MonoBehaviour, ICamera {
 	private void CheckEdgeMovement()
 	{
 		Ray r1 = Camera.main.ViewportPointToRay (new Vector3(0,1,0));
-		Ray r2 = Camera.main.ScreenPointToRay (new Vector3(Screen.width-m_MenuWidth,Screen.height-1,0));
+		Ray r2 = Camera.main.ScreenPointToRay (new Vector3(Screen.width, Screen.height-1,0));
 		Ray r3 = Camera.main.ViewportPointToRay (new Vector3(0,0,0));
 		
 		float left, right, top, bottom;
@@ -126,9 +129,10 @@ public class MainCamera : MonoBehaviour, ICamera {
 		}
 	}
 	
-	public void Zoom(object sender, ScrollWheelEventArgs e)
+	public void Zoom(object sender)
 	{
-		GetComponent<Camera>().fieldOfView -= e.ScrollValue*ZoomRate*Time.deltaTime;
+        
+		GetComponent<Camera>().fieldOfView -= MouseScrollSpeed*ZoomRate*Time.deltaTime;
 		
 		if (GetComponent<Camera>().fieldOfView < m_MinFieldOfView) 
 		{
@@ -161,8 +165,41 @@ public class MainCamera : MonoBehaviour, ICamera {
 		m_Boundries.yMax = maxY;
 	}
 	
-	public void SetMenuWidth(float width)
-	{
-		m_MenuWidth = width;
-	}
+    private void CheckScreenEdgeEvents()
+    {
+        atScreenEdge = false;
+
+        if (i_MousePos.x == 0)
+        {
+
+            atScreenEdge = true;
+        }
+
+        if (i_MousePos.x >= Screen.width * 0.98f)
+        {
+
+            atScreenEdge = true;
+        }
+
+        if (i_MousePos.y == 0)
+        {
+
+            atScreenEdge = true;
+        }
+
+        if (i_MousePos.y >= Screen.height * 0.98f)
+        {
+
+        }
+
+        if (atScreenEdge)
+        {
+            atScreenEdgeCounter += Time.deltaTime;
+
+        }
+        else
+        {
+            atScreenEdgeCounter = 0;
+        }
+    }
 }

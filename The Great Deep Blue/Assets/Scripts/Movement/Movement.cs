@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Movement : MonoBehaviour{
 	
-	protected RTSObject m_Parent;
+	protected RTSEntity m_Parent;
 	protected Vector3 m_Position = new Vector3();
 	
 	public abstract Vector3 TargetLocation { get; }

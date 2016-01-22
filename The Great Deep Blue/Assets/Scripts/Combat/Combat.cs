@@ -3,8 +3,8 @@ using System.Collections;
 
 public abstract class Combat : MonoBehaviour{
 
-    protected RTSObject m_Parent;
-    protected RTSObject m_Target;
+    protected RTSEntity m_Parent;
+    protected RTSEntity m_Target;
 
     public float Damage;
     public float Range;
@@ -21,7 +21,7 @@ public abstract class Combat : MonoBehaviour{
 
     public abstract void AssignDetails(Weapon weapon);
 
-    public abstract void Attack(RTSObject obj);
+    public abstract void Attack(RTSEntity obj);
 
     public abstract void Stop();
 

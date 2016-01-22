@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 //[RequireComponent(typeof(SelectedBuilding))]
-public class Building : RTSObject {
+public class Building : RTSEntity {
 	
 	private bool sellable = false;
 	
@@ -16,7 +16,7 @@ public class Building : RTSObject {
         get; set;
     }
 	
-	public bool InteractWith()
+	public bool InteractWith(IOrderable obj)
 	{
 		return false;
 	}
