@@ -13,8 +13,8 @@ public class MainCamera : MonoBehaviour, ICamera {
 	public float m_MinFieldOfView = 20.0f;
 
     //Input-related variables
-    public Vector3 i_MousePos = Input.mousePosition;
-    public float i_ScrollEvent = Input.GetAxis("Mouse ScrollWheel");
+    public Vector3 i_MousePos;
+    public float i_ScrollEvent;
     public float ScrollSpeed = 8.0f;
 	public float ScrollAcceleration = 30.0f;	
 	public float ZoomRate = 500.0f;

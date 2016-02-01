@@ -4,10 +4,17 @@ using System.Collections.Generic;
 
 public class SelectedManager : MonoBehaviour, ISelectedManager {
 
+    // Singleton
     public static SelectedManager main;
 
     private List<RTSEntity> m_Selected = new List<RTSEntity>();
     private List<IOrderable> SelectedActiveEntities = new List<IOrderable>();
+    private List<int> ListOfGroups = new List<int>();
+
+    void Awake()
+    {
+        main = this;
+    }
 
     // ### Selection functions ###
 
@@ -35,11 +42,6 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     public void CreateGroup(int number)
     {
         //TODO: Create Group-class
-    }
-
-    //Destroy Group
-    public void RemoveGroup(int number)
-    {
 
     }
 
@@ -48,10 +50,13 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     {
 
     }
-
+    //Give orders to selected units
     public void GiveOrder(Order order)
     {
-
+        foreach (IOrderable orderable in SelectedActiveEntities)
+        {
+            orderable.GiveOrder(order);
+        }
     }
 
     public int ActiveEntityCount()

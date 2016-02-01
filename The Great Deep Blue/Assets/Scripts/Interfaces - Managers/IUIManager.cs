@@ -3,7 +3,10 @@ using System.Collections;
 using System;
 
 public interface IUIManager 
-{	
+{
+    Player primaryPlayer();
+    Player enemyPlayer();
+
 	bool IsShiftDown
 	{
 		get;
@@ -19,20 +22,9 @@ public interface IUIManager
 	Mode CurrentMode
 	{
 		get;
-	}
-    
+	}       
 	
-	bool IsCurrentUnit(RTSEntity obj);
-	
-	void LeftButton_SingleClickDown(MouseEventArgs e);
-	void LeftButton_DoubleClickDown(MouseEventArgs e);
-	void LeftButton_SingleClickUp(MouseEventArgs e);
-	
-	void RightButton_SingleClick(MouseEventArgs e);
-	void RightButton_DoubleClick(MouseEventArgs e);
-		
-	void MiddleButton_SingleClick(MouseEventArgs e);
-	void MiddleButton_DoubleClick(MouseEventArgs e);
+	bool IsCurrentUnit(RTSEntity obj);	
 	
 	void UserPlacingBuilding(Item item, Action callbackFunction);
     

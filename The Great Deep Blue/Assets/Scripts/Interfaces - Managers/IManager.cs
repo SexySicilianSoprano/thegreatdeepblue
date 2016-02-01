@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public interface IManager {
-	
+
 	void BuildingAdded(Building building);
 	void BuildingRemoved(Building building);
 	void UnitAdded(Unit unit);

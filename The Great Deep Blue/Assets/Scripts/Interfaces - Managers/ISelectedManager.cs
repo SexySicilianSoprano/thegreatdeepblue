@@ -9,7 +9,6 @@ public interface ISelectedManager {
 	void ClearSelected();
 	void CreateGroup(int number);
 	void SelectGroup(int number);
-    void RemoveGroup(int number);
 	void GiveOrder(Order order);
 	
 	int ActiveEntityCount();

@@ -7,7 +7,7 @@ public class ResolverConfig : MonoBehaviour {
 	{
 		ManagerResolver.Register<ISelectedManager>(SelectedManager.main);
 		ManagerResolver.Register<ICamera>(MainCamera.main);
-		ManagerResolver.Register<IEventsManager>(EventsManager.main);
+		//ManagerResolver.Register<IEventsManager>(EventManager.main);
 		ManagerResolver.Register<IUIManager>(UIManager.main);
 		ManagerResolver.Register<IGUIManager>(GUIManager.main);
 		ManagerResolver.Register<IMiniMapController>(MiniMapController.main);

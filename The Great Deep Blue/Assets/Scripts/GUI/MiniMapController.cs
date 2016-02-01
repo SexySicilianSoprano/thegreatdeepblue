@@ -30,7 +30,7 @@ public class MiniMapController : MonoBehaviour, IMiniMapController {
 	// Use this for initialization
 	void Start () 
 	{
-		
+        m_MainCamera = ManagerResolver.Resolve<ICamera>();
 		
 	}
 	
@@ -86,9 +86,9 @@ public class MiniMapController : MonoBehaviour, IMiniMapController {
 		m_MainCamera.SetBoundries (bottomLeft.x, bottomLeft.z, topRight.x, topRight.z);
 	}
 	
-	public void MouseClicked(object sender, MouseEventArgs e)
+	public void MouseClicked()
 	{
-		if (!e.buttonUp)
+		/*if (!buttonUp)
 		{
 			if (m_MiniMapRect.Contains (Input.mousePosition))
 			{
@@ -103,7 +103,7 @@ public class MiniMapController : MonoBehaviour, IMiniMapController {
 					ReCalculateViewRect();
 				}
 			}
-		}
+		}*/
 	}
 	
 	public void ReCalculateViewRect ()

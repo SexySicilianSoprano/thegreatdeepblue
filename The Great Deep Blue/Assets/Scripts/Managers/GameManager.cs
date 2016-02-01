@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour {
         m_Player1.AssignDetails(SetPlayer.Player1);
         m_Player2.AssignDetails(SetPlayer.Player2);
 
-        m_FloatingFortress1 = GameObject.Find("FloatingFortress_1");
-        m_FloatingFortress2 = GameObject.Find("FloatingFortress_2");
+        m_FloatingFortress1 = GameObject.Find("Player1");
+        m_FloatingFortress2 = GameObject.Find("Player2");
     }
 
     // Update is called once per frame

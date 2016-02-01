@@ -13,21 +13,45 @@ public class UIManager : MonoBehaviour, IUIManager {
     public static CursorManager m_CursorManager;
 
     //Action Variables
-    private HoverOver hoverOver = HoverOver.Land;
+    
     private GameObject currentObject;
 
     //Mode Variables
     private Mode m_Mode = Mode.Normal;
 
     //Player identifier variables
-    private Player primaryPlayer;
-    private Player enemyPlayer;
+    public Player primaryPlayer()
+    {
+        return GetComponent<GameManager>().primaryPlayer();
+    }
+
+    public Player enemyPlayer()
+    {
+        return GetComponent<GameManager>().enemyPlayer();
+    }
+
+    private string m_primaryPlayer
+    {
+        get
+        {
+            return primaryPlayer().controlledTag;
+        }
+    }
+
+    private string m_enemyPlayer
+    {
+        get
+        {
+            return enemyPlayer().controlledTag;
+        }
+    }
 
     //Interface variables the UI needs to deal with
     private ISelectedManager m_SelectedManager;
     private ICamera m_Camera;
     private IGUIManager m_GuiManager;
     private IMiniMapController m_MiniMapController;
+    private IEventsManager m_EventsManager;
 
     //Building Placement variables
     private Action m_CallBackFunction;
@@ -61,19 +85,11 @@ public class UIManager : MonoBehaviour, IUIManager {
         main = this;
     }
 
-    void SetPlayerIdentifiers()
-    {
-        primaryPlayer = GetComponent<GameManager>().primaryPlayer();
-        enemyPlayer =  GetComponent<GameManager>().enemyPlayer();
-    }
 
     // Use this for initialization
     void Start()
     {
-        //Resolve player tag / layer variables
-        SetPlayerIdentifiers();
-
-        Debug.Log(primaryPlayer.controlledLayer + " swag");
+        Debug.Log(primaryPlayer().controlledLayer + " swag");
         //Resolve interface variables
         m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
         m_Camera = ManagerResolver.Resolve<ICamera>();
@@ -81,12 +97,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         m_MiniMapController = ManagerResolver.Resolve<IMiniMapController>();
 
         //Attach Event Handlers
-        /*IEventsManager eventsManager = ManagerResolver.Resolve<IEventsManager>();
-        eventsManager.MouseClick += ButtonClickedHandler;
-        eventsManager.MouseScrollWheel += ScrollWheelHandler;
-        eventsManager.KeyAction += KeyBoardPressedHandler;
-        eventsManager.ScreenEdgeMousePosition += MouseAtScreenEdgeHandler;*/
-        
+        m_EventsManager = ManagerResolver.Resolve<IEventsManager>();
     }
 
     // Update is called once per frame
@@ -109,7 +120,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     }
 
     private void ModeNormalBehaviour()
-    {
+    {/*
         //Handle all non event, and non gui UI elements here
         hoverOver = HoverOver.Land;
         InteractionState interactionState = InteractionState.Nothing;
@@ -178,7 +189,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
 
         //Tell the cursor manager to update itself based on the interactionstate
-        m_CursorManager.UpdateCursor(interactionState);
+        m_CursorManager.UpdateCursor(interactionState);*/
     }
 
     private void CalculateInteraction(HoverOver hoveringOver, ref InteractionState interactionState)
@@ -235,8 +246,9 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
+    
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, ref InteractionState interactionState)
-    {
+    {/*
         if (obj.IsAttackable())
         {
             if (hoverOver == HoverOver.EnemyUnit || hoverOver == HoverOver.EnemyBuilding)
@@ -300,8 +312,9 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
 
         //Invalid interaction
-        interactionState = InteractionState.Invalid;
+        interactionState = InteractionState.Invalid; */
     }
+    
 
     // TODO: 
     // Break the loop and return the desired interaction
@@ -355,7 +368,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     }
 
     //----------------------Mouse Button Handler------------------------------------
-    private void ButtonClickedHandler(object sender, MouseEventArgs e)
+    private void ButtonClickedHandler()
     {
         //If mouse is over GUI then we don't want to process the button clicks
         
@@ -363,7 +376,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     //-----------------------------------------------------------------------------
 
     //------------------------Mouse Button Commands--------------------------------------------
-    public void LeftButton_SingleClickDown(MouseEventArgs e)
+    public void LeftButton_SingleClickDown()
     {
         switch (m_Mode)
         {
@@ -371,7 +384,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 //We've left clicked, what have we left clicked on?
                 int currentObjLayer = currentObject.layer;
 
-                if (currentObjLayer == primaryPlayer.controlledLayer)
+                if (currentObjLayer == primaryPlayer().controlledLayer)
                 {
                     //Friendly Unit, is the unit selected?
                     if (m_SelectedManager.IsEntitySelected(currentObject))
@@ -391,7 +404,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             case Mode.PlaceBuilding:
                 //We've left clicked, if we're valid place the building
                 if (m_PositionValid)
-                {
+                {/*
                     GameObject newObject = (GameObject)Instantiate(m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ObjectBeingPlaced.transform.rotation);
                     
 
@@ -402,22 +415,22 @@ public class UIManager : MonoBehaviour, IUIManager {
                     m_CallBackFunction.Invoke();
                     m_Placed = true;
                     newObject.GetComponent<BoxCollider>().isTrigger = false;
-                    SwitchToModeNormal();
+                    SwitchToModeNormal();*/
                 }
                 break;
         }
     }
 
-    public void LeftButton_DoubleClickDown(MouseEventArgs e)
+    public void LeftButton_DoubleClickDown()
     {
-        if (currentObject.layer == primaryPlayer.controlledLayer)
+        if (currentObject.layer == primaryPlayer().controlledLayer)
         {
             //Select all units of that type on screen
 
         }
     }
 
-    public void LeftButton_SingleClickUp(MouseEventArgs e)
+    public void LeftButton_SingleClickUp()
     {
         switch (m_Mode)
         {
@@ -431,7 +444,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
                 //We've left clicked, have we left clicked on a unit?
                 int currentObjLayer = currentObject.layer;
-                if (!m_GuiManager.Dragging && (currentObjLayer == primaryPlayer.controlledLayer || currentObjLayer == enemyPlayer.controlledLayer || currentObjLayer == 12 || currentObjLayer == 13))
+                if (!m_GuiManager.Dragging && (currentObjLayer == primaryPlayer().controlledLayer || currentObjLayer == enemyPlayer().controlledLayer || currentObjLayer == 12 || currentObjLayer == 13))
                 {
                     if (!IsShiftDown)
                     {
@@ -455,7 +468,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
-    public void RightButton_SingleClick(MouseEventArgs e)
+    public void RightButton_SingleClick()
     {
         switch (m_Mode)
         {
@@ -466,16 +479,16 @@ public class UIManager : MonoBehaviour, IUIManager {
                 if (currentObjLayer == 11 || currentObjLayer == 17 || currentObjLayer == 20)
                 {
                     //Terrain -> Move Command
-                    m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(e.WorldPosClick));
+                    //m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(WorldPosClick));
                 }
-                else if (currentObjLayer == primaryPlayer.controlledLayer || currentObjLayer == 14)
+                else if (currentObjLayer == primaryPlayer().controlledLayer || currentObjLayer == 14)
                 {
                     //Friendly Unit -> Interact (if applicable)
                 }
-                else if (currentObjLayer == enemyPlayer.controlledLayer || currentObjLayer == 15)
+                else if (currentObjLayer == enemyPlayer().controlledLayer || currentObjLayer == 15)
                 {
                     //Enemy Unit -> Attack                    
-                    m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
+                    //m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
                 }
                 else if (currentObjLayer == 12)
                 {
@@ -484,7 +497,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 else if (currentObjLayer == 13)
                 {
                     //Enemy Building -> Attack                    
-                    m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
+                    //m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
 
                 }
                 break;
@@ -500,17 +513,17 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     }
 
-    public void RightButton_DoubleClick(MouseEventArgs e)
+    public void RightButton_DoubleClick()
     {
 
     }
 
-    public void MiddleButton_SingleClick(MouseEventArgs e)
+    public void MiddleButton_SingleClick()
     {
 
     }
 
-    public void MiddleButton_DoubleClick(MouseEventArgs e)
+    public void MiddleButton_DoubleClick()
     {
 
     }
@@ -533,9 +546,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     }
 
     //-----------------------------------KeyBoard Handler---------------------------------
-    private void KeyBoardPressedHandler(object sender)
+    private void KeyBoardPressedHandler()
     {
-        e.Command();
+       //e.Command();
     }
     //-------------------------------------------------------------------------------------
 
@@ -595,6 +608,7 @@ public enum HoverOver
 {
     Menu,
     Land,
+    GUI,
     FriendlyUnit,
     EnemyUnit,
     FriendlyBuilding,
